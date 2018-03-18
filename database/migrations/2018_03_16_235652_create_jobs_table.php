@@ -27,6 +27,7 @@ class CreateJobsTable extends Migration
             $table->date('specific_date')->nullable();
             $table->integer('job_category_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('job_category_id')->references('id')->on('job_categories');

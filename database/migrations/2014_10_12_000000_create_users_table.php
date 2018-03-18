@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->integer('score')->default(0);
             $table->enum('role', ['user', 'admin'])->default('user');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
