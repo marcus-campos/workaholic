@@ -30,4 +30,13 @@ class City extends Model
     {
         return $this->where('name', 'like', "%$name%")->first()->id;
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function cityFromToName($id)
+    {
+        return $this->find($id)->name;
+    }
 }

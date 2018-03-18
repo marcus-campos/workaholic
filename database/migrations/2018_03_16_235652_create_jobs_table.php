@@ -18,12 +18,10 @@ class CreateJobsTable extends Migration
             $table->string('title', 120);
             $table->text('description', 10000);
             $table->string('neighborhood', 120)->nullable();
-            $table->string('city', 120)->nullable();
-            $table->string('state', 50)->nullable();
+            $table->integer('city_id')->nullable()->unsigned();
             $table->boolean('remote');
             $table->time('initial_time')->nullable();
             $table->time('final_time')->nullable();
-            $table->string('days', 15)->nullable();
             $table->date('specific_date')->nullable();
             $table->integer('job_category_id')->unsigned();
             $table->integer('user_id')->unsigned();

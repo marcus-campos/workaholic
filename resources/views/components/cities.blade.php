@@ -1,4 +1,4 @@
-<select class="form-control select2 select2-hidden-accessible" id="city" name="city"></select>
+<select class="form-control select2 select2-hidden-accessible" id="city_id" name="city_id"></select>
 
 @section('component-css')
     <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
@@ -31,14 +31,14 @@
                         });
                     });
 
-                    $('#city').select2({
+                    $('#city_id').select2({
                         "language": "pt-BR",
                         placeholder: "Selecione uma cidade",
                         data: dataResult
                     });
 
                     setTimeout(function () {
-                        $('#city').val(null).trigger('change');
+                        $('#city_id').val(null).trigger('change');
                     }, 100)
                 });
             }

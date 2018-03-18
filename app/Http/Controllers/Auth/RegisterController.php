@@ -88,7 +88,7 @@ class RegisterController extends Controller
             'address' => $data['address'],
             'number' => $data['number'],
             'neighborhood' => $data['neighborhood'],
-            'city_id' => (new City())->cityFromToId($data['city'])
+            'city_id' => (new City())->cityFromToId($data['city_id'])
         ]);
     }
 }
