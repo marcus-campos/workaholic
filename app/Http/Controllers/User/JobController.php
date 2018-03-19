@@ -70,7 +70,9 @@ class JobController extends Controller
      */
     public function edit($id)
     {
-        //
+        $jobCategories = JobCategory::all();
+        $job = Job::find($id);
+        return view('app.user.job.edit', compact('job', 'jobCategories'));
     }
 
     /**

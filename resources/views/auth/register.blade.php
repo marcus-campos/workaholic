@@ -128,7 +128,7 @@
                         getCepData(cep, function (data) {
                             $('#address').val(data.logradouro);
                             $("#address").removeAttr('disabled');
-                            $('#city').val(data.localidade).trigger('change');
+                            $('#city_id').val(data.localidade).trigger('change');
                             $('#city').removeAttr('disabled');
                             $('#neighborhood').val(data.bairro);
                             $("#neighborhood").removeAttr('disabled');

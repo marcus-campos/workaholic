@@ -10,7 +10,6 @@
 
     <script>
         $(function() {
-
             loadCities();
             function loadCities() {
                 $.getJSON('{{ asset('storage/cities/estados-cidades.json') }}', function (json) {

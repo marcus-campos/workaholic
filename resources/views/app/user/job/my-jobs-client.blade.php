@@ -67,9 +67,9 @@
                 <div class="font-13">
                     <p class="text-dark m-b-5">
                         <b>Quando? </b>
-                        <b>Dia: </b> <span class="text-muted">{{ $job->specific_date ? $job->specific_date : 'A combinar' }}</span>
-                        <b>De: </b> <span class="text-muted">{{ $job->initial_time ? $job->initial_time : 'A combinar' }}</span>
-                        <b>Até: </b> <span class="text-muted">{{ $job->final_time ? $job->final_time : 'A combinar' }}</span>
+                        <b>Dia: </b> <span class="text-muted">{{ $job->specific_date ? date('d-m-Y', strtotime($job->specific_date)) : 'A combinar' }}</span>
+                        <b>De: </b> <span class="text-muted">{{ $job->initial_time ? date('H:i', strtotime($job->initial_time)) : 'A combinar' }}</span>
+                        <b>Até: </b> <span class="text-muted">{{ $job->final_time ? date('H:i', strtotime($job->final_time)) : 'A combinar' }}</span>
                     </p>
                 </div>
                 <div class="font-13">

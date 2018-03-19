@@ -61,7 +61,7 @@ class RegisterController extends Controller
                 new CpfRule
             ],
             'cnpj' => 'string|min:14|max:14',
-            'city' => 'required|string|min:2',
+            'city_id' => 'required|string|min:2',
             'address' => 'required|string|min:2',
             'number' => 'required|int',
             'complement' => 'string',

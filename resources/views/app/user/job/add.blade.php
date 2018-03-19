@@ -1,5 +1,7 @@
 @extends('template')
 
 @section('container')
-    @include('app.user.job._form')
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('user.job.store') }}">
+        @include('app.user.job._form')
+    </form>
 @endsection
