@@ -56,9 +56,6 @@ docker_build () {
 
     # configurando o ambiente
     docker_base
-
-    # faz as últimas configurações
-    docker_up_containers_reset_db
 }
 
 docker_base() {

@@ -8,10 +8,6 @@ version: '2'
 
 # Named volumes
 volumes:
-  # Postgres Data
-  sandbox-postgres-data:
-    driver: local
-
   # MySQL Data
   sandbox-mysql-data:
     driver: local
@@ -55,7 +51,6 @@ services:
     ports:
       - "80:8080"
     links:
-      - postgres
       - mysql
       - cache
 
