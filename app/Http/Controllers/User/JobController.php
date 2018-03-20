@@ -48,7 +48,7 @@ class JobController extends Controller
         $request['city_id'] = (new City)->cityFromToId($request['city_id']);
         $request['user_id'] = auth()->user()->id;
         Job::create($request);
-        return redirect()->to(route('user.dashboard.index'));
+        return redirect()->to(route('user.job.client'));
     }
 
     /**
@@ -84,7 +84,15 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $job = Job::find($id);
+
+        $request = $request->all();
+        $request['city_id'] = (new City)->cityFromToId($request['city_id']);
+        $request['user_id'] = auth()->user()->id;
+
+        $job->fill($request)->save();
+
+        return redirect()->to(route('user.job.client'));
     }
 
     /**
@@ -95,6 +103,7 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Job::destroy($id);
+        return redirect()->to(route('user.job.client'));
     }
 }

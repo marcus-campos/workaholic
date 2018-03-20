@@ -58,11 +58,14 @@
                    {{-- <div class="table-detail lable-detail">
                         <span class="label label-info">Hot</span>
                     </div>
---}}
-                    <div class="table-detail table-actions-bar">
-                        <a href="#" class="table-action-btn"><i class="md md-edit"></i></a>
-                        <a href="#" class="table-action-btn"><i class="md md-close"></i></a>
-                    </div>
+--}}                <form method="post" id="job_delete" action="{{ route('user.job.destroy', ['job' => $job->id]) }}">
+                        {{ method_field('DELETE') }}
+                        {{ csrf_field() }}
+                        <div class="table-detail table-actions-bar">
+                            <a href="{{ route('user.job.edit', ['job' => $job->id]) }}" class="table-action-btn"><i class="md md-edit"></i></a>
+                            <a href="#" onClick="document.getElementById('job_delete').submit();" class="table-action-btn"><i class="md md-close"></i></a>
+                        </div>
+                    </form>
                 </div>
                 <div class="font-13">
                     <p class="text-dark m-b-5">
