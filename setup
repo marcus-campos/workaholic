@@ -47,11 +47,6 @@ docker_build () {
     # remove todos os containers
     docker-compose down
 
-    # baixa todas as imagens necessários
-
-    # download image mysql
-    # docker pull mysql:5.7
-
     # executa o build
     sudo docker-compose build
 
@@ -59,7 +54,7 @@ docker_build () {
     docker-compose up -d
     sleep 10
 
-    # configurando o anbiente
+    # configurando o ambiente
     docker_base
 
     # faz as últimas configurações
@@ -67,25 +62,10 @@ docker_build () {
 }
 
 docker_base() {
-    #Configurações do docker
-    docker exec sympla_db sh -c "mysql -uroot -psympla123 -e \"set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';\""
-    docker exec sympla_db sh -c "mysql -uroot -psympla123 -e \"set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';\""
-    docker exec sympla_db sh -c "mysql -uroot -psympla123 -e \"DROP DATABASE SYMPLADB; CREATE DATABASE SYMPLADB;\""
-    docker exec sympla_db sh -c "mysql -uroot -psympla123 -e \"GRANT ALL PRIVILEGES ON *.* TO 'sympla'@'%' IDENTIFIED BY 'sympla123' WITH GRANT OPTION;\""
-    docker exec sympla_db sh -c "mysql -uroot -psympla123 -e \"GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'sympla123' WITH GRANT OPTION;\""
-    docker exec sympla_db sh -c "mysql -uroot -psympla123 -e \"FLUSH PRIVILEGES;\""
-
-    docker cp resources/portal/my.cnf sympla_db:/etc/mysql/conf.d/mysql.cnf
 
     # Permissão de escrita
-    sudo chmod 777 -R frontend/protected/runtime frontend/assets
-
-    declare -i count
-    count=`cat /etc/hosts | grep "172.0.0.2 revamp.sympla.com.br" | wc -l`
-
-    if [ $count -eq 0 ]; then
-        echo "172.0.0.2 revamp.sympla.com.br" | sudo tee -a /etc/hosts
-    fi
+    cd ..
+    sudo chmod 777 -R workaholic
 }
 
 
@@ -114,10 +94,9 @@ docker_up_containers_reset_db() {
     docker_up_containers_with_logs
 }
 
-git_hooks_setup() {
-    chmod +x resources/scripts/git-hooks/*
-    cd .git/hooks
-    cp -fs ../../resources/scripts/git-hooks/* .
+ambiemtum_replace_commands() {
+    curl -L https://github.com/codecasts/ambientum/raw/master/commands.bash -o ~/.ambientum_rc
+    source ~/.ambientum_rc
     cd -
 }
 
@@ -129,6 +108,7 @@ echo "2 - Iniciar os containers"
 echo "3 - Iniciar os containers com logs"
 echo "4 - Iniciar os containers e resetar o banco de dados"
 echo "5 - Desligar os containers"
+echo "6 - Adicionar comandos locais"
 
 if [ "$1" == "" ]; then
     echo -n "Digite sua opção: "
@@ -147,6 +127,8 @@ elif [ "$option" == "4" ]; then
     docker_up_containers_reset_db
 elif [ "$option" == "5" ]; then
     docker_down_containers
+elif [ "$option" == "6" ]; then
+    ambiemtum_replace_commands
 else
     echo ""
     echo ":) Você quase acertou. Agora tente uma opção entre 1 e 5"
