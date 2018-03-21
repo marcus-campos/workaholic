@@ -12,7 +12,7 @@ class StatesAndCitiesSeed extends Seeder
      */
     public function run()
     {
-        $path = public_path() . "/storage/cities/estados-cidades.json";
+        $path = public_path() . "/json/cities/estados-cidades.json";
         $json = json_decode(file_get_contents($path), true);
 
         foreach ($json['estados'] as $state) {
