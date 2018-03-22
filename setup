@@ -80,10 +80,6 @@ docker_up_containers_with_logs() {
 }
 
 docker_up_containers_reset_db() {
-    #flag
-    chmod 777 resources/reset_db
-    echo "1" > resources/reset_db
-
     docker_down_containers
     docker_up_containers
 
@@ -91,10 +87,12 @@ docker_up_containers_reset_db() {
     docker_up_containers_with_logs
 }
 
-ambiemtum_replace_commands() {
-    curl -L https://github.com/codecasts/ambientum/raw/master/commands.bash -o ~/.ambientum_rc
+ambientum_replace_commands() {
+    echo ""
+    echo "É necessário permissão de super usuário (Caso já tenha concedido, irei continuar)."
+    sudo true
+    sudo curl -L https://github.com/codecasts/ambientum/raw/master/commands.bash -o ~/.ambientum_rc
     source ~/.ambientum_rc
-    cd -
 }
 
 install_docker() {
@@ -178,7 +176,7 @@ elif [ "$option" == "4" ]; then
 elif [ "$option" == "5" ]; then
     docker_down_containers
 elif [ "$option" == "6" ]; then
-    ambiemtum_replace_commands
+    ambientum_replace_commands
 elif [ "$option" == "7" ]; then
     sub_menu_2
 else

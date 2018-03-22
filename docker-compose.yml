@@ -26,10 +26,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=sandbox
-      - MYSQL_DATABASE=sandbox
-      - MYSQL_USER=sandbox
-      - MYSQL_PASSWORD=sandbox
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=workaholic
+      - MYSQL_USER=xtra
+      - MYSQL_PASSWORD=987987
 
   # Redis
   cache:
@@ -44,7 +44,7 @@ services:
   # PHP (with Nginx)
   # you can change from nginx to apache, just change session 'image'
   app:
-    image: infra/ambientum-18.03.1/php:7.2-nginx
+    build: ./infra/ambientum-18.03.1/php/7.2-nginx
     container_name: sandbox-app
     volumes:
       - .:/var/www/app
@@ -56,7 +56,7 @@ services:
 
   # Laravel Queues
   queue:
-    image: infra/ambientum-18.03.1/php:7.2
+    build: ./infra/ambientum-18.03.1/php/7.2
     container_name: sandbox-queue
     command: php artisan queue:listen
     volumes:
