@@ -8,10 +8,6 @@ version: '2'
 
 # Named volumes
 volumes:
-  # MySQL Data
-  sandbox-mysql-data:
-    driver: local
-
   # Redis Data
   sandbox-redis-data:
     driver: local
@@ -22,7 +18,7 @@ services:
     image: mysql:5.7
     container_name: sandbox-mysql
     volumes:
-      - sandbox-mysql-data:/var/lib/mysql
+      - /var/lib/mysql:/var/lib/mysql
     ports:
       - "3306:3306"
     environment:
@@ -37,7 +33,7 @@ services:
     container_name: sandbox-redis
     command: --appendonly yes
     volumes:
-      - sandbox-redis-data:/data
+      - /data:/data
     ports:
       - "6379:6379"
 

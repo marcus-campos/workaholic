@@ -50,8 +50,25 @@ docker_build () {
     # executa o build
     sudo docker-compose build
 
-    #configurando o banco de dados
     docker-compose up -d
+    sleep 10
+
+    # configurando o ambiente
+    docker_base
+}
+
+docker_build_force_recreate () {
+    # start
+    docker_required
+
+    # remove todos os containers
+    docker-compose down
+
+    # executa o build
+    sudo docker-compose build
+
+    #configurando o banco de dados
+    docker-compose up -d --force-recreate
     sleep 10
 
     # configurando o ambiente
@@ -152,12 +169,13 @@ sub_menu_2() {
 echo "Seja bem-vindo ao menu de setup."
 echo "Por favor escolha uma das opções abaixo:"
 echo "1 - Deploy com o Docker"
-echo "2 - Iniciar os containers"
-echo "3 - Iniciar os containers com logs"
-echo "4 - Iniciar os containers e resetar o banco de dados"
-echo "5 - Desligar os containers"
-echo "6 - Adicionar comandos locais"
-echo "7 - Instalar dependências"
+echo "2 - Recriar containers"
+echo "3 - Iniciar os containers"
+echo "4 - Iniciar os containers com logs"
+echo "5 - Iniciar os containers e resetar o banco de dados"
+echo "6 - Desligar os containers"
+echo "7 - Adicionar comandos locais"
+echo "8 - Instalar dependências"
 if [ "$1" == "" ]; then
     echo -n "Digite sua opção: "
     read -n 1 option
@@ -165,19 +183,22 @@ if [ "$1" == "" ]; then
 else
     option="$1"
 fi
+
 if [ "$option" == "1" ]; then
     docker_build
 elif [ "$option" == "2" ]; then
-    docker_up_containers
+    docker_build_force_recreate
 elif [ "$option" == "3" ]; then
-    docker_up_containers_with_logs
+    docker_up_containers
 elif [ "$option" == "4" ]; then
-    docker_up_containers_reset_db
+    docker_up_containers_with_logs
 elif [ "$option" == "5" ]; then
-    docker_down_containers
+    docker_up_containers_reset_db
 elif [ "$option" == "6" ]; then
-    ambientum_replace_commands
+    docker_down_containers
 elif [ "$option" == "7" ]; then
+    ambientum_replace_commands
+elif [ "$option" == "8" ]; then
     sub_menu_2
 else
     echo ""
