@@ -12,7 +12,7 @@
         $(function() {
             loadCities();
             function loadCities() {
-                $.getJSON('{{ asset('storage/cities/estados-cidades.json') }}', function (json) {
+                $.getJSON('{{ asset('json/cities/estados-cidades.json') }}', function (json) {
                     var dataResult = [];
                     json.estados.forEach(function (currentValue, index, arr) {
 
