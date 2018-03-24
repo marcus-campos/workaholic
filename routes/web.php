@@ -23,7 +23,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
     ]]);
 
 
-    Route::get('job/client', USER_JOB."@showMyJobsClient")->name('job.client');
+    Route::get('job/client', USER_JOB."@indexByUserId")->name('job.client');
     Route::resource('job', USER_JOB);
 });
 

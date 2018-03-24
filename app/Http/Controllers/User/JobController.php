@@ -6,11 +6,35 @@ use App\Http\Requests\JobRequest;
 use App\Models\City;
 use App\Models\Job;
 use App\Models\JobCategory;
+use App\Util\DataMaker\DataMakerTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class JobController extends Controller
 {
+    use DataMakerTrait;
+
+    public function __construct()
+    {
+        $this->setFilterFillable([
+            'title',
+            'description',
+            'neighborhood',
+            'city_id',
+            'remote',
+            'initial_time',
+            'final_time',
+            'specific_date',
+            'job_category_id'
+        ]);
+
+        $this->orderBy([
+            'title',
+            'created_at',
+            'updated_at',
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,16 +42,21 @@ class JobController extends Controller
      */
     public function index()
     {
-        //
+        $jobs = $this->dataMaker(Job::with('jobCategory'));
+        return view('app.user.job.index', compact('jobs'));
     }
 
     /**
+     * Display a listing of the resource.
      *
+     * @return \Illuminate\Http\Response
      */
-    public function showMyJobsClient()
+    public function indexByUserId()
     {
-        $jobs = Job::with('jobCategory')->where('user_id', auth()->user()->id)->paginate(15);
-        return view('app.user.job.my-jobs-client', compact('jobs'));
+        $jobs = $this->dataMaker(Job::with('jobCategory')
+            ->where('user_id', auth()->id()));
+
+        return view('app.user.job.index', compact('jobs'));
     }
 
     /**

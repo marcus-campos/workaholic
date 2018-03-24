@@ -28,3 +28,41 @@ function inputValue($input, $definedVars = null, $data = null)
     }
 
 }
+
+/*
+ * Make a query string and add to original route
+ */
+function queryStringMaker($url, $filters = null, $perPage = null, $orderBy = null)
+{
+    if(!empty($perPage)) {
+        $has = strpos($url, '?');
+
+        if($has > 0) {
+            $url .= '&perPage='.$perPage;
+        } else {
+            $url .= '?perPage='.$perPage;
+        }
+    }
+
+    if(!empty($filters)) {
+        $has = strpos($url, '?');
+
+        if($has > 0) {
+            $url .= '&filters=[' . $filters . ']';
+        } else {
+            $url .= '?filters=[' . $filters . ']';
+        }
+    }
+
+    if(!empty($orderBy)) {
+        $has = strpos($url, '?');
+
+        if($has > 0) {
+            $url .= '&orderBy=[' . $orderBy . ']';
+        } else {
+            $url .= '?orderBy=[' . $orderBy . ']';
+        }
+    }
+
+    return $url;
+}
