@@ -14,18 +14,11 @@
     <div class="col-md-6">
         <a href="{{ route('user.job.create') }}" class="btn btn-default btn-md waves-effect waves-light m-b-30 pull-right" data-animation="fadein" data-plugin="custommodal"
            data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Cadastrar</a>
-        <div class="h5 m-0">
+        <div id="div_order_by">
             <span class="font-16">Ordenar por:</span>
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary active">
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Nome
-                </label>
-                <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option2" autocomplete="off"> Categoria
-                </label>
-            </div>
+            <a class="btn btn-default btn-sm" href="{{ queryStringMaker(url()->current(), null, null, '["title","desc"]') }}" id="order_by_title" value="title" autocomplete="off" checked> Titulo </a>
+            <a class="btn btn-default btn-sm" href="{{ queryStringMaker(url()->current(), null, null, '["created_at","desc"]') }}" id="order_by_title" value="title" autocomplete="off" checked> Data de criação </a>
         </div>
-
     </div>
 </div>
 
@@ -91,8 +84,24 @@
             <div id="pie-chart"></div>
         </div>
     </div>--}}
+
+    <span hidden>
+        <a href=""></a>
+    </span>
 </div>
 
 {{$jobs->links()}}
 
+@endsection
+
+@section('section-js')
+    <script>
+
+
+        var currentUrl = window.location.href;
+
+        if(currentUrl.indexOf('created_at')) {
+            $('#order_by_created_at').prop('checked', 'true');
+        }
+    </script>
 @endsection

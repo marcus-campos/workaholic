@@ -15,7 +15,7 @@ trait DataMakerTrait
      * ?filters=[["type", "=", "integration"]]
      * &page=1
      * &perPage=100
-     * &orderBy=[['updated_at', 'asc']]
+     * &orderBy=[["updated_at", "asc"]]
      * http://localhost:8000/user/job?filters=[["type", "=", "integration"]]&page=1&perPage=100&orderBy=[['updated_at', 'asc']]
      */
 
@@ -56,8 +56,12 @@ trait DataMakerTrait
         }
 
         $orderBy = \request()->capture()->input('orderBy');
+
         if (!empty($orderBy)) {
-            $this->orderBy = $orderBy;
+            $this->orderBy =  $this->queryFilters = json_decode(
+                $orderBy,
+                true
+            );
         }
     }
 
@@ -69,18 +73,20 @@ trait DataMakerTrait
      */
     private function dataMaker($model, $orderBy = null, $perPage = 15)
     {
-        $model = $this->filter($model);
+        $this->handle();
 
-        if($perPage > 0) {
-            $this->perPage = $perPage;
-            $model = $this->paginate($model);
-        }
+        $model = $this->filter($model);
 
         if(!empty($orderBy)) {
             $this->orderBy = $orderBy;
             $model = $this->orderBy($model);
         } else if(!empty($this->orderBy)) {
             $model = $this->orderBy($model);
+        }
+
+        if($perPage > 0) {
+            $this->perPage = $perPage;
+            $model = $this->paginate($model);
         }
 
         return $model;
@@ -139,11 +145,17 @@ trait DataMakerTrait
      */
     private function removeFilters()
     {
-        foreach ($this->filterFillable as $value) {
-            foreach ($this->queryFilters as $key => $filter) {
-                if (!($filter[0] == $value)) {
-                    unset($this->queryFilters[$key]);
+        foreach ($this->queryFilters as $key => $filter) {
+            $has = false;
+
+            foreach ($this->filterFillable as $value) {
+                if ($filter[0] == $value) {
+                    $has = true;
                 }
+            }
+
+            if ($has == false) {
+                unset($this->queryFilters[$key]);
             }
         }
     }
@@ -153,11 +165,17 @@ trait DataMakerTrait
      */
     private function removeOrderBy()
     {
-        foreach ($this->orderByFillable as $value) {
-            foreach ($this->orderBy as $key => $filter) {
-                if (!($filter[0] == $value)) {
-                    unset($this->orderBy[$key]);
+        foreach ($this->orderBy as $key => $filter) {
+            $has = false;
+
+            foreach ($this->orderByFillable as $value) {
+                if ($filter[0] == $value) {
+                    $has = true;
                 }
+            }
+
+            if ($has == false) {
+                unset($this->orderBy[$key]);
             }
         }
     }

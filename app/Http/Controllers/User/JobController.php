@@ -28,7 +28,7 @@ class JobController extends Controller
             'job_category_id'
         ]);
 
-        $this->orderBy([
+        $this->setOrderByFillable([
             'title',
             'created_at',
             'updated_at',
