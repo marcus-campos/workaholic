@@ -42,8 +42,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = $this->dataMaker(Job::with('jobCategory'));
-        return view('app.user.job.index', compact('jobs'));
+        return view('app.user.job.index');
     }
 
     /**
@@ -56,7 +55,7 @@ class JobController extends Controller
         $jobs = $this->dataMaker(Job::with('jobCategory')
             ->where('user_id', auth()->id()));
 
-        return view('app.user.job.index', compact('jobs'));
+        return $jobs;
     }
 
     /**

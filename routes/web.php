@@ -11,9 +11,6 @@
 |
 */
 
-const USER_DASHBOARD = 'User\DashboardController';
-const USER_JOB = 'User\JobController';
-
 Route::get('/', function () { return redirect()->to(route('user.dashboard.index')); });
 
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {
@@ -22,8 +19,6 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
         'index', 'show'
     ]]);
 
-
-    Route::get('job/client', USER_JOB."@indexByUserId")->name('job.client');
     Route::resource('job', USER_JOB);
 });
 
@@ -34,10 +29,6 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
  * =====================================
  */
 
-const LOGIN_CONTROLLER = 'Auth\LoginController';
-const FORGOT_PASSWORD = 'Auth\ForgotPasswordController';
-const REGISTER_CONTROLLER = 'Auth\RegisterController';
-const RESET_PASSWORD = 'Auth\ResetPasswordController';
 
 //AUTH
 Route::group(['prefix' => 'auth'], function () {

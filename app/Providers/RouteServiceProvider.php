@@ -35,7 +35,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
+        $this->mapConsts();
+
         $this->mapApiRoutes();
+
+        $this->mapJsonRoutes();
 
         $this->mapWebRoutes();
 
@@ -69,5 +73,32 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "json" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapJsonRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/json.php'));
+    }
+
+    /**
+     * Define the "consts" for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapConsts()
+    {
+        Route::namespace($this->namespace)
+            ->group(base_path('routes/consts.php'));
     }
 }

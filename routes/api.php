@@ -12,6 +12,3 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::get('cities', 'CitiesStatesController@cities');
-Route::get('cities/{name}', 'CitiesStatesController@cities');
