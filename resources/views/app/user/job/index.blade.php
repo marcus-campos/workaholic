@@ -114,10 +114,8 @@
                    pageUrl = pageUrl || '{{ route('user.job.client') }}';
                    vm.$http.get(pageUrl).then(function (data, status, request) {
                        let result = data.data;
-                       vm.jobs = result.data;
+                       vm.jobs = result.data.map(i => i);
                        vm.makePagination(result);
-                       console.log(vm.jobs);
-                       console.log(result);
                    });
                },
                makePagination: function(data){
@@ -128,7 +126,8 @@
                        next_page_url: data.next_page_url,
                        prev_page_url: data.prev_page_url
                    };
-                   vm.$set('pagination', pagination);
+
+                   vm.pagination = pagination;
                }
            }
        });
