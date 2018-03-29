@@ -42,7 +42,7 @@ trait DataMakerTrait
      */
     private function handle()
     {
-        $filters = \request()->capture()->input('filters');
+        $filters = stripslashes(urldecode(\request()->capture()->input('filters')));
         if (!empty($filters)) {
             $this->queryFilters = json_decode(
                 $filters,
@@ -50,12 +50,12 @@ trait DataMakerTrait
             );
         }
 
-        $perPage = \request()->capture()->input('perPage');
+        $perPage = stripslashes(urldecode(\request()->capture()->input('perPage')));
         if (!empty($perPage)) {
             $this->perPage = $perPage;
         }
 
-        $orderBy = \request()->capture()->input('orderBy');
+        $orderBy = stripslashes(urldecode(\request()->capture()->input('orderBy')));
 
         if (!empty($orderBy)) {
             $this->orderBy =  $this->queryFilters = json_decode(

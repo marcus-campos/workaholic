@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <form role="form">
                 <div class="form-group contact-search m-b-30">
-                    <input type="text" id="search" class="form-control" placeholder="Pesquisar...">
+                    <input type="text" id="search" class="form-control" placeholder="Pesquisar..." v-model="search">
                     <button type="submit" class="btn btn-white"><i class="fa fa-search"></i></button>
                 </div> <!-- form-group -->
             </form>
@@ -14,11 +14,6 @@
         <div class="col-md-6">
             <a href="{{ route('user.job.create') }}" class="btn btn-default btn-md waves-effect waves-light m-b-30 pull-right" data-animation="fadein" data-plugin="custommodal"
                data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Cadastrar</a>
-            <div id="div_order_by">
-                <span class="font-16">Ordenar por:</span>
-                <a class="btn btn-default btn-sm" href="{{ queryStringMaker(url()->current(), null, null, '["title","desc"]') }}" id="order_by_title" value="title" autocomplete="off" checked> Titulo </a>
-                <a class="btn btn-default btn-sm" href="{{ queryStringMaker(url()->current(), null, null, '["created_at","desc"]') }}" id="order_by_title" value="title" autocomplete="off" checked> Data de criação </a>
-            </div>
         </div>
     </div>
 
@@ -82,42 +77,74 @@
             </div>
         </div>--}}
     </div>
-    <div class="pagination">
-        <button class="btn btn-default" @click="getJobs(pagination.prev_page_url)"
-                :disabled="!pagination.prev_page_url">
-            Voltar
-        </button>
-        <span>Pagina @{{pagination.current_page}} de @{{pagination.last_page}}</span>
-        <button class="btn btn-default" @click="fetchStories(pagination.next_page_url)"
-                :disabled="!pagination.next_page_url">Próximo
-        </button>
+    <div class="row" v-if="pagination.last_page > 1">
+        <div class="col-lg-12">
+            <div class="text-center m-b-10">
+                    <button class="btn btn-default m-r-15" @click="getJobs(pagination.prev_page_url)"
+                            :disabled="!pagination.prev_page_url">
+                        Voltar
+                    </button>
+                    <span>Pagina @{{pagination.current_page}} de @{{pagination.last_page}}</span>
+                    <button class="btn btn-default m-l-15" @click="getJobs(pagination.next_page_url)"
+                            :disabled="!pagination.next_page_url">Próximo
+                    </button>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
 
 @section('section-js')
    <script>
+       function debounce(func) {
+           var wait = arguments.length <= 1 || arguments[1] === undefined ? 100 : arguments[1];
+
+           var timeout = void 0;
+           return function () {
+               var _this = this;
+
+               for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                   args[_key] = arguments[_key];
+               }
+
+               clearTimeout(timeout);
+               timeout = setTimeout(function () {
+                   func.apply(_this, args);
+               }, wait);
+           };
+       }
+
+
        new Vue({
            el: '#index-jobs',
            data: {
               jobs: [],
-              pagination: {}
+              pagination: {},
+              search: ''
            },
            mounted() {
                let vm = this;
-
                vm.getJobs();
            },
            methods: {
                getJobs: function (pageUrl) {
                    let vm = this;
                    pageUrl = pageUrl || '{{ route('user.job.client') }}';
+
+                   if (vm.search !== '') {
+                       pageUrl += '?filters=' + encodeURIComponent('[["title","like","%' + vm.search + '%"]]');
+                   }
+
                    vm.$http.get(pageUrl).then(function (data, status, request) {
                        let result = data.data;
                        vm.jobs = result.data.map(i => i);
                        vm.makePagination(result);
                    });
                },
+               applyFilter: debounce(function () {
+                  let vm = this;
+                  vm.getJobs();
+               }),
                makePagination: function(data){
                    let vm = this;
                    let pagination = {
@@ -128,6 +155,12 @@
                    };
 
                    vm.pagination = pagination;
+               }
+           },
+           watch: {
+               search: function () {
+                   let vm = this;
+                   vm.applyFilter();
                }
            }
        });
