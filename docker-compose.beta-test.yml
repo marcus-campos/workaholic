@@ -64,7 +64,7 @@ services:
 
   # Jenkins
   jenkins:
-     image: jenkins:lts
+     image: jenkins
      container_name: beta-test-jenkins
      command: php artisan queue:listen
      ports:
