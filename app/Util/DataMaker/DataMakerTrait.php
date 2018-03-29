@@ -113,10 +113,12 @@ trait DataMakerTrait
     {
         $this->removeFilters();
 
-        if(!empty($this->queryFilters))
+        if(!empty($this->queryFilters)) {
             return $model->where($this->queryFilters);
-        else
+        }
+        else {
             return $model;
+        }
     }
 
     /**

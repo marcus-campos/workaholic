@@ -15,10 +15,18 @@ Route::get('/', function () { return redirect()->to(route('user.dashboard.index'
 
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {
 
+    /*
+     *  Dashboard
+     */
     Route::resource('dashboard', USER_DASHBOARD, ['only' => [
         'index', 'show'
     ]]);
 
+    /*
+     *  Jobs
+     */
+
+    Route::get('job/client', USER_JOB . "@index")->name('job.client');
     Route::resource('job', USER_JOB);
 });
 

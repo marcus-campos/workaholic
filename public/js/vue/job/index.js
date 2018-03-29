@@ -3,6 +3,7 @@
         el: '#index-jobs',
         data: {
             jobs: [],
+            page: window.location.pathname,
             pagination: {},
             search: ''
         },
@@ -13,11 +14,20 @@
         methods: {
             getJobs: function (pageUrl) {
                 let vm = this;
-                pageUrl = pageUrl ||  window.location.origin + '/user/job/client';
+
+                if(vm.page === '/user/job') {
+                    pageUrl = pageUrl || window.location.origin + '/json/job';
+                }
+
+                if(vm.page === '/user/job/client') {
+                    pageUrl = pageUrl || window.location.origin + '/json/job/client';
+                }
 
                 if (vm.search !== '') {
                     pageUrl += '?filters=' + encodeURIComponent('[["title","like","%' + vm.search + '%"]]');
                 }
+
+                console.log(pageUrl);
 
                 vm.$http.get(pageUrl).then(function (data, status, request) {
                     let result = data.data;

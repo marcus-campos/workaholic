@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-6">
             <a href="{{ route('user.job.create') }}" class="btn btn-default btn-md waves-effect waves-light m-b-30 pull-right" data-animation="fadein" data-plugin="custommodal"
-               data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Cadastrar</a>
+               data-overlaySpeed="200" data-overlayColor="#36404a" v-if="page === '/user/job/client'"><i class="md md-add"></i> Cadastrar</a>
         </div>
     </div>
 

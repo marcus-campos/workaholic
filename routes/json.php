@@ -4,6 +4,11 @@
  * AUTH Json routes
  */
 
-Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {
-    Route::get('job/client', USER_JOB . "@indexByUserId")->name('job.client');
+Route::group(['prefix' => 'json', 'middleware' => 'auth'], function () {
+    /*
+     *  Jobs
+     */
+
+    Route::get('job', USER_JOB . "@indexAll");
+    Route::get('job/client', USER_JOB . "@indexByUserId");
 });

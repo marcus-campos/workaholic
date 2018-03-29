@@ -59,6 +59,17 @@ class JobController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexAll()
+    {
+        $jobs = $this->dataMaker(Job::with('jobCategory'));
+        return $jobs;
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
