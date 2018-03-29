@@ -1,0 +1,104 @@
+####
+# ATENTION:
+# Replace all occurences of beta-test with your project's name
+####
+
+# v2 syntax
+version: '2'
+
+# Named volumes
+volumes:
+  # Redis Data
+  beta-test-redis-data:
+    driver: local
+
+services:
+  # MySQL (5.7)
+  mysql:
+    image: mysql:5.7
+    container_name: beta-test-mysql
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=orkaholic
+      - MYSQL_USER=xtra
+      - MYSQL_PASSWORD=987987
+    networks:
+      orkaholic_net:
+        ipv4_address: 173.0.0.4
+
+  # Redis
+  cache:
+    image: redis:4.0
+    container_name: beta-test-redis
+    command: --appendonly yes
+    volumes:
+      - /data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      orkaholic_net:
+        ipv4_address: 173.0.0.3
+
+
+  # PHP (with Nginx)
+  # you can change from nginx to apache, just change session 'image'
+  app:
+    build: ./infra/ambientum-18.03.1/php/7.2-nginx
+    container_name: beta-test-app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "80:8080"
+    links:
+      - mysql
+      - cache
+    networks:
+      orkaholic_net:
+        ipv4_address: 173.0.0.2
+
+  # Laravel Queues
+  queue:
+    build: ./infra/ambientum-18.03.1/php/7.2
+    container_name: beta-test-queue
+    command: php artisan queue:listen
+    volumes:
+      - .:/var/www/app
+    links:
+      - mysql
+      - cache
+    networks:
+      orkaholic_net:
+        ipv4_address: 173.0.0.5
+
+
+  # Jenkins
+  jenkins:
+     build: jenkins/jenkins
+     container_name: beta-test-jenkins
+     command: php artisan queue:listen
+     volumes:
+       - jenkins_home:/var/jenkins_home
+     ports:
+       - "8080:8080"
+       - "50000:50000"
+     links:
+       - app
+       - cache
+     environment:
+       - JENKINS_OPTS="--prefix=/jenkins"
+     networks:
+       orkaholic_net:
+         ipv4_address: 173.0.0.6
+
+networks:
+  orkaholic_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 173.0.0.0/24
+          gateway: 173.0.0.1
