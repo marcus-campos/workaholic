@@ -80,8 +80,6 @@ services:
      image: jenkins:lts
      container_name: beta-test-jenkins
      command: php artisan queue:listen
-     volumes:
-       - jenkins_home:/var/jenkins_home
      ports:
        - "8080:8080"
        - "50000:50000"
