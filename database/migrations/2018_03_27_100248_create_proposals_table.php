@@ -18,7 +18,7 @@ class CreateProposalsTable extends Migration
             $table->text('description');
             $table->double('net_value', 10, 2);
             $table->double('gross_value', 10, 2);
-            $table->double('time_to_finish_the_job', 4, 2)->nullable();
+            $table->string('time_to_finish_the_job', 50)->nullable();
             $table->boolean('promoted')->default(false);
             $table->boolean('accepts')->default(false);
             $table->integer('user_id')->unsigned();

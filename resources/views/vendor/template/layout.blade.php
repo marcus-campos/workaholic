@@ -52,7 +52,7 @@
             </div> <!-- content -->
 
             <footer class="footer text-right">
-                © 2017. All rights reserved.
+               Orkaholic ©  Copyright {{ date('Y') == '2018' ? date('Y') : '2018 - ' . date('Y') }}. Todos os direitos reservados.
             </footer>
 
         </div>

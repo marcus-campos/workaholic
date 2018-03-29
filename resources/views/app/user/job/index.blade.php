@@ -12,8 +12,8 @@
             </form>
         </div>
         <div class="col-md-6">
-            <a href="{{ route('user.job.create') }}" class="btn btn-default btn-md waves-effect waves-light m-b-30 pull-right" data-animation="fadein" data-plugin="custommodal"
-               data-overlaySpeed="200" data-overlayColor="#36404a" v-if="page === '/user/job/client'"><i class="md md-add"></i> Cadastrar</a>
+            <a :href="'/user/job/create'" class="btn btn-default btn-md waves-effect waves-light m-b-30 pull-right" data-animation="fadein" data-plugin="custommodal"
+               data-overlaySpeed="200" data-overlayColor="#36404a" v-show="page === '/user/job/client'"><i class="md md-add"></i> Cadastrar</a>
         </div>
     </div>
 
@@ -30,7 +30,7 @@
 
                     <div class="table-detail">
                         <div class="member-info">
-                            <h4 class="m-t-0 job-list-title"><b><a :href="'{{ url('/') }}/user/job/' + job.id" >@{{ job.title }}</a> </b></h4>
+                            <h4 class="m-t-0 job-list-title"><b><a :href="'/user/job/' + job.id" >@{{ job.title }}</a> </b></h4>
                             <p class="text-dark m-b-5"><b>Categoria: </b> <span class="text-muted">@{{ job.job_category.name }}</span></p>
                             <p class="text-dark m-b-0"><b>Data de cadastro: </b> <span class="text-muted"> INSERIR_DADO </span></p>
                         </div>
@@ -44,7 +44,7 @@
                    {{-- <div class="table-detail lable-detail">
                         <span class="label label-info">Hot</span>
                     </div>
---}}                <form method="post" id="job_delete" action="#">
+--}}                <form method="post" id="job_delete" action="#" v-show="page === '/user/job/client'">
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
                         <div class="table-detail table-actions-bar">
@@ -68,8 +68,8 @@
                 </div>
             </div>
 
+            <h2  v-show="jobs.length < 1"> Oooops!!! Nenhum trabalho foi encontrado. </h2>
         </div> <!-- end col -->
-
         {{--<div class="col-lg-4">
             <div class="card-box">
                 <h4 class="m-t-0 m-b-20 text-dark header-title">Status Chart</h4>

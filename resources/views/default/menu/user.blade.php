@@ -1,11 +1,10 @@
-<li class="has_sub" id="dashboard">
+{{--<li class="has_sub" id="dashboard">
     <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-home"></i> <span> Início </span> </a>
-</li>
+</li>--}}
 
 <li class="has_sub" id="find-a-job">
     <a href="{{ route('user.job.index') }}" class="waves-effect"><i class="fa fa-search"></i> <span> Encontrar trabalho </span> </a>
 </li>
-
 
 <li class="has_sub">
     <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-briefcase"></i> <span> Meus trabalhos </span> <span class="menu-arrow"></span> </a>

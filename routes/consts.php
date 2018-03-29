@@ -1,10 +1,11 @@
 <?php
 
 /*
- * USER CONSTS
+ * USER
  */
 const USER_DASHBOARD = 'User\DashboardController';
 const USER_JOB = 'User\JobController';
+const USER_PROPOSAL = 'User\ProposalController';
 
 /*
  * AUTH

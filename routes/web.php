@@ -25,7 +25,6 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
     /*
      *  Jobs
      */
-
     Route::get('job/client', USER_JOB . "@index")->name('job.client');
     Route::resource('job', USER_JOB);
 });
