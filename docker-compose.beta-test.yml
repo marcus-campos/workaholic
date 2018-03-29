@@ -26,9 +26,6 @@ services:
       - MYSQL_DATABASE=orkaholic
       - MYSQL_USER=xtra
       - MYSQL_PASSWORD=987987
-    networks:
-      orkaholic_net:
-        ipv4_address: 173.0.0.4
 
   # Redis
   cache:
@@ -39,9 +36,6 @@ services:
       - /data:/data
     ports:
       - "6379:6379"
-    networks:
-      orkaholic_net:
-        ipv4_address: 173.0.0.3
 
 
   # PHP (with Nginx)
@@ -56,9 +50,6 @@ services:
     links:
       - mysql
       - cache
-    networks:
-      orkaholic_net:
-        ipv4_address: 173.0.0.2
 
   # Laravel Queues
   queue:
@@ -70,10 +61,6 @@ services:
     links:
       - mysql
       - cache
-    networks:
-      orkaholic_net:
-        ipv4_address: 173.0.0.5
-
 
   # Jenkins
   jenkins:
@@ -88,15 +75,3 @@ services:
        - cache
      environment:
        - JENKINS_OPTS="--prefix=/jenkins"
-     networks:
-       orkaholic_net:
-         ipv4_address: 173.0.0.6
-
-networks:
-  orkaholic_net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 173.0.0.0/24
-          gateway: 173.0.0.1
