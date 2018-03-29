@@ -72,6 +72,5 @@ services:
        - "50000:50000"
      links:
        - app
-       - cache
      environment:
        - JENKINS_OPTS="--prefix=/jenkins"
