@@ -77,7 +77,7 @@ services:
 
   # Jenkins
   jenkins:
-     build: jenkins:lts
+     image: jenkins:lts
      container_name: beta-test-jenkins
      command: php artisan queue:listen
      volumes:
