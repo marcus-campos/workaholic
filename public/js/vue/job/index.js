@@ -37,6 +37,15 @@
                 let vm = this;
                 vm.getJobs();
             }),
+            submitDelete: function (id) {
+                let vm = this;
+
+                pageUrl = window.location.origin + '/user/job/'+ id;
+
+                vm.$http.post(pageUrl, {'_method': 'DELETE'}, { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
+                    vm.getJobs()
+                });
+            },
             makePagination: function (data) {
                 let vm = this;
                 let pagination = {

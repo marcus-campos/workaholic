@@ -32,33 +32,30 @@
                         <div class="member-info">
                             <h4 class="m-t-0 job-list-title"><b><a :href="'/user/job/' + job.id" >@{{ job.title }}</a> </b></h4>
                             <p class="text-dark m-b-5"><b>Categoria: </b> <span class="text-muted">@{{ job.job_category.name }}</span></p>
-                            <p class="text-dark m-b-0"><b>Data de cadastro: </b> <span class="text-muted"> INSERIR_DADO </span></p>
+                            <p class="text-dark m-b-0"><b>Data de cadastro: </b> <span class="text-muted"> @{{ job.created_at | c-dmy }} </span></p>
                         </div>
                     </div>
 
                     <div class="table-detail">
-                        <p class="text-dark m-b-5"><b>Cidade:</b> <span class="text-muted"> INSERIR_DADO </span></p>
-                        <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted"> INSERIR_DADO </span></p>
+                        <p class="text-dark m-b-5"><b>Cidade:</b> <span class="text-muted">  </span></p>
+                        <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted"> @{{ job.neighborhood }} </span></p>
                     </div>
 
                    {{-- <div class="table-detail lable-detail">
                         <span class="label label-info">Hot</span>
                     </div>
---}}                <form method="post" id="job_delete" action="#" v-show="page === '/user/job/client'">
-                        {{ method_field('DELETE') }}
-                        {{ csrf_field() }}
-                        <div class="table-detail table-actions-bar">
-                            <a :href="'{{ url('/') }}/job/' + job.id + '/edit'" class="table-action-btn"><i class="md md-edit"></i></a>
-                            <a href="#" onClick="document.getElementById('job_delete').submit();" class="table-action-btn"><i class="md md-close"></i></a>
-                        </div>
-                    </form>
+--}}
+                    <div class="table-detail table-actions-bar" v-show="page === '/user/job/client'">
+                        <a :href="'{{ url('/') }}/user/job/' + job.id + '/edit'" class="table-action-btn"><i class="md md-edit"></i></a>
+                        <a href="#" @click="submitDelete(job.id)" class="table-action-btn"><i class="md md-close"></i></a>
+                    </div>
                 </div>
                 <div class="font-13">
                     <p class="text-dark m-b-5">
                         <b>Quando? </b>
-                        <b>Dia: </b> <span class="text-muted"> INSERIR_DADO </span>
-                        <b>De: </b> <span class="text-muted"> INSERIR_DADO </span>
-                        <b>Até: </b> <span class="text-muted"> INSERIR_DADO </span>
+                        <b>Dia: </b> <span class="text-muted"> @{{ job.specific_date | c-dmy }} </span>
+                        <b>De: </b> <span class="text-muted"> @{{ job.initial_time | c-HHss }} </span>
+                        <b>Até: </b> <span class="text-muted"> @{{ job.final_time | c-HHss }} </span>
                     </p>
                 </div>
                 <div class="font-13">
@@ -95,5 +92,9 @@
 @endsection
 
 @section('section-js')
-   <script src="{{ asset('js/vue/job/index.js') }}" type="text/javascript"></script>
+    <script>
+        const _csrf_token = '{{ csrf_token() }}';
+    </script>
+    <script src="{{ asset('js/vue/filters.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/vue/job/index.js') }}" type="text/javascript"></script>
 @endsection

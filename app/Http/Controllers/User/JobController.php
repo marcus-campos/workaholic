@@ -52,7 +52,7 @@ class JobController extends Controller
      */
     public function indexByUserId()
     {
-        $jobs = $this->dataMaker(Job::with('jobCategory')
+        $jobs = $this->dataMaker(Job::with(['jobCategory', 'city'])
             ->where('user_id', auth()->id()));
 
         return $jobs;
