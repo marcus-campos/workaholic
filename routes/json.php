@@ -15,6 +15,7 @@ Route::group(['prefix' => 'json', 'middleware' => 'auth'], function () {
     /*
      * Proposal
      */
-    Route::post('proposal/store', USER_PROPOSAL. "@store");
-    Route::get('proposal/{id}', USER_PROPOSAL. "@show");
+    Route::post('/proposal/store', USER_PROPOSAL. "@store");
+    Route::get('/proposal/{id}', USER_PROPOSAL. "@show");
+    Route::get('/proposal/job/{id}', USER_PROPOSAL. "@showJobProposal");
 });

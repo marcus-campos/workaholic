@@ -39,7 +39,7 @@
                     <div class="col-sm-6">
                         @if($job->user_id != auth()->id())
                         <div class="m-t-20">
-                            <button type="button" class="btn btn-default waves-effect waves-light m-l-10" @click="showHideProposal()">
+                            <button type="button" class="btn btn-default waves-effect waves-light m-l-10" @click="showHideProposal()" v-show="showProposalButton">
                                                              <span class="btn-label"><i class="fa fa-file-text-o"></i>
                                                            </span>Fazer um proposta</button>
 
