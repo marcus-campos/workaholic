@@ -25,46 +25,36 @@ class ProposalController extends Controller
         return Proposal::create($request->all());
     }
 
+
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param $jobId
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($jobId)
     {
-        $proposal = Proposal::with(['job', 'user'])->find($id);
-
-        if ($proposal) {
-            if (!($proposal->user_id == auth()->id() or
-                $proposal->job->user_id == auth()->id())) {
-                return response()->json([
-                    'status' => Response::HTTP_FORBIDDEN,
-                    'error' => 'Você não pode visualizar esta proposta'
-                ], Response::HTTP_FORBIDDEN);
-            }
-        } else {
-            return response()->json([
-                'status' => Response::HTTP_NOT_FOUND,
-                'error' => 'Você ainda não fez uma proposta para este trabalho'
-            ], Response::HTTP_NOT_FOUND);
-        }
-
-        return $proposal;
+        return view('app.user.job.proposal.proposal', compact('jobId'));
     }
 
     /**
      * @param $id
      * @return $this|\Illuminate\Http\JsonResponse
      */
-    public function showJobProposal($id)
+    public function showJsonJobProposal($id)
     {
-        $proposal = Proposal::with(['job', 'user'])
-            ->where('user_id', auth()->id())
+        $proposal = Proposal::with([
+            'job',
+            'job.jobCategory',
+            'job.city',
+            'user',
+            'comments',
+            'comments.user'
+        ])->where('user_id', auth()->id())
             ->where('job_id', $id)
-            ->get();
+            ->first();
 
-        if ($proposal->count() < 1) {
+        if (!$proposal or $proposal->count() < 1) {
             return response()->json([
                 'status' => Response::HTTP_NOT_FOUND,
                 'error' => 'Você ainda não fez uma proposta para este trabalho'

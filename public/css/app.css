@@ -34,6 +34,14 @@
 .font-18 {
     font-size: 18px !important; }
 
+.m-r-0 {
+    margin-right: 0px !important;
+}
+
+.m-l-0 {
+    margin-left: 0px !important;
+}
+
 @media only screen and (max-width: 500px) {
     .job-list-title {
         white-space: nowrap;

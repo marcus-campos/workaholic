@@ -1,6 +1,6 @@
 (function () {
     new Vue({
-        el: '#proposal',
+        el: '#job',
         data: {
             jobId: _jobId,
             showProposal: false,
@@ -37,13 +37,10 @@
             submitData() {
                 let vm = this;
 
-                pageUrl = window.location.origin + '/json/proposal/store';
+                pageUrl = window.location.origin + '/json/proposal';
 
                 vm.$http.post(pageUrl, JSON.stringify(vm.proposal), { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
-                    let result = data.data;
-                    vm.proposalData = result.data;
-                    vm.showProposalButton = false;
-                    vm.showProposalFollowingButton = true;
+                   window.location.href = window.location.origin + '/user/proposal/job/' + vm.jobId;
                 });
             },
             showHideProposal() {

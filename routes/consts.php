@@ -6,6 +6,7 @@
 const USER_DASHBOARD = 'User\DashboardController';
 const USER_JOB = 'User\JobController';
 const USER_PROPOSAL = 'User\ProposalController';
+const USER_PROPOSAL_COMMENT = 'User\ProposalCommentController';
 
 /*
  * AUTH
