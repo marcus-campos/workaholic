@@ -27,11 +27,9 @@
                     pageUrl += '?filters=' + encodeURIComponent('[["title","like","%' + vm.search + '%"]]');
                 }
 
-                console.log(pageUrl);
-
-                vm.$http.get(pageUrl).then(function (data, status, request) {
+                vm.$http.get(pageUrl).then(function (data) {
                     let result = data.data;
-                    vm.jobs = result.data.map(i => i);
+                    vm.jobs = result.data;
                     vm.makePagination(result);
                 });
             },

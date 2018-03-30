@@ -1,6 +1,7 @@
 @extends('template')
 
 @section('container')
+<div id="proposal">
     <div class="row">
         <div class="col-12">
             <div class="card-box product-detail-box">
@@ -36,12 +37,14 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
+                        @if($job->user_id != auth()->id())
                         <div class="m-t-20">
-                            <button type="button" class="btn btn-default waves-effect waves-light m-l-10">
+                            <button type="button" class="btn btn-default waves-effect waves-light m-l-10" @click="showHideProposal()">
                                                              <span class="btn-label"><i class="fa fa-file-text-o"></i>
                                                            </span>Fazer um proposta</button>
 
                         </div>
+                        @endif
                     </div>
                     <div class="col-sm-6">
                         <p class="text-dark m-t-40 pull-right font-10">
@@ -52,35 +55,17 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12">
-            <div class="card-box">
-                <h5 class="text-muted text-uppercase m-t-0 m-b-20"><b>Fazer uma proposta</b></h5>
-
-                <div class="form-group m-b-20">
-                    <label>Detalhes da proposta<span class="text-danger">*</span></label>
-                    <textarea class="form-control" name="description" rows="5" placeholder="Ex: Preciso de uma pessoa para instalar várias antenas preparadas para o sinal digital no meu condominio.">{{ inputValue('description', get_defined_vars(), ['job' => 'description']) }}</textarea>
-                </div>
-
-                <div class="form-group m-b-20">
-                    <label>Valor líquido a cobrar<span class="text-danger">*</span></label>
-                    <textarea class="form-control" name="description" rows="5" placeholder="Ex: Preciso de uma pessoa para instalar várias antenas preparadas para o sinal digital no meu condominio.">{{ inputValue('description', get_defined_vars(), ['job' => 'description']) }}</textarea>
-                </div>
-
-                <div class="form-group m-b-20 col-md-12 p-0">
-                    <label class="m-b-15">De quanto tempo você precisa para finalizar o trabalho?</label>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input class="form-control" type="text" name="time_to_finish_the_job" value="{{ inputValue('specific_date', get_defined_vars(), ['job' => 'specific_date']) }}">
-                        </div>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="form-group m-b-0 col-md-12 text-center">
-                    <input type="submit" class="btn btn-primary" value="Enviar proposta">
-                </div>
-            </div>
-        </div>
     </div>
+    @if($job->user_id != auth()->id())
+        @include('app.user.job.partials.new-proposal')
+    @endif
+</div>
+@endsection
+
+@section('section-js')
+    <script>
+        const _jobId = '{{ $job->id }}';
+        const _csrf_token = '{{ csrf_token() }}';
+    </script>
+    <script src="{{ asset('js/vue/job/show.js') }}" type="text/javascript"></script>
 @endsection
