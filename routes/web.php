@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function () { return redirect()->to(route('user.dashboard.index')); });
+Route::get('/', function () { return redirect()->to(route('user.job.index')); });
 
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {
 
@@ -26,6 +26,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
      *  Jobs
      */
     Route::get('job/client', USER_JOB . '@index')->name('job.client');
+    Route::get('job/worker', USER_JOB . '@index')->name('job.worker');
     Route::resource('job', USER_JOB);
 
     /*

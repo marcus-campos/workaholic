@@ -50,10 +50,26 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexByUserId()
+    public function indexByClientId()
     {
         $jobs = $this->dataMaker(Job::with(['jobCategory', 'city'])
             ->where('user_id', auth()->id()));
+
+        return $jobs;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexByWorkerId()
+    {
+        $jobs = $this->dataMaker(Job::with(['jobCategory', 'city', 'proposals'])
+            ->whereHas('proposals', function ($query) {
+                $query->where('user_id', auth()->id());
+            }
+        ));
 
         return $jobs;
     }

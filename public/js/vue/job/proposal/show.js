@@ -3,7 +3,8 @@
         el: '#proposal',
         data: {
             jobId: _jobId,
-            proposal: {},
+            job: {},
+            proposals: {},
             comments: {},
             commentData: {
                 description: '',
@@ -12,30 +13,28 @@
         },
         mounted() {
             let vm = this;
-
-            vm.getProposal();
+            vm.getJob();
         },
         methods: {
-            getProposal() {
+            getJob() {
                 let vm = this;
 
                 pageUrl = window.location.origin + '/json/proposal/job/'+ vm.jobId;
 
                 vm.$http.get(pageUrl).then(function (data) {
-                    vm.proposal = data.data;
-                    console.log(vm.proposal);
+                    vm.job = data.data;
                 });
             },
-            submitComment() {
+            submitComment(proposalId) {
                 let vm = this;
 
                 pageUrl = window.location.origin + '/json/proposal/comment';
 
                 if (vm.proposal !== {}) {
-                    vm.commentData.proposal_id = vm.proposal.id;
+                    vm.commentData.proposal_id = proposalId;
                     vm.$http.post(pageUrl, JSON.stringify(vm.commentData), { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
                         vm.commentData.description = '';
-                        vm.getProposal();
+                        vm.getJob();
                     });
                 }
             },

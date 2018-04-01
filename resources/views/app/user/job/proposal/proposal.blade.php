@@ -19,13 +19,13 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="product-right-info">
-                                        <h4><b>@{{ proposal.job.title }}</b></h4>
+                                        <h4><b>@{{ job.title }}</b></h4>
 
                                         <hr/>
 
                                         <h5 class="font-600">Descrição</h5>
 
-                                        <p class="text-muted">@{{ proposal.job.description }}</p>
+                                        <p class="text-muted">@{{ job.description }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -33,14 +33,14 @@
                                 <div class="col-sm-12">
                                     <div class="font-13 m-t-20">
                                         <div>
-                                            <p class="text-dark m-b-0"><b>Categoria: </b> <span class="text-muted"> @{{ proposal.job.job_category.name }} </span></p>
-                                            <p class="text-dark m-b-0"><b>Cidade:</b> <span class="text-muted"> @{{ proposal.job.city.name }} </span></p>
-                                            <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted"> @{{ proposal.job.neighborhood }} </span></p>
+                                            <p class="text-dark m-b-0"><b>Categoria: </b> <span class="text-muted"> @{{ job.job_category.name }} </span></p>
+                                            <p class="text-dark m-b-0"><b>Cidade:</b> <span class="text-muted"> @{{ job.city.name }} </span></p>
+                                            <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted"> @{{ job.neighborhood }} </span></p>
                                             <p class="text-dark m-b-0">
                                                 <b>Quando? </b>
-                                                <b>Dia: </b> <span class="text-muted">@{{ proposal.job.specific_date | c-dmy }}</span>
-                                                <b>De: </b> <span class="text-muted">@{{ proposal.job.initial_time | c-HHss }}</span>
-                                                <b>Até: </b> <span class="text-muted">@{{ proposal.job.final_time | c-HHss }}</span>
+                                                <b>Dia: </b> <span class="text-muted">@{{ job.specific_date | c-dmy }}</span>
+                                                <b>De: </b> <span class="text-muted">@{{ job.initial_time | c-HHss }}</span>
+                                                <b>Até: </b> <span class="text-muted">@{{ job.final_time | c-HHss }}</span>
                                             </p>
                                         </div>
                                     </div>
@@ -52,8 +52,8 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <p class="text-dark m-t-40 pull-right font-10">
-                                        <b>Data de cadastro: </b> <span class="text-muted"> @{{ proposal.job.created_at | dmyHHss }}</span>
-                                        <b>&nbsp;Última atualização: </b> <span class="text-muted"> @{{ proposal.job.updated_at | dmyHHss }} </span>
+                                        <b>Data de cadastro: </b> <span class="text-muted"> @{{ job.created_at | dmyHHss }}</span>
+                                        <b>&nbsp;Última atualização: </b> <span class="text-muted"> @{{ job.updated_at | dmyHHss }} </span>
                                     </p>
                                 </div>
                             </div>
@@ -63,15 +63,15 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" v-for="proposal in job.proposals">
             <div class="col-12">
                 <div class="portlet">
                     <div class="portlet-heading portlet-default">
                         <h3 class="portlet-title text-dark">
-                            Proposta
+                            Proposta de @{{ proposal.user.name }}
                         </h3>
                         <div class="portlet-widgets">
-                            <a href="javascript:;" data-toggle="reload" @click="getProposal()"><i class="ion-refresh"></i></a>
+                            <a href="javascript:;" data-toggle="reload" @click="getJob()"><i class="ion-refresh"></i></a>
                             <span class="divider"></span>
                             <a data-toggle="collapse" data-parent="#proposalAccordion" href="#bg-proposal" class="" aria-expanded="true"><i class="ion-minus-round"></i></a>
                         </div>
@@ -141,7 +141,7 @@
                                         <textarea rows="2" class="form-control" placeholder="Adicionar novo comentário" v-model="commentData.description"></textarea>
                                     </span>
                                     <div class="p-t-10 pull-right">
-                                        <a class="btn btn-sm btn-primary waves-effect waves-light" @click="submitComment()">Enviar</a>
+                                        <a class="btn btn-sm btn-primary waves-effect waves-light" @click="submitComment(proposal.id)">Enviar</a>
                                     </div>
                                 </div>
                             </div>

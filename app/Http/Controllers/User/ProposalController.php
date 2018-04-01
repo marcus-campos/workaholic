@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Requests\ProposalRequest;
+use App\Models\Job;
 use App\Models\Proposal;
 use App\Util\DataMaker\DataMakerTrait;
 use Illuminate\Http\Request;
@@ -43,25 +44,39 @@ class ProposalController extends Controller
      */
     public function showJsonJobProposal($id)
     {
-        $proposal = Proposal::with([
-            'job',
-            'job.jobCategory',
-            'job.city',
-            'user',
-            'comments',
-            'comments.user'
-        ])->where('user_id', auth()->id())
-            ->where('job_id', $id)
+        $proposals = Job::with([
+            'jobCategory',
+            'city',
+            'proposals',
+            'proposals.user',
+            'proposals.comments',
+            'proposals.comments.user'
+        ])->where('id', $id)
+            ->where('user_id', auth()->id())
             ->first();
 
-        if (!$proposal or $proposal->count() < 1) {
+        if (!$proposals or $proposals->count() < 1) {
+            $proposals = Job::with([
+                'jobCategory',
+                'city',
+                'proposals' => function ($query) {
+                    $query->where('user_id', auth()->id());
+                },
+                'proposals.user',
+                'proposals.comments',
+                'proposals.comments.user'
+            ])->where('id', $id)
+                ->first();
+        }
+
+        if (!$proposals or $proposals->count() < 1) {
             return response()->json([
                 'status' => Response::HTTP_NOT_FOUND,
                 'error' => 'Você ainda não fez uma proposta para este trabalho'
             ], Response::HTTP_NOT_FOUND);
         }
-
-        return $proposal;
+        $data = $proposals;
+        return $data;
     }
 
     /**

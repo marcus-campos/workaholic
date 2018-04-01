@@ -23,6 +23,10 @@
                     pageUrl = pageUrl || window.location.origin + '/json/job/client';
                 }
 
+                if(vm.page === '/user/job/worker') {
+                    pageUrl = pageUrl || window.location.origin + '/json/job/worker';
+                }
+
                 if (vm.search !== '') {
                     pageUrl += '?filters=' + encodeURIComponent('[["title","like","%' + vm.search + '%"]]');
                 }

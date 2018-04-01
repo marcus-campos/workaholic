@@ -10,7 +10,8 @@ Route::group(['prefix' => 'json', 'middleware' => 'auth'], function () {
      */
 
     Route::get('job', USER_JOB . "@indexAll");
-    Route::get('job/client', USER_JOB . "@indexByUserId");
+    Route::get('job/client', USER_JOB . "@indexByClientId");
+    Route::get('job/worker', USER_JOB . "@indexByWorkerId");
 
     /*
      * Proposal

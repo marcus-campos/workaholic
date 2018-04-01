@@ -22,13 +22,27 @@ class Job extends Model
         'user_id'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function jobCategory()
     {
         return $this->belongsTo(JobCategory::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function proposals()
+    {
+        return $this->hasMany(Proposal::class);
     }
 }
