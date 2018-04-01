@@ -15,7 +15,6 @@
         },
         mounted() {
             let vm = this;
-
             vm.getProposal();
         },
         methods: {

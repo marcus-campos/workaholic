@@ -69,7 +69,7 @@ class ProposalController extends Controller
                 ->first();
         }
 
-        if (!$proposals or $proposals->count() < 1) {
+        if (!$proposals->proposals or $proposals->proposals->count() < 1) {
             return response()->json([
                 'status' => Response::HTTP_NOT_FOUND,
                 'error' => 'Você ainda não fez uma proposta para este trabalho'

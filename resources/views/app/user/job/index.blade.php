@@ -46,7 +46,7 @@
                     </div>
 --}}
                     <div class="table-detail table-actions-bar" >
-                        <a :href="'{{ url('/') }}/user/proposal/job/' + job.id" class="table-action-btn"><i class="md md-assignment"></i></a>
+                        <a :href="'{{ url('/') }}/user/proposal/job/' + job.id" class="table-action-btn" v-show="page !== '/user/job'"><i class="md md-assignment"></i></a>
                         <a :href="'{{ url('/') }}/user/job/' + job.id + '/edit'" class="table-action-btn" v-show="page === '/user/job/client'"><i class="md md-edit"></i></a>
                         <a href="#" @click="submitDelete(job.id)" class="table-action-btn" v-show="page === '/user/job/client'"><i class="md md-close"></i></a>
                     </div>
