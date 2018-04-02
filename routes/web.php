@@ -11,7 +11,13 @@
 |
 */
 
-Route::get('/', function () { return redirect()->to(route('user.job.index')); });
+Route::get('/', function () {
+
+    if (auth()->user()->role == 'admin') {
+        return redirect()->to(route('admin.dashboard.index'));
+    }
+    return redirect()->to(route('user.job.index'));
+});
 
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {
 
@@ -38,8 +44,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
 
-
-    Route::get('dashboard', ADMIN_DASHBOARD.'@index');
+    Route::get('dashboard', ADMIN_DASHBOARD.'@index')->name('dashboard.index');
 
 });
 
