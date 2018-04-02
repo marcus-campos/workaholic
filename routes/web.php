@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
 
-    if (auth()->user()->role == 'admin') {
+    if (auth()->check() && auth()->user()->role == 'admin') {
         return redirect()->to(route('admin.dashboard.index'));
     }
     return redirect()->to(route('user.job.index'));
