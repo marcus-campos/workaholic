@@ -36,6 +36,13 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
     Route::get('proposal/job/{id}', USER_PROPOSAL.'@show')->name('proposal.job.show');
 });
 
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
+
+
+    Route::get('dashboard', ADMIN_DASHBOARD.'@index');
+
+});
+
 
 /*
  * =====================================

@@ -9,6 +9,12 @@ const USER_PROPOSAL = 'User\ProposalController';
 const USER_PROPOSAL_COMMENT = 'User\ProposalCommentController';
 
 /*
+ * ADMIN
+ */
+
+const ADMIN_DASHBOARD = 'Admin\DashboardController';
+
+/*
  * AUTH
  */
 const LOGIN_CONTROLLER = 'Auth\LoginController';
