@@ -53,7 +53,6 @@
             },
             isMeOnComment (id) {
                 let vm = this;
-
                 if (id == vm.userId) {
                     return true;
                 }

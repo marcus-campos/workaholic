@@ -126,7 +126,14 @@
                                     <div class="nicescroll mx-box">
                                         <div class="comment p-0" v-for="comment in proposal.comments">
                                             <div class="comment-body m-l-0 m-b-10">
-                                                <div class="comment-text">
+                                                <div class="comment-text" v-if="isMeOnComment(comment.user_id)">
+                                                    <div class="comment-header">
+                                                        @{{ comment.user.name }}<span>@{{ comment.created_at }}</span>
+                                                    </div>
+                                                    @{{ comment.description }}
+                                                </div>
+
+                                                <div class="comment-text-odd" v-else>
                                                     <div class="comment-header">
                                                         @{{ comment.user.name }}<span>@{{ comment.created_at }}</span>
                                                     </div>
