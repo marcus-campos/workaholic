@@ -24,7 +24,11 @@ class JobRequest extends FormRequest
     public function rules()
     {
         return [
-
+            'title' => 'required|min:2|max:120',
+            'category_id' => 'required|integer',
+            'remote' => 'required|integer',
+            'city' => 'required',
+            'description' => 'required|string|min:10|max:20000'
         ];
     }
 }

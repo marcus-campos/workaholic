@@ -24,7 +24,7 @@ class ProposalCommentsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'description' => 'required|min:1|max:500'
         ];
     }
 }

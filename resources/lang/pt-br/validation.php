@@ -116,6 +116,18 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'email' => 'endereço de email',
+        'name' => 'nome',
+        'city' => 'cidade',
+        'category_id' => 'categoria',
+        'title' => 'titulo',
+        'remote' => 'trabalho remoto',
+        'neighborhood',
+        'specific_date' => 'dia',
+        'initial_time' => 'de',
+        'final_time' => 'até',
+        'description' => 'descrição'
+    ],
 
 ];

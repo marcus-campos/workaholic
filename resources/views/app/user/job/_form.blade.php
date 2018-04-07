@@ -1,4 +1,14 @@
 <div class="col-sm-12">
+    @if (isset($errors) && count($errors) > 0)
+        <div class="alert alert-danger">
+            <strong>Opa!</strong> Encontramos alguns erros.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="card-box">
         <h5 class="text-muted text-uppercase m-t-0 m-b-20"><b>Cadastrar um novo job</b></h5>
 

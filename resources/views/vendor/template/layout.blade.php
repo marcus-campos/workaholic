@@ -8,7 +8,7 @@
 
         <link rel="shortcut icon" href="{{ asset('assets/images/favicon_1.ico') }}">
 
-        <title>Anny Platform</title>
+        <title>Orkaholic</title>
 
         @yield('style-sheets')
     </head>
