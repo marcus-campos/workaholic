@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Requests\ProposalRequest;
 use App\Models\Job;
 use App\Models\Proposal;
+use App\Service\User\Proposal\ProposalService;
 use App\Util\DataMaker\DataMakerTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,17 +14,29 @@ use Illuminate\Http\Response;
 class ProposalController extends Controller
 {
     use DataMakerTrait;
+    /**
+     * @var ProposalService
+     */
+    private $proposalService;
+
+    /**
+     * ProposalController constructor.
+     * @param ProposalService $proposalService
+     */
+    public function __construct(ProposalService $proposalService)
+    {
+        $this->proposalService = $proposalService;
+    }
 
     /**
      * Store a newly created resource in storage.
      * @param ProposalRequest $request
+     * @return mixed
      */
     public function store(ProposalRequest $request)
     {
-        $request['user_id'] = auth()->id();
-        $request['gross_value'] = 0.00;
-
-        return Proposal::create($request->all());
+        $proposal = $this->proposalService->persist($request);
+        return $proposal;
     }
 
 
@@ -44,30 +57,7 @@ class ProposalController extends Controller
      */
     public function showJsonJobProposal($id)
     {
-        $proposals = Job::with([
-            'jobCategory',
-            'city',
-            'proposals',
-            'proposals.user',
-            'proposals.comments',
-            'proposals.comments.user'
-        ])->where('id', $id)
-            ->where('user_id', auth()->id())
-            ->first();
-
-        if (!$proposals or $proposals->count() < 1) {
-            $proposals = Job::with([
-                'jobCategory',
-                'city',
-                'proposals' => function ($query) {
-                    $query->where('user_id', auth()->id());
-                },
-                'proposals.user',
-                'proposals.comments',
-                'proposals.comments.user'
-            ])->where('id', $id)
-                ->first();
-        }
+        $proposals = $this->proposalService->proposalsClientOrWorker($id);
 
         if (!$proposals->proposals or $proposals->proposals->count() < 1) {
             return response()->json([
@@ -75,6 +65,7 @@ class ProposalController extends Controller
                 'error' => 'Você ainda não fez uma proposta para este trabalho'
             ], Response::HTTP_NOT_FOUND);
         }
+
         $data = $proposals;
         return $data;
     }
