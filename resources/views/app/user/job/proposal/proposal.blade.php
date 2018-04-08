@@ -122,7 +122,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 m-b-20">
-                                    <div class="nicescroll mx-box">
+                                    <div class="nicescroll comment-box">
                                         <div class="comment p-0" v-for="comment in proposal.comments">
                                             <div class="comment-body m-l-0 m-b-10">
                                                 <div class="comment-text" v-if="isMeOnComment(comment.user_id)">
