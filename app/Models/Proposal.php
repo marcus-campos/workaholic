@@ -12,7 +12,7 @@ class Proposal extends Model
         'gross_value',
         'time_to_finish_the_job',
         'promoted',
-        'accepts',
+        'status',
         'user_id',
         'job_id'
     ];

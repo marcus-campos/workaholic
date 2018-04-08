@@ -120,7 +120,7 @@ return [
         'email' => 'endereço de email',
         'name' => 'nome',
         'city' => 'cidade',
-        'category_id' => 'categoria',
+        'job_category_id' => 'categoria',
         'title' => 'titulo',
         'remote' => 'trabalho remoto',
         'neighborhood',

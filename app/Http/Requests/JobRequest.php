@@ -25,9 +25,9 @@ class JobRequest extends FormRequest
     {
         return [
             'title' => 'required|min:2|max:120',
-            'category_id' => 'required|integer',
+            'job_category_id' => 'required',
             'remote' => 'required|integer',
-            'city' => 'required',
+            'city_id' => 'required',
             'description' => 'required|string|min:10|max:20000'
         ];
     }
