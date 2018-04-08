@@ -86,6 +86,9 @@
 
             $('#job_category_id').val(['{{ ($jobId = inputValue('job_category_id', get_defined_vars(), ['job' => 'job_category_id'])) ? $jobId : 'null' }}']).trigger('change');
 
+            setTimeout(function () {
+                $('#city_id').val(['{{ ($cityId = inputValue('city_id', get_defined_vars(), ['job' => 'city_id'])) ? (is_string($cityId) ? (new \App\Models\City())->cityFromToId($cityId) : (new \App\Models\City())->cityFromToName($cityId)) : 'null' }}']).trigger('change');
+            }, 1000);
         });
     </script>
 @endsection

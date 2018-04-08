@@ -6,6 +6,7 @@ use App\Http\Requests\JobRequest;
 use App\Models\City;
 use App\Models\Job;
 use App\Models\JobCategory;
+use App\Service\User\Job\JobService;
 use App\Util\DataMaker\DataMakerTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,8 +14,16 @@ use App\Http\Controllers\Controller;
 class JobController extends Controller
 {
     use DataMakerTrait;
+    /**
+     * @var JobService
+     */
+    private $jobService;
 
-    public function __construct()
+    /**
+     * JobController constructor.
+     * @param JobService $jobService
+     */
+    public function __construct(JobService $jobService)
     {
         $this->setFilterFillable([
             'title',
@@ -33,6 +42,8 @@ class JobController extends Controller
             'created_at',
             'updated_at',
         ]);
+
+        $this->jobService = $jobService;
     }
 
     /**
@@ -97,12 +108,13 @@ class JobController extends Controller
     }
 
 
+    /**
+     * @param JobRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(JobRequest $request)
     {
-        $request = $request->all();
-        $request['city_id'] = (new City)->cityFromToId($request['city_id']);
-        $request['user_id'] = auth()->user()->id;
-        Job::create($request);
+        $this->jobService->persist($request);
         return redirect()->to(route('user.job.client'));
     }
 
@@ -134,20 +146,13 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param JobRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(JobRequest $request, $id)
     {
-        $job = Job::find($id);
-
-        $request = $request->all();
-        $request['city_id'] = (new City)->cityFromToId($request['city_id']);
-        $request['user_id'] = auth()->user()->id;
-
-        $job->fill($request)->save();
-
+        $this->jobService->persist($request, $id);
         return redirect()->to(route('user.job.client'));
     }
 
