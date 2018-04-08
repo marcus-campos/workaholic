@@ -10,11 +10,11 @@
                             Trabalho
                         </h3>
                         <div class="portlet-widgets">
-                            <a data-toggle="collapse" data-parent="#jobAccordion" href="#bg-job" class="collapsed" aria-expanded="false"><i class="ion-minus-round"></i></a>
+                            <a data-toggle="collapse" data-parent="#jobAccordion" href="#portlet_job" class="collapsed" aria-expanded="false"><i class="ion-minus-round"></i></a>
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    <div id="bg-job" class="panel-collapse collapse hide" style="">
+                    <div id="portlet_job" class="panel-collapse collapse" style="">
                         <div class="portlet-body">
                             <div class="row">
                                 <div class="col-sm-12">
@@ -62,13 +62,21 @@
                 </div>
             </div>
         </div>
-
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <!-- TODO: Criar classe com propridades do portlet-title -->
+                <div class="m-b-20 proposal-title">
+                    PROPOSTAS
+                </div>
+            </div>
+        </div>
         <div class="row" v-for="proposal in job.proposals">
             <div class="col-12">
                 <div class="portlet">
                     <div class="portlet-heading portlet-default">
                         <h3 class="portlet-title text-dark">
-                            Proposta de @{{ proposal.user.name }}
+                            @{{ isMe(proposal.user_id) ? 'Minha proposta': proposal.user.name }}
                         </h3>
                         <div class="portlet-widgets">
                             <span v-if="isMe(job.user_id) && proposal.status !== 'accepted'">
@@ -89,7 +97,7 @@
                             </span>
                             <a href="javascript:;" data-toggle="reload" @click="getJob()"><i class="ion-refresh"></i></a>
                             <span class="divider"></span>
-                            <a data-toggle="collapse" data-parent="#proposalAccordion" :href="'#portlet_proposal_' + proposal.id" class="" aria-expanded="true"><i class="ion-minus-round"></i></a>
+                            <a data-toggle="collapse" data-parent="#proposalAccordion" :href="'#portlet_proposal_' + proposal.id" aria-expanded="true"><i class="ion-minus-round"></i></a>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -118,7 +126,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-
                                 </div>
                                 <div class="col-sm-6">
                                     <p class="text-dark m-t-40 pull-right font-10">
@@ -131,7 +138,6 @@
                                 <div class="col-sm-12">
                                     <div class="product-right-info">
                                         <hr/>
-
                                         <h5 class="font-600">Comentários</h5>
                                     </div>
                                 </div>

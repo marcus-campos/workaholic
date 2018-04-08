@@ -54,6 +54,17 @@
     min-height: 20px;
 }
 
+.proposal-title {
+    color: #797979 !important;
+    float: right;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
 @media only screen and (max-width: 500px) {
     .job-list-title {
         white-space: nowrap;

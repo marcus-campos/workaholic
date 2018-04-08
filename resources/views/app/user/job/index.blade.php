@@ -48,7 +48,7 @@
                     <div class="table-detail table-actions-bar" >
                         <a :href="'{{ url('/') }}/user/proposal/job/' + job.id" class="table-action-btn" v-show="page !== '/user/job'"><i class="md md-assignment"></i></a>
                         <a :href="'{{ url('/') }}/user/job/' + job.id + '/edit'" class="table-action-btn" v-show="page === '/user/job/client'"><i class="md md-edit"></i></a>
-                        <a href="#" @click="submitDelete(job.id)" class="table-action-btn" v-show="page === '/user/job/client'"><i class="md md-close"></i></a>
+                        <a href="#" @click="submitDelete(job)" class="table-action-btn" v-show="page === '/user/job/client'"><i class="md md-close"></i></a>
                     </div>
                 </div>
                 <div class="font-13">
@@ -92,10 +92,15 @@
 </div>
 @endsection
 
+@section('section-css')
+    <link href="{{ asset('plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
+@endsection
+
 @section('section-js')
     <script>
         const _csrf_token = '{{ csrf_token() }}';
     </script>
+    <script src="{{ asset('plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('js/vue/filters.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/vue/job/index.js') }}" type="text/javascript"></script>
 @endsection

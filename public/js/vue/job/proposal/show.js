@@ -75,6 +75,13 @@
                     }
                 }, 500);
             },
+            resizeNiceScroll() {
+                console.log('cu');
+                setTimeout(() => {
+                    $(".nicescroll").niceScroll({ cursorcolor: '#98a6ad',cursorwidth:'6px', cursorborderradius: '5px'});
+                    $(".nicescroll").getNiceScroll().resize();
+                }, 1000);
+            },
             acceptProposal(proposal) {
                 let vm = this;
 
@@ -85,9 +92,9 @@
                     text: "Deseja aceitar a proposta de " + proposal.user.name + "?",
                     type: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#4fa7f3',
-                    cancelButtonColor: '#d57171',
-                    confirmButtonText: 'Aceitar',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger m-l-10',
+                    confirmButtonText: 'Sim',
                     cancelButtonText: 'Cancelar'
                 }).then(function () {
 
@@ -106,7 +113,7 @@
                             'error'
                         )
                     });
-                })
+                });
             }
         }
     });
