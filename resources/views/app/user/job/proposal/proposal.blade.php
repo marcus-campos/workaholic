@@ -71,8 +71,22 @@
                             Proposta de @{{ proposal.user.name }}
                         </h3>
                         <div class="portlet-widgets">
-                            <a class="btn btn-sm btn-success waves-effect waves-light" @click="acceptProposal(proposal)">Aceitar proposta</a>
-                            <span class="divider"></span>
+                            <span v-if="isMe(job.user_id) && proposal.status !== 'accepted'">
+                                <a class="btn btn-sm btn-success waves-effect waves-light" @click="acceptProposal(proposal)">Aceitar proposta</a>
+                                <span class="divider"></span>
+                            </span>
+                            <span v-else-if="proposal.status === 'rejected'">
+                                <span class="label label-warning">Outra proposta foi aceita</span>
+                                <span class="divider"></span>
+                            </span>
+                            <span v-else-if="proposal.status === 'waiting'">
+                                <span class="label label-info">Proposta em avaliação</span>
+                                <span class="divider"></span>
+                            </span>
+                            <span v-else>
+                                <span class="label label-success">Proposta aceita</span>
+                                <span class="divider"></span>
+                            </span>
                             <a href="javascript:;" data-toggle="reload" @click="getJob()"><i class="ion-refresh"></i></a>
                             <span class="divider"></span>
                             <a data-toggle="collapse" data-parent="#proposalAccordion" :href="'#portlet_proposal_' + proposal.id" class="" aria-expanded="true"><i class="ion-minus-round"></i></a>
@@ -127,7 +141,7 @@
                                     <div class="nicescroll comment-box">
                                         <div class="comment p-0" v-for="comment in proposal.comments">
                                             <div class="comment-body m-l-0 m-b-10">
-                                                <div class="comment-text" v-if="isMeOnComment(comment.user_id)">
+                                                <div class="comment-text" v-if="isMe(comment.user_id)">
                                                     <div class="comment-header">
                                                         @{{ comment.user.name }}<span>@{{ comment.created_at }}</span>
                                                     </div>

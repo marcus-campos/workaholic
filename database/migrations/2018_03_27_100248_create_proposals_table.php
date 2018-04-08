@@ -20,7 +20,7 @@ class CreateProposalsTable extends Migration
             $table->double('gross_value', 10, 2);
             $table->string('time_to_finish_the_job', 50)->nullable();
             $table->boolean('promoted')->default(false);
-            $table->enum('status', ['accepted', 'reject', 'waiting'])->default('waiting');
+            $table->enum('status', ['accepted', 'rejected', 'waiting'])->default('waiting');
             $table->integer('user_id')->unsigned();
             $table->integer('job_id')->unsigned();
             $table->softDeletes();

@@ -39,6 +39,23 @@ class ProposalController extends Controller
         return $proposal;
     }
 
+    /**
+     * @param Request $request
+     * @return array|bool|\Illuminate\Http\JsonResponse
+     */
+    public function acceptProposal(Request $request)
+    {
+        $acceptedProposal = $this->proposalService->acceptProposal($request->all()['id']);
+
+        if(isset($acceptedProposal['status'])) {
+            return response()->json($acceptedProposal, $acceptedProposal['status']);
+        }
+
+        return  response()->json([
+            'status' => Response::HTTP_OK,
+            'msg' => 'Proposta aceita com sucesso!'
+        ], Response::HTTP_OK);
+    }
 
     /**
      * Display the specified resource.

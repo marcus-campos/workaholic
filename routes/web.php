@@ -40,6 +40,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
      */
 
     Route::get('proposal/job/{id}', USER_PROPOSAL.'@show')->name('proposal.job.show');
+    Route::put('proposal/accept', USER_PROPOSAL.'@acceptProposal')->name('proposal.job.accept');
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {

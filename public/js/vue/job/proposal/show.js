@@ -22,16 +22,24 @@
             getJob() {
                 let vm = this;
 
-                pageUrl = window.location.origin + '/json/proposal/job/'+ vm.jobId;
+                let pageUrl = window.location.origin + '/json/proposal/job/'+ vm.jobId;
 
                 vm.$http.get(pageUrl).then(function (data) {
                     vm.job = data.data;
+                }, function (error) {
+                    swal(
+                        'Ooops...',
+                        'Ainda não existe(m) proposta(s) para este trabalho',
+                        'warning'
+                    ).then(function () {
+                        window.location.href = window.location.origin + '/user/job/client';
+                    })
                 });
             },
             submitComment(proposalId) {
                 let vm = this;
 
-                pageUrl = window.location.origin + '/json/proposal/comment';
+                let pageUrl = window.location.origin + '/json/proposal/comment';
 
                 if (vm.proposal !== {}) {
                     vm.commentData.proposal_id = proposalId;
@@ -51,7 +59,7 @@
 
                 vm.commentData.disableSendButton = true;
             },
-            isMeOnComment (id) {
+            isMe (id) {
                 let vm = this;
                 if (id == vm.userId) {
                     return true;
@@ -68,6 +76,10 @@
                 }, 500);
             },
             acceptProposal(proposal) {
+                let vm = this;
+
+                let pageUrl = window.location.origin + '/user/proposal/accept';
+
                 swal({
                     title: 'Você está certo disto?',
                     text: "Deseja aceitar a proposta de " + proposal.user.name + "?",
@@ -79,11 +91,21 @@
                     cancelButtonText: 'Cancelar'
                 }).then(function () {
 
-                    swal(
-                        'Proposta aceita!',
-                        'Proposta aceita com sucesso.',
-                        'success'
-                    )
+                    vm.$http.post(pageUrl, {'_method': 'PUT', 'id': proposal.id}, { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
+                        vm.commentData.description = '';
+                        vm.getJob();
+                        swal(
+                            'Proposta aceita!',
+                            'Proposta aceita com sucesso.',
+                            'success'
+                        )
+                    }, function (error) {
+                        swal(
+                            'Oops, algo deu errado...',
+                            error.body.error,
+                            'error'
+                        )
+                    });
                 })
             }
         }
