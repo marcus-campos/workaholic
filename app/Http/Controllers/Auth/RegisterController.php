@@ -54,19 +54,19 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'cpf' => [
-                'string',
-                'min:11',
-                'max:11',
-                new CpfRule
-            ],
-            'cnpj' => 'string|min:14|max:14',
-            'city_id' => 'required|string|min:2',
-            'address' => 'required|string|min:2',
-            'number' => 'required|int',
-            'complement' => 'string',
-            'cep' => 'required|string|min:8|max:8',
-            'phone' => 'required|string|min:2',
+//            'cpf' => [
+//                'string',
+//                'min:11',
+//                'max:11',
+//                new CpfRule
+//            ],
+//            'cnpj' => 'string|min:14|max:14',
+//            'city_id' => 'required|string|min:2',
+//            'address' => 'required|string|min:2',
+//            'number' => 'required|int',
+//            'complement' => 'string',
+//            'cep' => 'required|string|min:8|max:8',
+//            'phone' => 'required|string|min:2',
         ]);
     }
 
@@ -82,13 +82,13 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'cpf' => $data['cpf'],
-            'phone' => $data['phone'],
-            'cep' => $data['cep'],
-            'address' => $data['address'],
-            'number' => $data['number'],
-            'neighborhood' => $data['neighborhood'],
-            'city_id' => (new City())->cityFromToId($data['city_id'])
+//            'cpf' => $data['cpf'],
+//            'phone' => $data['phone'],
+//            'cep' => $data['cep'],
+//            'address' => $data['address'],
+//            'number' => $data['number'],
+//            'neighborhood' => $data['neighborhood'],
+//            'city_id' => (new City())->cityFromToId($data['city_id'])
         ]);
     }
 }

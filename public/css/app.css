@@ -42,6 +42,18 @@
     margin-left: 0px !important;
 }
 
+.comment .comment-text-odd {
+    border: 1px solid #f2f2f2;
+    border-radius: 2px;
+    padding: 7px 12px 8px;
+    background-color: #e8e8e8;
+}
+
+.comment-box {
+    max-height: 250px;
+    min-height: 20px;
+}
+
 @media only screen and (max-width: 500px) {
     .job-list-title {
         white-space: nowrap;

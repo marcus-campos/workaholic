@@ -21,8 +21,9 @@
     <script src="{{asset('assets/js/jquery.nicescroll.js')}}"></script>
     <script src="{{asset('assets/js/jquery.scrollTo.min.js')}}"></script>
 
-    <script src="{{asset('assets/js/jquery.core.js')}}"></script>
+
     <script src="{{asset('assets/js/jquery.app.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.core.js')}}"></script>
 
     @yield('section-js')
 

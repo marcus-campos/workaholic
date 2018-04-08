@@ -1,4 +1,14 @@
 <div class="col-sm-12">
+    @if (isset($errors) && count($errors) > 0)
+        <div class="alert alert-danger">
+            <strong>Opa!</strong> Encontramos alguns erros.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="card-box">
         <h5 class="text-muted text-uppercase m-t-0 m-b-20"><b>Cadastrar um novo job</b></h5>
 
@@ -77,7 +87,7 @@
             $('#job_category_id').val(['{{ ($jobId = inputValue('job_category_id', get_defined_vars(), ['job' => 'job_category_id'])) ? $jobId : 'null' }}']).trigger('change');
 
             setTimeout(function () {
-                $('#city_id').val(['{{ ($cityId = inputValue('city_id', get_defined_vars(), ['job' => 'city_id'])) ? (new \App\Models\City())->cityFromToName($cityId) : 'null' }}']).trigger('change');
+                $('#city_id').val(['{{ ($cityId = inputValue('city_id', get_defined_vars(), ['job' => 'city_id'])) ? (is_string($cityId) ? (new \App\Models\City())->cityFromToId($cityId) : (new \App\Models\City())->cityFromToName($cityId)) : 'null' }}']).trigger('change');
             }, 1000);
         });
     </script>
