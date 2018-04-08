@@ -73,11 +73,11 @@
                         <div class="portlet-widgets">
                             <a href="javascript:;" data-toggle="reload" @click="getJob()"><i class="ion-refresh"></i></a>
                             <span class="divider"></span>
-                            <a data-toggle="collapse" data-parent="#proposalAccordion" href="#bg-proposal" class="" aria-expanded="true"><i class="ion-minus-round"></i></a>
+                            <a data-toggle="collapse" data-parent="#proposalAccordion" :href="'#portlet_proposal_' + proposal.id" class="" aria-expanded="true"><i class="ion-minus-round"></i></a>
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    <div id="bg-proposal" class="panel-collapse collapse show" style="">
+                    <div :id="'portlet_proposal_' + proposal.id" class="panel-collapse collapse show" style="">
                         <div class="portlet-body">
                             <div class="row">
                                 <div class="col-sm-12">
@@ -111,7 +111,6 @@
                                     </p>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="product-right-info">
