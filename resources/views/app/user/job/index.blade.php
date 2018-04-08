@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="table-detail">
-                        <p class="text-dark m-b-5"><b>Cidade:</b> <span class="text-muted">  </span></p>
+                        <p class="text-dark m-b-5"><b>Cidade:</b> <span class="text-muted"> @{{ job.city.name }} </span></p>
                         <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted"> @{{ job.neighborhood }} </span></p>
                     </div>
 

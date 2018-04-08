@@ -63,9 +63,7 @@ class JobController extends Controller
      */
     public function indexByClientId()
     {
-        $jobs = $this->dataMaker(Job::with(['jobCategory', 'city'])
-            ->where('user_id', auth()->id()));
-
+        $jobs = $this->dataMaker($this->jobService->indexByClientId());
         return $jobs;
     }
 
@@ -76,12 +74,7 @@ class JobController extends Controller
      */
     public function indexByWorkerId()
     {
-        $jobs = $this->dataMaker(Job::with(['jobCategory', 'city', 'proposals'])
-            ->whereHas('proposals', function ($query) {
-                $query->where('user_id', auth()->id());
-            }
-        ));
-
+        $jobs = $this->dataMaker($this->jobService->indexByWorker());
         return $jobs;
     }
 
@@ -92,7 +85,7 @@ class JobController extends Controller
      */
     public function indexAll()
     {
-        $jobs = $this->dataMaker(Job::with('jobCategory'));
+        $jobs = $this->dataMaker($this->jobService->indexAll());
         return $jobs;
     }
 
@@ -164,7 +157,7 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
-        Job::destroy($id);
+        $this->jobService->destroy($id);
         return redirect()->to(route('user.job.client'));
     }
 }

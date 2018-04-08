@@ -63,9 +63,8 @@
             </div>
         </div>
         <hr>
-        <div class="row">
+        <div class="row" v-if="isMe(job.user_id)">
             <div class="col-12">
-                <!-- TODO: Criar classe com propridades do portlet-title -->
                 <div class="m-b-20 proposal-title">
                     PROPOSTAS
                 </div>
@@ -149,14 +148,14 @@
                                             <div class="comment-body m-l-0 m-b-10">
                                                 <div class="comment-text" v-if="isMe(comment.user_id)">
                                                     <div class="comment-header">
-                                                        @{{ comment.user.name }}<span>@{{ comment.created_at }}</span>
+                                                        @{{ comment.user.name }}<span>@{{ comment.created_at | dmyHHss }}</span>
                                                     </div>
                                                     @{{ comment.description }}
                                                 </div>
 
                                                 <div class="comment-text-odd" v-else>
                                                     <div class="comment-header">
-                                                        @{{ comment.user.name }}<span>@{{ comment.created_at }}</span>
+                                                        @{{ comment.user.name }}<span>@{{ comment.created_at | dmyHHss }}</span>
                                                     </div>
                                                     @{{ comment.description }}
                                                 </div>
@@ -165,7 +164,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" v-if="proposal.status !== 'rejected'">
                                 <div class="col-sm-12">
                                     <span class="input-icon icon-right">
                                         <textarea rows="2" class="form-control" placeholder="Adicionar novo comentário" v-model="commentData.description"></textarea>
