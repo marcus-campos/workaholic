@@ -66,6 +66,25 @@
                         $.fn.niceScroll &&  $(".nicescroll").niceScroll({ cursorcolor: '#98a6ad',cursorwidth:'6px', cursorborderradius: '5px'});
                     }
                 }, 500);
+            },
+            acceptProposal(proposal) {
+                swal({
+                    title: 'Você está certo disto?',
+                    text: "Deseja aceitar a proposta de " + proposal.user.name + "?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#4fa7f3',
+                    cancelButtonColor: '#d57171',
+                    confirmButtonText: 'Aceitar',
+                    cancelButtonText: 'Cancelar'
+                }).then(function () {
+
+                    swal(
+                        'Proposta aceita!',
+                        'Proposta aceita com sucesso.',
+                        'success'
+                    )
+                })
             }
         }
     });

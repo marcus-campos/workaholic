@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Proposal;
 
 use App\Http\Requests\ProposalRequest;
 use App\Models\Job;

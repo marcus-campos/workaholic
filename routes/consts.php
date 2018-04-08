@@ -3,16 +3,16 @@
 /*
  * USER
  */
-const USER_DASHBOARD = 'User\DashboardController';
-const USER_JOB = 'User\JobController';
-const USER_PROPOSAL = 'User\ProposalController';
-const USER_PROPOSAL_COMMENT = 'User\ProposalCommentController';
+const USER_DASHBOARD = 'User\Dashboard\DashboardController';
+const USER_JOB = 'User\Job\JobController';
+const USER_PROPOSAL = 'User\Proposal\ProposalController';
+const USER_PROPOSAL_COMMENT = 'User\Proposal\ProposalCommentController';
 
 /*
  * ADMIN
  */
 
-const ADMIN_DASHBOARD = 'Admin\DashboardController';
+const ADMIN_DASHBOARD = 'Admin\DashboardController\Dashboard';
 
 /*
  * AUTH

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Job;
 
 use App\Http\Requests\JobRequest;
 use App\Models\City;

@@ -71,6 +71,8 @@
                             Proposta de @{{ proposal.user.name }}
                         </h3>
                         <div class="portlet-widgets">
+                            <a class="btn btn-sm btn-success waves-effect waves-light" @click="acceptProposal(proposal)">Aceitar proposta</a>
+                            <span class="divider"></span>
                             <a href="javascript:;" data-toggle="reload" @click="getJob()"><i class="ion-refresh"></i></a>
                             <span class="divider"></span>
                             <a data-toggle="collapse" data-parent="#proposalAccordion" :href="'#portlet_proposal_' + proposal.id" class="" aria-expanded="true"><i class="ion-minus-round"></i></a>
@@ -162,7 +164,7 @@
 @endsection
 
 @section('section-css')
-
+    <link href="{{ asset('plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
 @endsection
 
 @section('section-js')
@@ -171,6 +173,7 @@
         const _csrf_token = '{{ csrf_token() }}';
         const _userId = '{{ auth()->id() }}';
     </script>
+    <script src="{{ asset('plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('js/vue/filters.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/vue/job/proposal/show.js') }}" type="text/javascript"></script>
 @endsection

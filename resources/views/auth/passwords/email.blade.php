@@ -58,10 +58,10 @@
 
 @endsection
 
-@section('extra-css')
+@section('section-css')
 
 @endsection
 
-@section('extra-js')
+@section('section-js')
 
 @endsection

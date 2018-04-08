@@ -12,5 +12,5 @@
 
     @yield('component-css')
 
-    @yield('extra-css')
+    @yield('section-css')
 @endsection
