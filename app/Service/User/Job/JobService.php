@@ -65,8 +65,9 @@ class JobService
     public function indexAll()
     {
         $jobs = Job::with(['jobCategory', 'city', 'proposals'])
-            ->whereHas('proposals', function ($query) {
-                $query->where('status', 'waiting');
+            ->whereDoesntHave('proposals', function ($query) {
+                $query->where('status', 'accepted')
+                    ->orWhere('status', 'rejected');
             });
 
         return $jobs;

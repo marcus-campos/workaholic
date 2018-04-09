@@ -2,6 +2,7 @@
     new Vue({
         el: '#proposal',
         data: {
+            pageLoading: true,
             jobId: _jobId,
             userId: _userId,
             job: {},
@@ -22,10 +23,13 @@
             getJob() {
                 let vm = this;
 
+                vm.pageLoading = true;
+
                 let pageUrl = window.location.origin + '/json/proposal/job/'+ vm.jobId;
 
                 vm.$http.get(pageUrl).then(function (data) {
                     vm.job = data.data;
+                    vm.pageLoading = false;
                 }, function (error) {
                     swal(
                         'Ooops...',
@@ -74,13 +78,6 @@
                         $.fn.niceScroll &&  $(".nicescroll").niceScroll({ cursorcolor: '#98a6ad',cursorwidth:'6px', cursorborderradius: '5px'});
                     }
                 }, 500);
-            },
-            resizeNiceScroll() {
-                console.log('cu');
-                setTimeout(() => {
-                    $(".nicescroll").niceScroll({ cursorcolor: '#98a6ad',cursorwidth:'6px', cursorborderradius: '5px'});
-                    $(".nicescroll").getNiceScroll().resize();
-                }, 1000);
             },
             acceptProposal(proposal) {
                 let vm = this;

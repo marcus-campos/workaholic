@@ -2,7 +2,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 400px;
 }
 
 .job-list-description {
@@ -67,6 +66,16 @@
 
 .forced.enlarged ~ .content-page {
     margin-left: 72px;
+}
+
+.job-action-btn {
+    color: #98a6ad;
+    display: inline-block;
+    width: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+    font-size: 20px;
 }
 
 @media only screen and (max-width: 500px) {
