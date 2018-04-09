@@ -45,11 +45,11 @@
                                 <b>Descrição: </b> <span class="text-muted">@{{ job.description }}</span>
                             </p>
                         </div>
-                        <div class="col-sm-2 job-action-btn">
-                            <a :href="'{{ url('/') }}/user/job/' + job.id" class="table-action-btn" v-show="page === '/user/job'"><i class="fa fa-eye"></i></a>
-                            <a :href="'{{ url('/') }}/user/proposal/job/' + job.id" class="table-action-btn" v-show="page !== '/user/job'"><i class="md md-assignment"></i></a>
-                            <a :href="'{{ url('/') }}/user/job/' + job.id + '/edit'" class="table-action-btn" v-show="page === '/user/job/client'"><i class="md md-edit"></i></a>
-                            <a href="#" @click="submitDelete(job)" class="table-action-btn" v-show="page === '/user/job/client'"><i class="md md-close"></i></a>
+                        <div class="col-sm-2">
+                            <a :href="'{{ url('/') }}/user/job/' + job.id" class="job-action-btn" v-show="page === '/user/job'"><i class="fa fa-eye"></i></a>
+                            <a :href="'{{ url('/') }}/user/proposal/job/' + job.id" class="job-action-btn" v-show="page !== '/user/job'"><i class="md md-assignment"></i></a>
+                            <a :href="'{{ url('/') }}/user/job/' + job.id + '/edit'" class="job-action-btn" v-show="page === '/user/job/client'"><i class="md md-edit"></i></a>
+                            <a href="#" @click="submitDelete(job)" class="job-action-btn" v-show="page === '/user/job/client'"><i class="md md-close"></i></a>
                         </div>
                     </div>
                 </div>
