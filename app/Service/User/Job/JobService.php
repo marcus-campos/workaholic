@@ -97,12 +97,12 @@ class JobService
      * @param $userId
      * @return bool
      */
-    public function hasAcceptedProposalForMe($jobId, $userId)
+    public function hasAcceptedProposalForMe($jobId)
     {
         $jobCount = Job::with(['proposals'])
             ->where('id', $jobId)
-            ->whereHas('proposals', function ($query) use($userId) {
-                $query->where('status', 'accepted')->where('user_id', $userId);
+            ->whereHas('proposals', function ($query) {
+                $query->where('status', 'accepted')->where('user_id', auth()->id());
             })
             ->count();
 

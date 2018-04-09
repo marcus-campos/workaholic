@@ -39,10 +39,11 @@ class ProposalCommentController extends Controller
      */
     public function store(ProposalCommentsRequest $request)
     {
-        $jobId = Proposal::find($request->proposal_id)->job_id;
+        $requestAll = $request->all();
+        $jobId = Proposal::find($requestAll['proposal_id'])->job_id;
 
         if ($this->jobService->hasAcceptedProposal($jobId)) {
-            if (!$this->jobService->hasAcceptedProposalForMe($jobId, $request->user_id)) {
+            if (!$this->jobService->hasAcceptedProposalForMe($jobId)) {
                 return response()->json([
                     'status' => Response::HTTP_UNAUTHORIZED,
                     'msg' => 'Você não pode comentar em um serviço cujo a sua proposta não foi aceita.'
