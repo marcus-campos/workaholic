@@ -65,6 +65,10 @@
     letter-spacing: 0.03em;
 }
 
+.forced.enlarged ~ .content-page {
+    margin-left: 72px;
+}
+
 @media only screen and (max-width: 500px) {
     .job-list-title {
         white-space: nowrap;
