@@ -131,7 +131,7 @@
                                     <div class="col-sm-12">
                                         <div class="product-right-info">
                                             <hr/>
-                                            <h5 class="font-600">Comentários</h5>
+                                            <h5 class="font-600">Comentários <span class="label label-info">@{{ proposal.comments.length <= 999 ? proposal.comments.length: '999+' }}</span></h5>
                                         </div>
                                     </div>
                                 </div>
