@@ -115,6 +115,23 @@ class JobService
     }
 
     /**
+     * @param $jobId
+     * @return bool
+     */
+    public function iAmOwner($jobId)
+    {
+        $jobCount = Job::where('id', $jobId)
+            ->where('user_id', auth()->id())
+            ->count();
+
+        if ($jobCount > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @param $id
      */
     public function destroy($id)

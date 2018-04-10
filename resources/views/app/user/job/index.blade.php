@@ -30,7 +30,7 @@
 
                     <div class="row">
                         <div class="col-sm-10">
-                            <h4 class="m-t-0 m-b-20 job-list-title"><b>@{{ job.title }}</b></h4>
+                            <a :href="'{{ url('/') }}/user/job/' + job.id"><h4 class="m-t-0 m-b-20 job-list-title"><b>@{{ job.title }}</b></h4></a>
                             <p class="text-dark m-b-1"><b>Categoria: </b> <span class="text-muted">@{{ job.job_category.name }}</span></p>
                             <p class="text-dark m-b-1"><b>Data de cadastro: </b> <span class="text-muted"> @{{ job.created_at | c-dmy }} </span></p>
                             <p class="text-dark m-b-1"><b>Cidade:</b> <span class="text-muted"> @{{ job.city.name }} </span></p>

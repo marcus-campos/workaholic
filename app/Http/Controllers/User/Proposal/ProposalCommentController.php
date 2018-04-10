@@ -44,10 +44,12 @@ class ProposalCommentController extends Controller
 
         if ($this->jobService->hasAcceptedProposal($jobId)) {
             if (!$this->jobService->hasAcceptedProposalForMe($jobId)) {
-                return response()->json([
-                    'status' => Response::HTTP_UNAUTHORIZED,
-                    'msg' => 'Você não pode comentar em um serviço cujo a sua proposta não foi aceita.'
-                ], Response::HTTP_UNAUTHORIZED);
+                if (!$this->jobService->iAmOwner($jobId)) {
+                    return response()->json([
+                        'status' => Response::HTTP_UNAUTHORIZED,
+                        'msg' => 'Você não pode comentar em um serviço cujo a sua proposta não foi aceita.'
+                    ], Response::HTTP_UNAUTHORIZED);
+                }
             }
         }
 
