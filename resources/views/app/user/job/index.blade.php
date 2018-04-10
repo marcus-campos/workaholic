@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-sm-2">
                             <a :href="'{{ url('/') }}/user/job/' + job.id" class="job-action-btn" v-show="page === '/user/job'"><i class="md md-open-in-browser"></i></a>
-                            <a :href="'{{ url('/') }}/user/proposal/job/' + job.id" class="job-action-btn" v-show="page !== '/user/job'"><i class="md md-assignment"></i></a>
+                            <a :href="'{{ url('/') }}/user/proposal/job/' + job.id" class="job-action-btn" v-show="page !== '/user/job' && job.proposals_count > 0"><i class="md md-assignment"></i></a>
                             <a :href="'{{ url('/') }}/user/job/' + job.id + '/edit'" class="job-action-btn" v-show="page === '/user/job/client'"><i class="md md-edit"></i></a>
                             <a href="#" @click="submitDelete(job)" class="job-action-btn" v-show="page === '/user/job/client'"><i class="md md-close"></i></a>
                         </div>

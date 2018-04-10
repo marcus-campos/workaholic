@@ -40,6 +40,7 @@ class JobService
     public function indexByClientId()
     {
         $jobs = Job::with(['jobCategory', 'city'])
+            ->withCount('proposals')
             ->where('user_id', auth()->id());
 
         return $jobs;
@@ -51,6 +52,7 @@ class JobService
     public function indexByWorker()
     {
         $jobs = Job::with(['jobCategory', 'city', 'proposals'])
+            ->withCount('proposals')
             ->whereHas('proposals', function ($query) {
                 $query->where('user_id', auth()->id());
             }
