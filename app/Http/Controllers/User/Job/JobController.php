@@ -133,6 +133,12 @@ class JobController extends Controller
     {
         $jobCategories = JobCategory::all();
         $job = Job::find($id);
+
+        //Validando se a pessoa que está acessando pode editar este job
+        if ($job->user_id != auth()->id()) {
+            return redirect()->to(route('user.job.index'));
+        }
+
         return view('app.user.job.edit', compact('job', 'jobCategories'));
     }
 

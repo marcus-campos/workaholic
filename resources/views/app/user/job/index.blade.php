@@ -31,22 +31,23 @@
                     <div class="row">
                         <div class="col-sm-10">
                             <a :href="'{{ url('/') }}/user/job/' + job.id"><h4 class="m-t-0 m-b-20 job-list-title"><b>@{{ job.title }}</b></h4></a>
-                            <p class="text-dark m-b-1"><b>Categoria: </b> <span class="text-muted">@{{ job.job_category.name }}</span></p>
-                            <p class="text-dark m-b-1"><b>Data de cadastro: </b> <span class="text-muted"> @{{ job.created_at | c-dmy }} </span></p>
-                            <p class="text-dark m-b-1"><b>Cidade:</b> <span class="text-muted"> @{{ job.city.name }} </span></p>
-                            <p class="text-dark m-b-1"><b>Bairro:</b> <span class="text-muted"> @{{ job.neighborhood }} </span></p>
-                            <p class="text-dark m-b-1">
+                            <p class="text-dark m-b-20 job-list-description">
+                                <span class="text-muted">@{{ job.description }}</span>
+                            </p>
+                            <p class="text-dark m-b-0"><b>Publicado em: </b> <span class="text-muted"> @{{ job.created_at | c-dmy }} </span></p>
+                            <p class="text-dark m-b-0"><b>Profissionais interessados: </b> <span class="text-muted"> @{{ job.proposals_count }} </span></p>
+                            <p class="text-dark m-b-0"><b>Categoria: </b> <span class="text-muted">@{{ job.job_category.name }}</span></p>
+                            <p class="text-dark m-b-0"><b>Cidade:</b> <span class="text-muted"> @{{ job.city.name }} </span></p>
+                            <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted"> @{{ job.neighborhood }} </span></p>
+                            <p class="text-dark m-b-0">
                                 <b>Quando? </b>
                                 <b>Dia: </b> <span class="text-muted"> @{{ job.specific_date | c-dmy }} </span>
                                 <b>De: </b> <span class="text-muted"> @{{ job.initial_time | c-HHss }} </span>
                                 <b>Até: </b> <span class="text-muted"> @{{ job.final_time | c-HHss }} </span>
                             </p>
-                            <p class="text-dark m-b-0 job-list-description">
-                                <b>Descrição: </b> <span class="text-muted">@{{ job.description }}</span>
-                            </p>
                         </div>
                         <div class="col-sm-2">
-                            <a :href="'{{ url('/') }}/user/job/' + job.id" class="job-action-btn" v-show="page === '/user/job'"><i class="fa fa-eye"></i></a>
+                            <a :href="'{{ url('/') }}/user/job/' + job.id" class="job-action-btn" v-show="page === '/user/job'"><i class="md md-open-in-browser"></i></a>
                             <a :href="'{{ url('/') }}/user/proposal/job/' + job.id" class="job-action-btn" v-show="page !== '/user/job'"><i class="md md-assignment"></i></a>
                             <a :href="'{{ url('/') }}/user/job/' + job.id + '/edit'" class="job-action-btn" v-show="page === '/user/job/client'"><i class="md md-edit"></i></a>
                             <a href="#" @click="submitDelete(job)" class="job-action-btn" v-show="page === '/user/job/client'"><i class="md md-close"></i></a>

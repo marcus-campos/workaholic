@@ -21,11 +21,7 @@
                                     <div class="col-sm-12">
                                         <div class="product-right-info">
                                             <h4><b>@{{ job.title }}</b></h4>
-
                                             <hr/>
-
-                                            <h5 class="font-600">Descrição</h5>
-
                                             <p class="text-muted">@{{ job.description }}</p>
                                         </div>
                                     </div>
@@ -107,9 +103,6 @@
                                     <div class="col-sm-12">
                                         <div class="product-right-info">
                                             <hr/>
-
-                                            <h5 class="font-600">Descrição</h5>
-
                                             <p class="text-muted"> @{{ proposal.description }}</p>
                                         </div>
                                     </div>
