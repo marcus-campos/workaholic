@@ -1,8 +1,8 @@
 .job-list-title {
+    color: #36404a;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 400px;
 }
 
 .job-list-description {
@@ -52,6 +52,36 @@
 .comment-box {
     max-height: 250px;
     min-height: 20px;
+}
+
+.proposal-title {
+    color: #797979 !important;
+    float: right;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.forced.enlarged ~ .content-page {
+    margin-left: 72px;
+}
+
+.job-action-btn {
+    color: #98a6ad;
+    display: inline-block;
+    width: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+    font-size: 26px;
+}
+
+.job-action-btn :hover {
+    color: #2bbbad;
+    border-color: #2bbbad;
 }
 
 @media only screen and (max-width: 500px) {

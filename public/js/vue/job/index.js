@@ -41,13 +41,36 @@
                 let vm = this;
                 vm.getJobs();
             }),
-            submitDelete: function (id) {
+            submitDelete: function (job) {
                 let vm = this;
 
-                pageUrl = window.location.origin + '/user/job/'+ id;
+                pageUrl = window.location.origin + '/user/job/'+ job.id;
 
-                vm.$http.post(pageUrl, {'_method': 'DELETE'}, { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
-                    vm.getJobs()
+                swal({
+                    title: 'Você está certo disto?',
+                    text: "Você realmente deseja apagar o trabalho \"" + job.title + "\"?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger m-l-10',
+                    confirmButtonText: 'Sim',
+                    cancelButtonText: 'Cancelar'
+                }).then(function () {
+                    vm.$http.post(pageUrl, {'_method': 'DELETE'}, { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
+                        vm.getJobs();
+
+                        swal(
+                            'Deletado!',
+                            'O trabalho "'+ job.title + '" foi deletado com sucesso!',
+                            'success'
+                        );
+                    }, function (error) {
+                        swal(
+                            'Oops, algo deu errado...',
+                            error.body.error,
+                            'error'
+                        )
+                    });
                 });
             },
             makePagination: function (data) {

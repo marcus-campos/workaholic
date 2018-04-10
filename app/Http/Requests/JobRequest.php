@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Job;
 use Illuminate\Foundation\Http\FormRequest;
 
 class JobRequest extends FormRequest
@@ -13,7 +14,33 @@ class JobRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $routePath = explode('/', $this->decodedPath());
+        $authorize = false;
+
+        if (isset($routePath[0]) && isset($routePath[1])) {
+
+            if (
+                $routePath[0] == 'user' &&
+                $routePath[1] == 'job' &&
+                !isset($routePath[2])
+            ) {
+                $authorize = true;
+            }
+
+            if (
+                $routePath[0] == 'user' &&
+                $routePath[1] == 'job' &&
+                isset($routePath[2])
+            ) {
+                $job = Job::find($routePath[2]);
+
+                if($job->user_id == auth()->id()) {
+                    $authorize = true;
+                }
+            }
+        }
+
+        return $authorize;
     }
 
     /**

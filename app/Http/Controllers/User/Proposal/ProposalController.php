@@ -51,7 +51,7 @@ class ProposalController extends Controller
             return response()->json($acceptedProposal, $acceptedProposal['status']);
         }
 
-        return  response()->json([
+        return response()->json([
             'status' => Response::HTTP_OK,
             'msg' => 'Proposta aceita com sucesso!'
         ], Response::HTTP_OK);

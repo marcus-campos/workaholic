@@ -66,7 +66,7 @@
 
         <div class="form-group m-b-20">
             <label>Descrição<span class="text-danger">*</span></label>
-            <textarea class="form-control" name="description" rows="5" placeholder="Ex: Preciso de uma pessoa para instalar várias antenas preparadas para o sinal digital no meu condominio.">{{ inputValue('description', get_defined_vars(), ['job' => 'description']) }}</textarea>
+            <textarea class="form-control" name="description" rows="5" placeholder="Ex: Preciso de uma pessoa para instalar várias antenas preparadas para o sinal digital no meu condomínio.">{{ inputValue('description', get_defined_vars(), ['job' => 'description']) }}</textarea>
         </div>
 
         <hr>
