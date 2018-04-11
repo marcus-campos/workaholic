@@ -127,11 +127,15 @@ class JobController extends Controller
     public function show($id)
     {
         // Redireciona se a pessoa ja tiver 1 proposta aceita
-        if (!$this->proposalService->checkIfHasOneAcceptedProposal($id)) {
-            return redirect()->to(route('user.job.index'));
+        if ($this->proposalService->hasAcceptedProposal($id)) {
+            if (!$this->proposalService->hasAcceptedProposalForMe($id)) {
+                if (!$this->proposalService->iAmOwner($id)) {
+                    return redirect()->to(route('user.job.index'));
+                }
+            }
         }
 
-        $job = Job::find($id);
+        $job = Job::withCount('proposals')->find($id);
         return view('app.user.job.show', compact('job'));
     }
 

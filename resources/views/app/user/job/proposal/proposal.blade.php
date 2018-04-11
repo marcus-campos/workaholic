@@ -20,7 +20,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="product-right-info">
-                                            <h4><b>@{{ job.title }}</b></h4>
+                                            <a :href="'{{ url('/') }}/user/job/' + job.id"><h4 class="m-t-0 m-b-20 job-list-title"><b>@{{ job.title }}</b></h4></a>
                                             <hr/>
                                             <p class="text-muted">@{{ job.description }}</p>
                                         </div>
@@ -28,8 +28,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="font-13 m-t-20">
+                                        <div class="m-t-20">
                                             <div>
+                                                <p class="text-dark m-b-0"><b>Publicado em: </b> <span class="text-muted"> @{{ job.created_at | c-dmy }} </span></p>
+                                                <p class="text-dark m-b-0"><b>Profissionais interessados: </b> <span class="text-muted"> @{{ job.proposals_count }} </span></p>
                                                 <p class="text-dark m-b-0"><b>Categoria: </b> <span class="text-muted"> @{{ job.job_category.name }} </span></p>
                                                 <p class="text-dark m-b-0"><b>Cidade:</b> <span class="text-muted"> @{{ job.city.name }} </span></p>
                                                 <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted"> @{{ job.neighborhood }} </span></p>
@@ -109,9 +111,9 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="font-13 m-t-20">
+                                        <div class="m-t-20">
                                             <div>
-                                                <p class="text-dark m-b-0"><b>Valor cobrado: </b> <span class="text-muted"> @{{ proposal.net_value }} </span></p>
+                                                <p class="text-dark m-b-0"><b>Valor cobrado: </b> <span class="text-muted"> @{{ proposal.net_value | currency('R$ ', 2, {thousandsSeparator: '.', decimalSeparator: ','}) }} </span></p>
                                                 <p class="text-dark m-b-0"><b>Tempo necessário para terminar o trabalho:</b> <span class="text-muted"> @{{ proposal.time_to_finish_the_job }} </span></p>
                                             </div>
                                         </div>
@@ -187,6 +189,7 @@
         const _userId = '{{ auth()->id() }}';
     </script>
     <script src="{{ asset('plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vue/plugins/vue2-filters.min.js') }}"></script>
     <script src="{{ asset('js/vue/filters.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/vue/job/proposal/show.js') }}" type="text/javascript"></script>
 @endsection

@@ -31,7 +31,8 @@ class ProposalService
             'proposals.user',
             'proposals.comments',
             'proposals.comments.user'
-        ])->where('id', $id)
+        ])->withCount('proposals')
+            ->where('id', $id)
             ->where('user_id', auth()->id())
             ->first();
 
@@ -46,7 +47,8 @@ class ProposalService
                 'proposals.user',
                 'proposals.comments',
                 'proposals.comments.user'
-            ])->where('id', $id)
+            ])->withCount('proposals')
+                ->where('id', $id)
                 ->first();
         }
 
@@ -79,7 +81,7 @@ class ProposalService
     {
         $proposal = Proposal::with('job')->find($id);
 
-        $checkIfHasOneAcceptedProposal = $this->checkIfHasOneAcceptedProposal($proposal->job_id);
+        $checkIfHasOneAcceptedProposal = $this->hasAcceptedProposal($proposal->job_id);
 
         if($checkIfHasOneAcceptedProposal) {
             return [
@@ -106,13 +108,58 @@ class ProposalService
         return $acceptedProposal;
     }
 
-    public function checkIfHasOneAcceptedProposal($jobId)
+    /**
+     * @param $jobId
+     * @return bool
+     */
+    public function hasAcceptedProposal($jobId)
     {
-        $checkIfHasOneAcceptedProposal = Proposal::where('job_id', $jobId)
-            ->where('status', 'accepted')
+        $jobCount = Job::with(['proposals'])
+            ->where('id', $jobId)
+            ->whereHas('proposals', function ($query) {
+                $query->where('status', 'accepted');
+            })
             ->count();
 
-        if($checkIfHasOneAcceptedProposal > 0) {
+        if ($jobCount > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $jobId
+     * @param $userId
+     * @return bool
+     */
+    public function hasAcceptedProposalForMe($jobId)
+    {
+        $jobCount = Job::with(['proposals'])
+            ->where('id', $jobId)
+            ->whereHas('proposals', function ($query) {
+                $query->where('status', 'accepted')->where('user_id', auth()->id());
+            })
+            ->count();
+
+        if ($jobCount > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $jobId
+     * @return bool
+     */
+    public function iAmOwner($jobId)
+    {
+        $jobCount = Job::where('id', $jobId)
+            ->where('user_id', auth()->id())
+            ->count();
+
+        if ($jobCount > 0) {
             return true;
         }
 

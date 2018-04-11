@@ -8,6 +8,7 @@ use App\Models\Proposal;
 use App\Models\ProposalComment;
 use App\Service\User\Job\JobService;
 use App\Service\User\Proposal\ProposalCommentService;
+use App\Service\User\Proposal\ProposalService;
 use Illuminate\Http\Response;
 
 class ProposalCommentController extends Controller
@@ -17,20 +18,20 @@ class ProposalCommentController extends Controller
      */
     private $proposalCommentService;
     /**
-     * @var JobService
+     * @var ProposalService
      */
-    private $jobService;
+    private $proposalService;
+
 
     /**
      * ProposalCommentController constructor.
      * @param ProposalCommentService $proposalCommentService
-     * @param JobService $jobService
+     * @param ProposalService $proposalService
      */
-    public function __construct(ProposalCommentService $proposalCommentService,
-                                JobService $jobService)
+    public function __construct(ProposalCommentService $proposalCommentService, ProposalService $proposalService)
     {
         $this->proposalCommentService = $proposalCommentService;
-        $this->jobService = $jobService;
+        $this->proposalService = $proposalService;
     }
 
     /**
@@ -42,9 +43,9 @@ class ProposalCommentController extends Controller
         $requestAll = $request->all();
         $jobId = Proposal::find($requestAll['proposal_id'])->job_id;
 
-        if ($this->jobService->hasAcceptedProposal($jobId)) {
-            if (!$this->jobService->hasAcceptedProposalForMe($jobId)) {
-                if (!$this->jobService->iAmOwner($jobId)) {
+        if ($this->proposalService->hasAcceptedProposal($jobId)) {
+            if (!$this->proposalService->hasAcceptedProposalForMe($jobId)) {
+                if (!$this->proposalService->iAmOwner($jobId)) {
                     return response()->json([
                         'status' => Response::HTTP_UNAUTHORIZED,
                         'msg' => 'Você não pode comentar em um serviço cujo a sua proposta não foi aceita.'

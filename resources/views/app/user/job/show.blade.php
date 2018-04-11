@@ -12,16 +12,16 @@
 
                             <hr/>
 
-                            <h5 class="font-600">Descrição</h5>
-
                             <p class="text-muted">{{ inputValue('description', get_defined_vars(), ['job' => 'description']) }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="font-13 m-t-20">
+                        <div class="m-t-20">
                             <div>
+                                <p class="text-dark m-b-0"><b>Publicado em: </b> <span class="text-muted">{{ date('d/m/Y', strtotime($job->created_at)) }} </span></p>
+                                <p class="text-dark m-b-0"><b>Profissionais interessados: </b> <span class="text-muted"> {{ $job->proposals_count }} </span></p>
                                 <p class="text-dark m-b-0"><b>Categoria: </b> <span class="text-muted">{{ $job->jobCategory->name }}</span></p>
                                 <p class="text-dark m-b-0"><b>Cidade:</b> <span class="text-muted">{{ (new \App\Models\City())->cityFromToName($job->city_id) }}</span></p>
                                 <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted">{{ $job->neighborhood }}</span></p>
@@ -35,20 +35,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row m">
                     <div class="col-sm-6">
-                        @if($job->user_id != auth()->id())
                         <div class="m-t-20">
-                            <button type="button" class="btn btn-default waves-effect waves-light m-l-10" @click="showHideProposal()" v-show="showProposalButton">
+                            <button type="button" class="btn btn-default waves-effect waves-light" @click="showHideProposal()" v-show="showProposalButton">
                                                              <span class="btn-label"><i class="md md-assignment"></i>
                                                            </span>Fazer um proposta</button>
 
-                            <button type="button" class="btn btn-info waves-effect waves-light m-l-10" @click="redirectToProposal()" v-show="showProposalFollowingButton">
+                            <button type="button" class="btn btn-info waves-effect waves-light" @click="redirectToProposal()" v-show="showProposalFollowingButton">
                                                              <span class="btn-label"><i class="md md-assignment"></i>
-                                                           </span>Acompanhar proposta</button>
+                                                           </span>Acompanhar proposta<span v-if="isMe(_ownerId)">s</span></button>
 
                         </div>
-                        @endif
                     </div>
                     <div class="col-sm-6">
                         <p class="text-dark m-t-40 pull-right font-10">
@@ -64,12 +62,15 @@
         @include('app.user.job.partials.new-proposal')
     @endif
 </div>
+<script>
+    const _jobId = '{{ $job->id }}';
+    const _userId = '{{ auth()->id() }}';
+    const _ownerId = '{{ $job->user_id }}';
+    const _csrf_token = '{{ csrf_token() }}';
+</script>
 @endsection
 
 @section('section-js')
-    <script>
-        const _jobId = '{{ $job->id }}';
-        const _csrf_token = '{{ csrf_token() }}';
-    </script>
+    <script src="{{ asset('plugins/autoNumeric/autoNumeric.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/vue/job/show.js') }}" type="text/javascript"></script>
 @endsection

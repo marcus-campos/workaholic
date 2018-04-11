@@ -75,63 +75,6 @@ class JobService
         return $jobs;
     }
 
-    /**
-     * @param $jobId
-     * @return bool
-     */
-    public function hasAcceptedProposal($jobId)
-    {
-        $jobCount = Job::with(['proposals'])
-            ->where('id', $jobId)
-            ->whereHas('proposals', function ($query) {
-                $query->where('status', 'accepted');
-            })
-            ->count();
-
-        if ($jobCount > 0) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param $jobId
-     * @param $userId
-     * @return bool
-     */
-    public function hasAcceptedProposalForMe($jobId)
-    {
-        $jobCount = Job::with(['proposals'])
-            ->where('id', $jobId)
-            ->whereHas('proposals', function ($query) {
-                $query->where('status', 'accepted')->where('user_id', auth()->id());
-            })
-            ->count();
-
-        if ($jobCount > 0) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param $jobId
-     * @return bool
-     */
-    public function iAmOwner($jobId)
-    {
-        $jobCount = Job::where('id', $jobId)
-            ->where('user_id', auth()->id())
-            ->count();
-
-        if ($jobCount > 0) {
-            return true;
-        }
-
-        return false;
-    }
 
     /**
      * @param $id

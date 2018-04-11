@@ -37,7 +37,7 @@ class ProposalController extends Controller
     {
         $jobId = $request->all()['job_id'];
 
-        if ($this->proposalService->checkIfHasOneAcceptedProposal($jobId)) {
+        if ($this->proposalService->hasAcceptedProposal($jobId)) {
             return [
                 'status' => Response::HTTP_CONFLICT,
                 'error' => 'Ja existe uma proposta aceita para este serviço'
