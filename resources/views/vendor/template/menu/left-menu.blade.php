@@ -4,8 +4,8 @@
             <!--- Divider -->
             <div id="sidebar-menu">
                 <ul>
-                    @includeWhen((auth()->check() && auth()->user()->role == 'user'), 'default.menu.user')
                     @includeWhen((auth()->check() && auth()->user()->role == 'admin'), 'default.menu.admin')
+                    @include('default.menu.user')
                 </ul>
                 <div class="clearfix"></div>
             </div>

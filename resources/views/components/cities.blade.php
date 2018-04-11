@@ -1,4 +1,8 @@
-<select class="form-control select2 select2-hidden-accessible" id="city_id" name="city_id"></select>
+<div id="city-partial">
+    <select class="form-control select2 select2-hidden-accessible" id="city_id" name="city_id">
+        <option></option>
+    </select>
+</div>
 
 @section('component-css')
     <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
@@ -7,40 +11,5 @@
 @section('component-js')
     <script src="{{ asset('plugins/select2/js/select2.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('plugins/select2/js/i18n/pt-BR.js') }}" type="text/javascript"></script>
-
-    <script>
-        $(function() {
-            loadCities();
-            function loadCities() {
-                $.getJSON('{{ asset('json/cities/estados-cidades.json') }}', function (json) {
-                    var dataResult = [];
-                    json.estados.forEach(function (currentValue, index, arr) {
-
-                        var cities = [];
-                        currentValue.cidades.forEach(function (currentCity, index, arr) {
-                            cities.push({
-                                id: currentCity,
-                                text: currentCity
-                            })
-                        });
-
-                        dataResult.push({
-                            text: currentValue.nome,
-                            children: cities
-                        });
-                    });
-
-                    $('#city_id').select2({
-                        "language": "pt-BR",
-                        placeholder: "Selecione uma cidade",
-                        data: dataResult
-                    });
-
-                    setTimeout(function () {
-                        $('#city_id').val(null).trigger('change');
-                    }, 100)
-                });
-            }
-        });
-    </script>
+    <script src="{{ asset('js/vue/cities/cities.js') }}" type="text/javascript"></script>
 @endsection

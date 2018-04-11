@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Job;
 use App\Models\JobCategory;
 use App\Service\User\Job\JobService;
+use App\Service\User\Proposal\ProposalService;
 use App\Util\DataMaker\DataMakerTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,12 +19,17 @@ class JobController extends Controller
      * @var JobService
      */
     private $jobService;
+    /**
+     * @var ProposalService
+     */
+    private $proposalService;
 
     /**
      * JobController constructor.
      * @param JobService $jobService
+     * @param ProposalService $proposalService
      */
-    public function __construct(JobService $jobService)
+    public function __construct(JobService $jobService, ProposalService $proposalService)
     {
         $this->setFilterFillable([
             'title',
@@ -44,6 +50,7 @@ class JobController extends Controller
         ]);
 
         $this->jobService = $jobService;
+        $this->proposalService = $proposalService;
     }
 
     /**
@@ -119,7 +126,16 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $job = Job::find($id);
+        // Redireciona se a pessoa ja tiver 1 proposta aceita
+        if ($this->proposalService->hasAcceptedProposal($id)) {
+            if (!$this->proposalService->hasAcceptedProposalForMe($id)) {
+                if (!$this->proposalService->iAmOwner($id)) {
+                    return redirect()->to(route('user.job.index'));
+                }
+            }
+        }
+
+        $job = Job::withCount('proposals')->find($id);
         return view('app.user.job.show', compact('job'));
     }
 

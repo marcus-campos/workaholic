@@ -35,6 +35,15 @@ class ProposalController extends Controller
      */
     public function store(ProposalRequest $request)
     {
+        $jobId = $request->all()['job_id'];
+
+        if ($this->proposalService->hasAcceptedProposal($jobId)) {
+            return [
+                'status' => Response::HTTP_CONFLICT,
+                'error' => 'Ja existe uma proposta aceita para este serviço'
+            ];
+        }
+
         $proposal = $this->proposalService->persist($request);
         return $proposal;
     }
