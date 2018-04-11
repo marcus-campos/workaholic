@@ -2,7 +2,7 @@
 
 @section('container')
     <div id="proposal">
-        <div v-if="!pageLoading">
+        <div>
             <div class="row">
                 <div class="col-12">
                     <div class="portlet">
