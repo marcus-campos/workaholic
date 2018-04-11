@@ -80,15 +80,18 @@
 @section('section-js')
     <script>
         $(function() {
-            $('#job_category_id').select2({
-                placeholder: "Selecione uma categoria"
-            });
 
             $('#job_category_id').val(['{{ ($jobId = inputValue('job_category_id', get_defined_vars(), ['job' => 'job_category_id'])) ? $jobId : 'null' }}']).trigger('change');
 
             setTimeout(function () {
-                $('#city_id').val(['{{ ($cityId = inputValue('city_id', get_defined_vars(), ['job' => 'city_id'])) ? (is_string($cityId) ? (new \App\Models\City())->cityFromToId($cityId) : (new \App\Models\City())->cityFromToName($cityId)) : 'null' }}']).trigger('change');
+                $('#city_id').val(['{{ ($cityId = inputValue('city_id', get_defined_vars(), ['job' => 'city_id'])) }}']).trigger('change');
             }, 1000);
+
+            @if(!$jobId)
+                $('#job_category_id').select2({
+                    placeholder: "Selecione uma categoria"
+                });
+            @endif
         });
     </script>
 @endsection
