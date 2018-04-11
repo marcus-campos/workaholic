@@ -79,11 +79,9 @@ class ProposalService
     {
         $proposal = Proposal::with('job')->find($id);
 
-        $checkIfHasOneAcceptedProposal = Proposal::where('job_id', $proposal->job_id)
-            ->where('status', 'accepted')
-            ->count();
+        $checkIfHasOneAcceptedProposal = $this->checkIfHasOneAcceptedProposal($proposal->job_id);
 
-        if($checkIfHasOneAcceptedProposal > 0) {
+        if($checkIfHasOneAcceptedProposal) {
             return [
                 'status' => Response::HTTP_CONFLICT,
                 'error' => 'Ja existe uma proposta aceita'
@@ -106,5 +104,18 @@ class ProposalService
             ->update(['status' => 'rejected']);
 
         return $acceptedProposal;
+    }
+
+    public function checkIfHasOneAcceptedProposal($jobId)
+    {
+        $checkIfHasOneAcceptedProposal = Proposal::where('job_id', $jobId)
+            ->where('status', 'accepted')
+            ->count();
+
+        if($checkIfHasOneAcceptedProposal > 0) {
+            return true;
+        }
+
+        return false;
     }
 }

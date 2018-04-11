@@ -22,7 +22,6 @@ class JobService
     public function persist($request, $id = null)
     {
         $request = $request->all();
-        $request['city_id'] = (new City)->cityFromToId($request['city_id']);
         $request['user_id'] = auth()->user()->id;
 
         if ($id) {

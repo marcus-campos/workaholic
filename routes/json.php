@@ -25,4 +25,10 @@ Route::group(['prefix' => 'json', 'middleware' => 'auth'], function () {
      */
     Route::get('/proposal/comment', USER_PROPOSAL_COMMENT.'@index');
     Route::post('/proposal/comment', USER_PROPOSAL_COMMENT.'@store');
+
+    /*
+    *  City
+    */
+    Route::get('/city/name/{name}', CITY_CONTROLLER.'@getCityByName');
+
 });

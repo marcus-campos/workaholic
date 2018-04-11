@@ -16,9 +16,10 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if(!auth()->user()->role == 'admin') {
-            throw new \Exception("Somente administradores tem acesso a esta função.");
+        if(auth()->user()->role == 'admin') {
+            return $next($request);
         }
-        return $next($request);
+
+        throw new \Exception("Somente administradores tem acesso a esta função.");
     }
 }

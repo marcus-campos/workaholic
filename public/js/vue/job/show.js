@@ -21,7 +21,7 @@
             getProposal() {
                 let vm = this;
 
-                pageUrl = window.location.origin + '/json/proposal/job/'+ vm.jobId;
+                let pageUrl = window.location.origin + '/json/proposal/job/?name='+ vm.jobId;
 
                 vm.$http.get(pageUrl).then(function (data) {
                     vm.showProposalButton = false;
@@ -31,13 +31,12 @@
                         vm.showProposalButton = true;
                         vm.showProposalFollowingButton = false;
                     }
-
                 });
             },
             submitData() {
                 let vm = this;
 
-                pageUrl = window.location.origin + '/json/proposal';
+                let pageUrl = window.location.origin + '/json/proposal';
 
                 vm.$http.post(pageUrl, JSON.stringify(vm.proposal), { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
                     vm.redirectToProposal();
