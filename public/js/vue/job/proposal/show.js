@@ -2,7 +2,6 @@
     new Vue({
         el: '#proposal',
         data: {
-            pageLoading: true,
             jobId: _jobId,
             userId: _userId,
             job: {},
@@ -23,13 +22,10 @@
             getJob() {
                 let vm = this;
 
-                vm.pageLoading = true;
-
                 let pageUrl = window.location.origin + '/json/proposal/job/'+ vm.jobId;
 
                 vm.$http.get(pageUrl).then(function (data) {
                     vm.job = data.data;
-                    vm.pageLoading = false;
                 }, function (error) {
                     swal(
                         'Ooops...',

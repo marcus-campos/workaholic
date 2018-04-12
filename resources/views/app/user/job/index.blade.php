@@ -42,8 +42,8 @@
                             <p class="text-dark m-b-0">
                                 <b>Quando? </b>
                                 <b>Dia: </b> <span class="text-muted"> @{{ job.specific_date | c-dmy }} </span>
-                                <b>De: </b> <span class="text-muted"> @{{ job.initial_time | c-HHss }} </span>
-                                <b>Até: </b> <span class="text-muted"> @{{ job.final_time | c-HHss }} </span>
+                                <b>De: </b> <span class="text-muted"> @{{ job.initial_time | c-HHmm }} </span>
+                                <b>Até: </b> <span class="text-muted"> @{{ job.final_time | c-HHmm }} </span>
                             </p>
                         </div>
                         <div class="col-sm-2">
