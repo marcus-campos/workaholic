@@ -38,8 +38,8 @@
                                                 <p class="text-dark m-b-0">
                                                     <b>Quando? </b>
                                                     <b>Dia: </b> <span class="text-muted">@{{ job.specific_date | c-dmy }}</span>
-                                                    <b>De: </b> <span class="text-muted">@{{ job.initial_time | c-HHss }}</span>
-                                                    <b>Até: </b> <span class="text-muted">@{{ job.final_time | c-HHss }}</span>
+                                                    <b>De: </b> <span class="text-muted">@{{ job.initial_time | c-HHmm }}</span>
+                                                    <b>Até: </b> <span class="text-muted">@{{ job.final_time | c-HHmm }}</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -51,8 +51,8 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="text-dark m-t-40 pull-right font-10">
-                                            <b>Data de cadastro: </b> <span class="text-muted"> @{{ job.created_at | dmyHHss }}</span>
-                                            <b>&nbsp;Última atualização: </b> <span class="text-muted"> @{{ job.updated_at | dmyHHss }} </span>
+                                            <b>Data de cadastro: </b> <span class="text-muted"> @{{ job.created_at | dmyHHmm }}</span>
+                                            <b>&nbsp;Última atualização: </b> <span class="text-muted"> @{{ job.updated_at | dmyHHmm }} </span>
                                         </p>
                                     </div>
                                 </div>
@@ -124,8 +124,8 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="text-dark m-t-40 pull-right font-10">
-                                            <b>Data de cadastro: </b> <span class="text-muted"> @{{ proposal.created_at | dmyHHss }}</span>
-                                            <b>&nbsp;Última atualização: </b> <span class="text-muted"> @{{ proposal.updated_at | dmyHHss }} </span>
+                                            <b>Data de cadastro: </b> <span class="text-muted"> @{{ proposal.created_at | dmyHHmm }}</span>
+                                            <b>&nbsp;Última atualização: </b> <span class="text-muted"> @{{ proposal.updated_at | dmyHHmm }} </span>
                                         </p>
                                     </div>
                                 </div>
@@ -144,14 +144,14 @@
                                                 <div class="comment-body m-l-0 m-b-10">
                                                     <div class="comment-text" v-if="isMe(comment.user_id)">
                                                         <div class="comment-header">
-                                                            @{{ comment.user.name }}<span>@{{ comment.created_at | dmyHHss }}</span>
+                                                            @{{ comment.user.name }}<span>@{{ comment.created_at | dmyHHmm }}</span>
                                                         </div>
                                                         @{{ comment.description }}
                                                     </div>
 
                                                     <div class="comment-text-odd" v-else>
                                                         <div class="comment-header">
-                                                            @{{ comment.user.name }}<span>@{{ comment.created_at | dmyHHss }}</span>
+                                                            @{{ comment.user.name }}<span>@{{ comment.created_at | dmyHHmm }}</span>
                                                         </div>
                                                         @{{ comment.description }}
                                                     </div>
