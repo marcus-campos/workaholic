@@ -72,5 +72,5 @@
 
 @section('section-js')
     <script src="{{ asset('plugins/autoNumeric/autoNumeric.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/vue/job/show.js') }}" type="text/javascript"></script>
+    <script src="{{ url(mix('js/vue/job/show.js')) }}" type="text/javascript"></script>
 @endsection

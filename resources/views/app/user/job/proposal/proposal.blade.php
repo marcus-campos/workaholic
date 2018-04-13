@@ -190,6 +190,6 @@
     </script>
     <script src="{{ asset('plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('assets/js/vue/plugins/vue2-filters.min.js') }}"></script>
-    <script src="{{ asset('js/vue/filters.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/vue/job/proposal/show.js') }}" type="text/javascript"></script>
+    <script src="{{ url(mix('js/filters.js')) }}" type="text/javascript"></script>
+    <script src="{{ url(mix('js/proposalShow.js')) }}" type="text/javascript"></script>
 @endsection
