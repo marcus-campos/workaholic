@@ -28,7 +28,7 @@ mix.scripts([
 ], 'public/js/filters.js').version();
 
 //Proposal
-mix.scripts([
+mix.babel([
     'resources/assets/js/vue/job/proposal/show.js'
 ], 'public/js/proposalShow.js').version();
 
