@@ -11,5 +11,39 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+/**
+ * App
+ */
+
+//CSS
+mix.styles([
+    'resources/assets/css/app.css'
+], 'public/css/app.css').version();
+
+//Scripts JS
+
+//Filters
+mix.scripts([
+    'resources/assets/js/vue/filters.js'
+], 'public/js/filters.js').version();
+
+//Proposal
+mix.scripts([
+    'resources/assets/js/vue/job/proposal/show.js'
+], 'public/js/proposalShow.js').version();
+
+//Job
+mix.scripts([
+    'resources/assets/js/vue/job/index.js'
+], 'public/js/jobIndex.js').version();//Job
+
+mix.scripts([
+    'resources/assets/js/vue/job/show.js'
+], 'public/js/jobShow.js').version();
+
+/**
+ * Auth
+ */
+
+//CSS
+mix.styles(['resources/assets/css/auth.css'], 'public/css/auth.css').version();
