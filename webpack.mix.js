@@ -23,7 +23,7 @@ mix.styles([
 //Scripts JS
 
 //Filters
-mix.scripts([
+mix.babel([
     'resources/assets/js/vue/filters.js'
 ], 'public/js/filters.js').version();
 
@@ -33,13 +33,18 @@ mix.babel([
 ], 'public/js/proposalShow.js').version();
 
 //Job
-mix.scripts([
+mix.babel([
     'resources/assets/js/vue/job/index.js'
 ], 'public/js/jobIndex.js').version();//Job
 
-mix.scripts([
+mix.babel([
     'resources/assets/js/vue/job/show.js'
 ], 'public/js/jobShow.js').version();
+
+//Cities
+mix.babel([
+    'resources/assets/js/vue/cities/cities.js'
+], 'public/js/cities.js').version();
 
 /**
  * Auth

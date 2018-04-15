@@ -1,8 +1,1 @@
-.account-pages {
-    /*background-image: url("../assets/images/bg.png");*/
-    position: absolute;
-    background-size: cover;
-    height: 100%;
-    width: 100%;
-    top: 0;
-}
+.account-pages{position:absolute;background-size:cover;height:100%;width:100%;top:0}
