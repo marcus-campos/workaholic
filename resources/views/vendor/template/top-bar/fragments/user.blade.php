@@ -18,7 +18,7 @@
     @else
         <!-- item-->
         <a href="{{ route('login.form') }}" class="dropdown-item notify-item">
-            <i class="zmdi zmdi-account-circle"></i> <span>Entrar</span>
+            <i class="zmdi zmdi-account-circle"></i> <span>Ir para o login</span>
         </a>
     @endif
 @endsection

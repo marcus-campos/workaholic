@@ -8,6 +8,7 @@ const USER_JOB = 'User\Job\JobController';
 const USER_PROPOSAL = 'User\Proposal\ProposalController';
 const USER_PROPOSAL_COMMENT = 'User\Proposal\ProposalCommentController';
 const USER_PROFILE = 'User\Profile\ProfileController';
+const USER_MY_ACCOUNT = 'User\MyAccount\MyAccountController';
 
 /*
  * ADMIN

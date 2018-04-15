@@ -19,5 +19,4 @@
         if (!value) return '';
         return moment(value, 'hhmmss').format('HH:mm');
     });
-
 })();

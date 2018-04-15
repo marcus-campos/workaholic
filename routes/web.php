@@ -48,6 +48,13 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
 
     Route::get('profile/{id}', USER_PROFILE.'@show')->name('profile.index');
 
+    /*
+     * My Account
+     */
+
+    Route::group(['prefix' => 'my-account', 'as' => 'my-account.'], function () {
+        Route::get('/', USER_MY_ACCOUNT.'@index')->name('index');
+    });
 });
 
 /*

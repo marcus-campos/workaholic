@@ -13,44 +13,41 @@
                 disableSendButton: true
             }
         },
-        mounted() {
-            let vm = this;
+        mounted: function mounted() {
+            var vm = this;
             vm.getJob();
             vm.loadNiceScroll();
         },
-        methods: {
-            getJob() {
-                let vm = this;
 
-                let pageUrl = window.location.origin + '/json/proposal/job/'+ vm.jobId;
+        methods: {
+            getJob: function getJob() {
+                var vm = this;
+
+                var pageUrl = window.location.origin + '/json/proposal/job/' + vm.jobId;
 
                 vm.$http.get(pageUrl).then(function (data) {
                     vm.job = data.data;
                 }, function (error) {
-                    swal(
-                        'Ooops...',
-                        'Ainda não existe(m) proposta(s) para este trabalho',
-                        'warning'
-                    ).then(function () {
+                    swal('Ooops...', 'Ainda não existe(m) proposta(s) para este trabalho', 'warning').then(function () {
                         window.location.href = window.location.origin + '/user/job/client';
-                    })
+                    });
                 });
             },
-            submitComment(proposalId) {
-                let vm = this;
+            submitComment: function submitComment(proposalId) {
+                var vm = this;
 
-                let pageUrl = window.location.origin + '/json/proposal/comment';
+                var pageUrl = window.location.origin + '/json/proposal/comment';
 
                 if (vm.proposal !== {}) {
                     vm.commentData.proposal_id = proposalId;
-                    vm.$http.post(pageUrl, JSON.stringify(vm.commentData), { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
+                    vm.$http.post(pageUrl, JSON.stringify(vm.commentData), { headers: { 'X-CSRF-TOKEN': _csrf_token } }).then(function (data) {
                         vm.commentData.description = '';
                         vm.getJob();
                     });
                 }
             },
-            enableSendButton () {
-                let vm = this;
+            enableSendButton: function enableSendButton() {
+                var vm = this;
 
                 if (vm.commentData.description.length > 0) {
                     vm.commentData.disableSendButton = false;
@@ -59,26 +56,26 @@
 
                 vm.commentData.disableSendButton = true;
             },
-            isMe (id) {
-                let vm = this;
+            isMe: function isMe(id) {
+                var vm = this;
                 if (id == vm.userId) {
                     return true;
                 }
 
                 return false;
             },
-            loadNiceScroll() {
-                setInterval(() => {
+            loadNiceScroll: function loadNiceScroll() {
+                setInterval(function () {
                     if (document.readyState === 'complete') {
                         // run after page has finished loading
-                        $.fn.niceScroll &&  $(".nicescroll").niceScroll({ cursorcolor: '#98a6ad',cursorwidth:'6px', cursorborderradius: '5px'});
+                        $.fn.niceScroll && $(".nicescroll").niceScroll({ cursorcolor: '#98a6ad', cursorwidth: '6px', cursorborderradius: '5px' });
                     }
                 }, 500);
             },
-            acceptProposal(proposal) {
-                let vm = this;
+            acceptProposal: function acceptProposal(proposal) {
+                var vm = this;
 
-                let pageUrl = window.location.origin + '/user/proposal/accept';
+                var pageUrl = window.location.origin + '/user/proposal/accept';
 
                 swal({
                     title: 'Você está certo disto?',
@@ -91,20 +88,12 @@
                     cancelButtonText: 'Cancelar'
                 }).then(function () {
 
-                    vm.$http.post(pageUrl, {'_method': 'PUT', 'id': proposal.id}, { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
+                    vm.$http.post(pageUrl, { '_method': 'PUT', 'id': proposal.id }, { headers: { 'X-CSRF-TOKEN': _csrf_token } }).then(function (data) {
                         vm.commentData.description = '';
                         vm.getJob();
-                        swal(
-                            'Proposta aceita!',
-                            'Proposta aceita com sucesso.',
-                            'success'
-                        )
+                        swal('Proposta aceita!', 'Proposta aceita com sucesso.', 'success');
                     }, function (error) {
-                        swal(
-                            'Oops, algo deu errado...',
-                            error.body.error,
-                            'error'
-                        )
+                        swal('Oops, algo deu errado...', error.body.error, 'error');
                     });
                 });
             }
