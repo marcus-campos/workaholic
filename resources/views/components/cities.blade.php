@@ -11,5 +11,5 @@
 @section('component-js')
     <script src="{{ asset('plugins/select2/js/select2.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('plugins/select2/js/i18n/pt-BR.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/cities/cities.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/cities.js') }}" type="text/javascript"></script>
 @endsection
