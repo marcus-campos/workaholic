@@ -9,11 +9,11 @@
                         Dados
                     </a>
                 </li>
-                {{--<li class="tab" style="width: 25%;">--}}
-                    {{--<a href="#pass-through" data-toggle="tab" aria-expanded="false" class="">--}}
-                        {{--Endereço--}}
-                    {{--</a>--}}
-                {{--</li>--}}
+                <li class="tab" style="width: 25%;">
+                    <a href="#pass-through" data-toggle="tab" aria-expanded="false" class="">
+                        Endereço
+                    </a>
+                </li>
                 <div class="indicator" style="right: 450.375px; left: 0px;"></div></ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="my-account" style="">

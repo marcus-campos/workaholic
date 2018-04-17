@@ -14,15 +14,15 @@ class CreateProposalsTable extends Migration
     public function up()
     {
         Schema::create('proposals', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->text('description');
             $table->double('net_value', 10, 2);
             $table->double('gross_value', 10, 2);
             $table->string('time_to_finish_the_job', 50)->nullable();
             $table->boolean('promoted')->default(false);
             $table->enum('status', ['accepted', 'rejected', 'waiting'])->default('waiting');
-            $table->integer('user_id')->unsigned();
-            $table->integer('job_id')->unsigned();
+            $table->uuid('user_id');
+            $table->uuid('job_id');
             $table->softDeletes();
             $table->timestamps();
 
