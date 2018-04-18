@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -60,4 +61,17 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public $incrementing = false;
+
+    protected $primaryKey = 'id';
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($model) {
+            $model->id = Str::orderedUuid();
+        });
+    }
 }

@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class StatesAndCitiesSeed extends Seeder
 {
@@ -16,17 +17,19 @@ class StatesAndCitiesSeed extends Seeder
         $json = json_decode(file_get_contents($path), true);
 
         foreach ($json['estados'] as $state) {
+            $stateId = Str::orderedUuid();
+
             DB::table('states')->insert([
+                'id' => $stateId,
                 'name' => $state['nome'],
                 'initials' => $state['sigla'],
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
             ]);
 
-            $stateId = DB::getPdo()->lastInsertId();;
-
             foreach ($state['cidades'] as $city) {
                 DB::table('cities')->insert([
+                    'id' => Str::orderedUuid(),
                     'name' => $city,
                     'state_id' => $stateId,
                     'created_at' => Carbon::now()->toDateTimeString(),
