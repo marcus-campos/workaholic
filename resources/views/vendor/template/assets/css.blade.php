@@ -13,4 +13,6 @@
     @yield('component-css')
 
     @yield('section-css')
+
+    @yield('partial-css')
 @endsection
