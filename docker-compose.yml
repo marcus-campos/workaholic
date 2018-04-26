@@ -27,8 +27,8 @@ services:
       - MYSQL_USER=xtra
       - MYSQL_PASSWORD=987987
     networks:
-          workaholic_net:
-            ipv4_address: 173.0.0.4
+      workaholic_net:
+        ipv4_address: 173.0.0.4
 
   # Redis
   cache:
@@ -71,9 +71,8 @@ services:
       - mysql
       - cache
     networks:
-          workaholic_net:
-            ipv4_address: 173.0.0.5
-
+      workaholic_net:
+        ipv4_address: 173.0.0.5
 
 networks:
   workaholic_net:
