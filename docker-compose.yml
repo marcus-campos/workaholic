@@ -27,7 +27,7 @@ services:
       - MYSQL_USER=xtra
       - MYSQL_PASSWORD=987987
     networks:
-      workaholic_net:
+      orkaholic_net:
         ipv4_address: 173.0.0.4
 
   # Redis
@@ -40,8 +40,8 @@ services:
     ports:
       - "6379:6379"
     networks:
-          workaholic_net:
-            ipv4_address: 173.0.0.3
+      orkaholic_net:
+        ipv4_address: 173.0.0.3
 
 
   # PHP (with Nginx)
@@ -57,8 +57,8 @@ services:
       - orkaholic_db
       - orkaholic_cache
     networks:
-          workaholic_net:
-            ipv4_address: 173.0.0.2
+      orkaholic_net:
+        ipv4_address: 173.0.0.2
 
   # Laravel Queues
   orkaholic_queue:
@@ -71,7 +71,7 @@ services:
       - orkaholic_db
       - orkaholic_cache
     networks:
-      workaholic_net:
+      orkaholic_net:
         ipv4_address: 173.0.0.5
 
 networks:
