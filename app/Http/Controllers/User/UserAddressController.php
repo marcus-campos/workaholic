@@ -38,6 +38,10 @@ class UserAddressController extends Controller
      */
     public function store(UserAddressRequest $userAddressRequest)
     {
+        if (!$this->userAddressService->hasPrimary()) {
+            $userAddressRequest['primary'] = 1;
+        }
+
         $address = $this->userAddressService->persist($userAddressRequest);
         return $address;
     }

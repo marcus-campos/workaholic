@@ -11,7 +11,8 @@ class UserAddress extends BaseModel
         'neighborhood',
         'zip_code',
         'city_id',
-        'user_id'
+        'user_id',
+        'primary'
     ];
 
     public function city()

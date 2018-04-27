@@ -43,6 +43,21 @@ class UserAddressService
         return $userAddress;
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function hasPrimary()
+    {
+        if (UserAddress::where('user_id', auth()->id())
+            ->where('primary', 1)
+            ->count() > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * @param $id
      */

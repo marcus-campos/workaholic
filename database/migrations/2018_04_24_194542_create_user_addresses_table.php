@@ -22,6 +22,7 @@ class CreateUserAddressesTable extends Migration
             $table->string('zip_code', 10); //Limitei a 10 caracteres pois existem rumores que o CEP pode mudar o seu formato em alguns anos
             $table->uuid('city_id');
             $table->uuid('user_id');
+            $table->boolean('primary')->default(false);
             $table->timestamps();
             $table->softDeletes();
 
