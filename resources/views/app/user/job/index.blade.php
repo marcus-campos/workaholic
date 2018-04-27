@@ -56,13 +56,7 @@
                 </div>
             </div>
             <h2 v-show="jobs.length < 1"> Oooops!!! Nenhum trabalho foi encontrado. </h2>
-        </div> <!-- end col -->
-        {{--<div class="col-sm-4">
-            <div class="card-box">
-                <h4 class="m-t-0 m-b-20 text-dark header-title">Status Chart</h4>
-                <div id="pie-chart"></div>
-            </div>
-        </div>--}}
+        </div>
     </div>
     <div class="row" v-if="pagination.last_page > 1">
         <div class="col-sm-12">

@@ -179,6 +179,13 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
+        $job = Job::find($id);
+
+        //Validando se a pessoa que está acessando pode apagar este job
+        if ($job->user_id != auth()->id()) {
+            return redirect()->to(route('user.job.index'));
+        }
+
         $this->jobService->destroy($id);
         return redirect()->to(route('user.job.client'));
     }
