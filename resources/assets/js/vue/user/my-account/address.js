@@ -46,9 +46,22 @@ $(function() {
                     );
                     vm.getAddresses();
                 }, function (error) {
+                    let errMsg = '';
+                    for (let err in error.body.errors) {
+                        let err = error.body.errors[err];
+
+                        if (err === Array) {
+
+                            for (let errC in err) {
+                                errMsg += '<br/>' + error.body.errors[errC];
+                            }
+                        }
+
+                        errMsg += '<br/>' + err;
+                    }
                     swal(
                         'Oops, algo deu errado...',
-                        error.body.error,
+                        errMsg,
                         'error'
                     )
                 });
