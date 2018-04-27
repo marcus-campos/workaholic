@@ -9,6 +9,7 @@ namespace App\Service\User;
 
 
 use App\Models\UserAddress;
+use Illuminate\Http\Request;
 
 class UserAddressService
 {
@@ -20,6 +21,8 @@ class UserAddressService
     {
         $addresses =  UserAddress::with('city')
             ->where('user_id', auth()->id())
+            ->orderBy('primary', 'desc')
+            ->orderBy('created_at', 'asc')
             ->paginate(15);
         return $addresses;
     }
@@ -64,5 +67,16 @@ class UserAddressService
     public function destroy($id)
     {
         UserAddress::destroy($id);
+    }
+
+    public function primary($request, $id)
+    {
+        $userAddresses = UserAddress::where('user_id', auth()->id())
+            ->where('primary', 1)
+            ->first();
+        $userAddresses->primary = 0;
+        $userAddresses->save();
+
+        return ['updated' => $this->persist($request, $id)];
     }
 }

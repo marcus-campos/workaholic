@@ -23,8 +23,14 @@
                                 <p class="text-dark m-b-0"><b>Cidade:</b> <span class="text-muted">  @{{ address.city.name  }}  </span></p>
                             </div>
                             <div class="col-sm-2">
+                                <a class="job-action-btn" @click="submitPrimary(address)"><i class="md md-home"></i></a>
                                 <a class="job-action-btn" ><i class="md md-edit"></i></a>
-                                <a href="#" @click="submitDelete(address)" class="job-action-btn" ><i class="md md-close"></i></a>
+                                <a @click="submitDelete(address)" class="job-action-btn" ><i class="md md-close"></i></a>
+                            </div>
+                        </div>
+                        <div class="row" v-show="address.primary === 1">
+                            <div class="col-sm-12">
+                                <span class="label label-success pull-right">Endereço principal</span>
                             </div>
                         </div>
                     </div>

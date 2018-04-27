@@ -62,6 +62,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
 
     Route::group(['prefix' => 'address', 'as' => 'address.'], function () {
         Route::get('/', USER_ADDRESS.'@index')->name('index');
+        Route::put('{id}/primary', USER_ADDRESS.'@setPrimary')->name('index');
         Route::post('/', USER_ADDRESS.'@store')->name('store');
         Route::put('{id}', USER_ADDRESS.'@update')->name('update');
         Route::delete('{id}', USER_ADDRESS.'@destroy')->name('destroy');

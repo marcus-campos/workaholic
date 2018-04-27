@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserAddressRequest;
 use App\Models\UserAddress;
 use App\Service\User\UserAddressService;
+use Illuminate\Http\Request;
 
 class UserAddressController extends Controller
 {
@@ -75,5 +76,17 @@ class UserAddressController extends Controller
         return [
             'deleted' => true
         ];
+    }
+
+    public function setPrimary(Request $request, $id)
+    {
+        $userAddress = UserAddress::find($id);
+
+        //Validando se a pessoa que está acessando pode apagar este endereço
+        if ($userAddress->user_id != auth()->id()) {
+            return redirect()->to(route('user.job.index'));
+        }
+
+        return $this->userAddressService->primary($request, $id);
     }
 }

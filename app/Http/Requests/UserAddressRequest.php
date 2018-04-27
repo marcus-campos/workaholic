@@ -52,7 +52,12 @@ class UserAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'address'      => 'required|string|min:2|max:255',
+            'number'       => 'required|number',
+            'complement'   => 'string|min:1|max:255',
+            'neighborhood' => 'required|string|min:2|max:255',
+            'zip_code'     => 'required|string|min:2|max:255',
+            'city_id'      => 'required|number|exists:cities.id'
         ];
     }
 }
