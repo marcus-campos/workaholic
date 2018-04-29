@@ -111,11 +111,14 @@ $(function() {
 
                         errMsg += '<br/>' + err;
                     }
+
                     swal(
                         'Oops, algo deu errado...',
                         errMsg,
                         'error'
-                    )
+                    );
+
+                    vm.addressData['id'] = id;
                 });
             },
             getAddresses(pageUrl) {

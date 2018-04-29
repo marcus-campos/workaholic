@@ -19,7 +19,7 @@
                                 <p class="text-dark m-b-0"><b>Numero: </b> <span class="text-muted">  @{{ address.number }}  </span></p>
                                 <p class="text-dark m-b-0"><b>Complemento: </b> <span class="text-muted"> @{{ address.complement }} </span></p>
                                 <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted">  @{{ address.neighborhood }}  </span></p>
-                                <p class="text-dark m-b-0"><b>Cep:</b> <span class="text-muted">  @{{ address.zip_code }}d  </span></p>
+                                <p class="text-dark m-b-0"><b>Cep:</b> <span class="text-muted">  @{{ address.zip_code }} </span></p>
                                 <p class="text-dark m-b-0"><b>Cidade:</b> <span class="text-muted">  @{{ address.city.name  }}  </span></p>
                             </div>
                             <div class="col-sm-2">
