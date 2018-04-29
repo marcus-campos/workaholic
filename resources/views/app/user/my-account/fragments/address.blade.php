@@ -5,7 +5,7 @@
                data-overlaySpeed="200" data-overlayColor="#36404a" v-show="!isCreatingOrEditing" @click="clickAdd()"><i class="md md-add"></i> Cadastrar</a>
 
             <a class="btn btn-danger btn-md waves-effect waves-light m-b-30 pull-right" data-animation="fadein" data-plugin="custommodal"
-               data-overlaySpeed="200" data-overlayColor="#36404a"  v-show="isCreatingOrEditing" @click="clickAdd()"><i class="md md-delete"></i> Cancelar</a>
+               data-overlaySpeed="200" data-overlayColor="#36404a"  v-show="isCreatingOrEditing && addresses.length > 0" @click="clickAdd()"><i class="md md-delete"></i> Cancelar</a>
         </div>
     </div>
     <div v-show="!isCreatingOrEditing">
@@ -52,49 +52,48 @@
             </div>
         </div>
     </div>
-
     <div v-show="isCreatingOrEditing">
         <h4 class="m-t-0 header-title"><b>Novo endereço</b></h4>
         <div class="row">
             <div class="col-12">
                 <div class="p-20">
                     <div class="form-group row">
-                        <label class="col-2 col-form-label">Logradouro</label>
+                        <label class="col-2 col-form-label">Logradouro <span class="text-danger">*</span></label>
                         <div class="col-10">
                             <input type="text" class="form-control" placeholder="Ex: Rua ABC"
                                    v-model="addressData.address">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-2 col-form-label">Número</label>
+                        <label class="col-2 col-form-label">Número <span class="text-danger">*</span></label>
                         <div class="col-10">
-                            <input type="text" class="form-control" placeholder="Ex: Rua ABC"
+                            <input type="text" class="form-control" placeholder="Ex: 222"
                                    v-model="addressData.number">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-2 col-form-label">Complemento</label>
                         <div class="col-10">
-                            <input name="name" type="text" class="form-control" placeholder="Ex: Rua ABC"
+                            <input name="name" type="text" class="form-control" placeholder="Ex: Apartamento 201"
                                    v-model="addressData.complement">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-2 col-form-label">Bairro</label>
+                        <label class="col-2 col-form-label">Bairro <span class="text-danger">*</span></label>
                         <div class="col-10">
-                            <input name="name" type="text" class="form-control" placeholder="Ex: Rua ABC"
+                            <input name="name" type="text" class="form-control" placeholder="Ex: Centro"
                                    v-model="addressData.neighborhood">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-2 col-form-label">Cep</label>
+                        <label class="col-2 col-form-label">Cep <span class="text-danger">*</span></label>
                         <div class="col-10">
-                            <input name="name" type="text" class="form-control" placeholder="Ex: Rua ABC"
+                            <input name="name" type="text" class="form-control" placeholder="Ex: 30130010"
                                    v-model="addressData.zip_code">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-2 col-form-label">Cidade</label>
+                        <label class="col-2 col-form-label">Cidade <span class="text-danger">*</span></label>
                         <div class="col-10">
                             @include('components.cities')
                         </div>

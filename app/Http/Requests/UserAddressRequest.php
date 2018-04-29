@@ -53,11 +53,11 @@ class UserAddressRequest extends FormRequest
     {
         return [
             'address'      => 'required|string|min:2|max:255',
-            'number'       => 'required|number',
-            'complement'   => 'string|min:1|max:255',
+            'number'       => 'required|integer',
+            'complement'   => 'max:255',
             'neighborhood' => 'required|string|min:2|max:255',
             'zip_code'     => 'required|string|min:2|max:255',
-            'city_id'      => 'required|number|exists:cities.id'
+            'city_id'      => 'required|string|exists:cities,id'
         ];
     }
 }

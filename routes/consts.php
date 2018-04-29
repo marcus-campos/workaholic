@@ -3,6 +3,7 @@
 /*
  * USER
  */
+const USER = "User\UserController";
 const USER_DASHBOARD = 'User\Dashboard\DashboardController';
 const USER_JOB = 'User\Job\JobController';
 const USER_PROPOSAL = 'User\Proposal\ProposalController';

@@ -16,13 +16,33 @@ use Illuminate\Http\Response;
 class ProposalService
 {
     /**
+     * @var Proposal
+     */
+    private $proposal;
+    /**
+     * @var Job
+     */
+    private $job;
+
+    /**
+     * ProposalService constructor.
+     * @param Proposal $proposal
+     * @param Job $job
+     */
+    public function __construct(Proposal $proposal, Job $job)
+    {
+        $this->proposal = $proposal;
+        $this->job = $job;
+    }
+
+    /**
      * @param $id
      * @return \Illuminate\Database\Eloquent\Model|null|object|static
      */
     public function proposalsClientOrWorker($id)
     {
         //Client
-        $proposals = Job::with([
+        $proposals = $this->job->with([
             'jobCategory',
             'city',
             'proposals' => function ($query) {
@@ -38,7 +58,7 @@ class ProposalService
 
         //Worker
         if (!$proposals or $proposals->count() < 1) {
-            $proposals = Job::with([
+            $proposals = $this->job->with([
                 'jobCategory',
                 'city',
                 'proposals' => function ($query) {
@@ -66,11 +86,11 @@ class ProposalService
         $request['gross_value'] = 0.00;
 
         if ($id) {
-            $proposal = Proposal::find($id);
+            $proposal = $this->proposal->find($id);
             return $proposal->fill($request)->save();
         }
 
-        return Proposal::create($request->all());
+        return $this->proposal->create($request->all());
     }
 
     /**
@@ -79,7 +99,7 @@ class ProposalService
      */
     public function acceptProposal($id)
     {
-        $proposal = Proposal::with('job')->find($id);
+        $proposal = $this->proposal->with('job')->find($id);
 
         $checkIfHasOneAcceptedProposal = $this->hasAcceptedProposal($proposal->job_id);
 
@@ -101,7 +121,7 @@ class ProposalService
         $acceptedProposal = $proposal->save();
 
         //Atualizando o status das outras propostas
-        Proposal::where('job_id', $proposal->job_id)
+        $this->proposal->where('job_id', $proposal->job_id)
             ->where('status', '<>' ,'accepted')
             ->update(['status' => 'rejected']);
 
@@ -114,7 +134,7 @@ class ProposalService
      */
     public function hasAcceptedProposal($jobId)
     {
-        $jobCount = Job::with(['proposals'])
+        $jobCount = $this->proposal->with(['proposals'])
             ->where('id', $jobId)
             ->whereHas('proposals', function ($query) {
                 $query->where('status', 'accepted');
@@ -135,7 +155,7 @@ class ProposalService
      */
     public function hasAcceptedProposalForMe($jobId)
     {
-        $jobCount = Job::with(['proposals'])
+        $jobCount = $this->proposal->with(['proposals'])
             ->where('id', $jobId)
             ->whereHas('proposals', function ($query) {
                 $query->where('status', 'accepted')->where('user_id', auth()->id());
@@ -155,7 +175,7 @@ class ProposalService
      */
     public function iAmOwner($jobId)
     {
-        $jobCount = Job::where('id', $jobId)
+        $jobCount = $this->job->where('id', $jobId)
             ->where('user_id', auth()->id())
             ->count();
 

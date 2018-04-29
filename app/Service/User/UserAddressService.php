@@ -13,13 +13,26 @@ use Illuminate\Http\Request;
 
 class UserAddressService
 {
+    /**
+     * @var UserAddress
+     */
+    private $userAddress;
+
+    /**
+     * UserAddressService constructor.
+     * @param UserAddress $userAddress
+     */
+    public function __construct(UserAddress $userAddress)
+    {
+        $this->userAddress = $userAddress;
+    }
 
     /**
      * @return mixed
      */
     public function index()
     {
-        $addresses =  UserAddress::with('city')
+        $addresses = $this->userAddress->with('city')
             ->where('user_id', auth()->id())
             ->orderBy('primary', 'desc')
             ->orderBy('created_at', 'asc')
@@ -38,11 +51,11 @@ class UserAddressService
         $request['user_id'] = auth()->user()->id;
 
         if ($id) {
-            $userAddress = UserAddress::find($id);
+            $userAddress = $this->userAddress->find($id);
             return $userAddress->fill($request)->save();
         }
 
-        $userAddress = UserAddress::create($request);
+        $userAddress = $this->userAddress->create($request);
         return $userAddress;
     }
 
@@ -52,7 +65,7 @@ class UserAddressService
      */
     public function hasPrimary()
     {
-        if (UserAddress::where('user_id', auth()->id())
+        if ($this->userAddress->where('user_id', auth()->id())
             ->where('primary', 1)
             ->count() > 0) {
             return true;
@@ -66,12 +79,23 @@ class UserAddressService
      */
     public function destroy($id)
     {
-        UserAddress::destroy($id);
+        $this->userAddress->destroy($id);
+
+        if (!$this->hasPrimary()) {
+            $userAddresses = $this->userAddress->where('user_id', auth()->id())->first();
+            $userAddresses->primary = 1;
+            $userAddresses->save();
+        }
     }
 
+    /**
+     * @param $request
+     * @param $id
+     * @return array
+     */
     public function primary($request, $id)
     {
-        $userAddresses = UserAddress::where('user_id', auth()->id())
+        $userAddresses = $this->userAddress->where('user_id', auth()->id())
             ->where('primary', 1)
             ->first();
         $userAddresses->primary = 0;

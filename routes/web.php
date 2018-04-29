@@ -67,6 +67,13 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
         Route::put('{id}', USER_ADDRESS.'@update')->name('update');
         Route::delete('{id}', USER_ADDRESS.'@destroy')->name('destroy');
     });
+
+    /*
+     * User
+     */
+
+    Route::get('auth', USER.'@getAuthUser')->name('auth');
+    Route::put('{id}', USER.'@update')->name('update');
 });
 
 /*

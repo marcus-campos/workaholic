@@ -15,6 +15,20 @@ use http\Env\Request;
 class JobService
 {
     /**
+     * @var Job
+     */
+    private $job;
+
+    /**
+     * JobService constructor.
+     * @param Job $job
+     */
+    public function __construct(Job $job)
+    {
+        $this->job = $job;
+    }
+
+    /**
      * @param $request
      * @param null $id
      * @return mixed
@@ -25,11 +39,11 @@ class JobService
         $request['user_id'] = auth()->user()->id;
 
         if ($id) {
-            $job = Job::find($id);
+            $job = $this->job->find($id);
             return $job->fill($request)->save();
         }
 
-        $job = Job::create($request);
+        $job = $this->job->create($request);
         return $job;
     }
 
@@ -38,7 +52,7 @@ class JobService
      */
     public function indexByClientId()
     {
-        $jobs = Job::with(['jobCategory', 'city'])
+        $jobs = $this->job->with(['jobCategory', 'city'])
             ->withCount('proposals')
             ->where('user_id', auth()->id());
 
@@ -50,7 +64,7 @@ class JobService
      */
     public function indexByWorker()
     {
-        $jobs = Job::with(['jobCategory', 'city', 'proposals'])
+        $jobs = $this->job->with(['jobCategory', 'city', 'proposals'])
             ->withCount('proposals')
             ->whereHas('proposals', function ($query) {
                 $query->where('user_id', auth()->id());
@@ -65,7 +79,7 @@ class JobService
      */
     public function indexAll()
     {
-        $jobs = Job::with(['jobCategory', 'city'])
+        $jobs = $this->job->with(['jobCategory', 'city'])
             ->withCount('proposals')
             ->whereDoesntHave('proposals', function ($query) {
                 $query->where('status', 'accepted')
@@ -81,6 +95,6 @@ class JobService
      */
     public function destroy($id)
     {
-        Job::destroy($id);
+        $this->job->destroy($id);
     }
 }

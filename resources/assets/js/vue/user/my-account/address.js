@@ -76,6 +76,11 @@ $(function() {
                 vm.$http.get(pageUrl).then(function (data) {
                     let result = data.data;
                     vm.addresses = result.data;
+
+                    if (vm.addresses.length < 1) {
+                        vm.isCreatingOrEditing = true;
+                    }
+
                     vm.makePagination(result)
                 });
             },
