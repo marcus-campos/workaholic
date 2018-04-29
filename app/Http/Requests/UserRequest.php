@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -13,7 +14,29 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $routePath = explode('/', $this->decodedPath());
+
+        switch ($this->method()) {
+            case 'POST':
+                return true;
+                break;
+            case 'PUT':
+                if (isset($routePath[0]) && isset($routePath[2])) {
+                    if (
+                        $routePath[0] == 'user' &&
+                        $routePath[2] == 'password'
+                    ) {
+                        if (auth()->id() == $routePath[1]) {
+                            return true;
+                        }
+
+                        return false;
+                    }
+                }
+
+                return true;
+                break;
+        }
     }
 
     /**
@@ -23,6 +46,8 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+        $routePath = explode('/', $this->decodedPath());
+
         switch ($this->method()) {
             case 'POST':
                 return [
@@ -32,10 +57,23 @@ class UserRequest extends FormRequest
                 ];
                 break;
             case 'PUT':
+                if (isset($routePath[0]) && isset($routePath[2])) {
+                    //POST
+                    if (
+                        $routePath[0] == 'user' &&
+                        $routePath[2] == 'password'
+                    ) {
+                        return [
+                            'password' => 'required|string|min:6|confirmed'
+                        ];
+                    }
+                }
+
                 return [
                     'name' => 'required|string|max:255',
                     'biography' => 'max:1000'
                 ];
+
                 break;
         }
     }

@@ -2,7 +2,11 @@ $(function() {
     new Vue({
         el: '#user-data',
         data: {
-            user: {},
+            passwordData: {
+                oldPassword: '',
+                password: '',
+                password_confirmation: '',
+            },
             userData: {
                 id: '',
                 name: '',
@@ -33,7 +37,6 @@ $(function() {
 
                 pageUrl = window.location.origin + '/user/'+ vm.userData.id;
                 vm.userData['_method'] = 'PUT';
-                console.log(vm.userData);
 
                 vm.$http.post(pageUrl, vm.userData, { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
                     vm.getUser();
@@ -43,9 +46,56 @@ $(function() {
                         'success'
                     );
                 }, function (error) {
+                    let errMsg = '';
+                    for (let err in error.body.errors) {
+                        let err = error.body.errors[err];
+
+                        if (err === Array) {
+                            for (let errC in err) {
+                                errMsg += '<br/>' + error.body.errors[errC];
+                            }
+                        }
+
+                        errMsg += '<br/>' + err;
+                    }
                     swal(
                         'Oops, algo deu errado...',
-                        error.body.error,
+                        errMsg,
+                        'error'
+                    )
+                });
+            },
+            submitPassword: function () {
+                let vm = this;
+
+                pageUrl = window.location.origin + '/user/' + vm.userData.id + '/password';
+                vm.passwordData['_method'] = 'PUT';
+
+                vm.$http.post(pageUrl, vm.passwordData, { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
+                    vm.getUser();
+                    swal(
+                        'Atualizado!',
+                        'Sua senha foi atualizada com sucesso!',
+                        'success'
+                    ).then(function () {
+                        window.location.reload();
+                    });
+                }, function (error) {
+                    let errMsg = '';
+                    for (let err in error.body.errors) {
+                        let err = error.body.errors[err];
+
+                        if (err === Array) {
+                            for (let errC in err) {
+                                errMsg += '<br/>' + error.body.errors[errC];
+                            }
+                        }
+
+                        errMsg += '<br/>' + err;
+                    }
+                    swal(
+                        'Oops, algo deu errado...',
+                        errMsg,
                         'error'
                     )
                 });

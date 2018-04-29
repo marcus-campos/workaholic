@@ -10,6 +10,7 @@ namespace App\Service\User;
 
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserAddressService
 {
@@ -79,13 +80,18 @@ class UserAddressService
      */
     public function destroy($id)
     {
-        $this->userAddress->destroy($id);
+        DB::transaction(function () use ($id) {
+            $this->userAddress->destroy($id);
 
-        if (!$this->hasPrimary()) {
-            $userAddresses = $this->userAddress->where('user_id', auth()->id())->first();
-            $userAddresses->primary = 1;
-            $userAddresses->save();
-        }
+            if (!$this->hasPrimary()) {
+                $userAddresses = $this->userAddress->where('user_id', auth()->id())->first();
+
+                if ($userAddresses) {
+                    $userAddresses->primary = 1;
+                    $userAddresses->save();
+                }
+            }
+        });
     }
 
     /**

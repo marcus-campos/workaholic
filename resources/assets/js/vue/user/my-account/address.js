@@ -51,7 +51,6 @@ $(function() {
                         let err = error.body.errors[err];
 
                         if (err === Array) {
-
                             for (let errC in err) {
                                 errMsg += '<br/>' + error.body.errors[errC];
                             }

@@ -60,4 +60,19 @@ class UserService
         $user = $this->user->create($request);
         return $user;
     }
+
+    /**
+     * @param $password
+     * @return bool
+     */
+    public function checkPassword($password)
+    {
+        $actualPassword = auth()->user()->getAuthPassword();
+
+        if (password_verify($password, $actualPassword)) {
+            return true;
+        }
+
+        return false;
+    }
 }

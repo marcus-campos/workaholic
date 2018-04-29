@@ -17,6 +17,19 @@ class UserAddressRequest extends FormRequest
         $routePath = explode('/', $this->decodedPath());
         $authorize = false;
 
+        switch ($this->method()) {
+            case 'POST':
+                $authorize = true;
+                break;
+            case 'PUT':
+                $userAddress = UserAddress::find($routePath[2]);
+
+                if ($userAddress->user_id == auth()->id()) {
+                    $authorize = true;
+                }
+                break;
+        }
+
         if (isset($routePath[0]) && isset($routePath[1])) {
             //POST
             if (

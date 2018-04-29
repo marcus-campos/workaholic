@@ -102,7 +102,7 @@
             </div>
         </div>
         <!-- end row -->
-        <hr>
+
         <!-- end row -->
         <div class="row">
             <div class="col-sm-12">

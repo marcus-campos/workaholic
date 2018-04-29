@@ -49,4 +49,30 @@ class UserController extends Controller
             'updated' => $address
         ];
     }
+
+    /**
+     * @param UserRequest $userRequest
+     * @param $id
+     * @return mixed
+     */
+    public function updatePassword(UserRequest $userRequest, $id)
+    {
+        $address = false;
+
+        if ($this->userService->checkPassword($userRequest->all()['oldPassword'])) {
+            $password = bcrypt($userRequest->all()['password']);
+            $request = new Request(['password' => $password]);
+            $address = $this->userService->persist($request, $id);
+
+            auth()->logout();
+
+            return [
+                'updated' => $address
+            ];
+        }
+
+        return response()->json([
+            'updated' => $address
+        ], 422);
+    }
 }
