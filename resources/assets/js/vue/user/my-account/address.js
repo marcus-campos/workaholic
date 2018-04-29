@@ -43,6 +43,10 @@ $(function() {
                     zip_code: '',
                     city_id: null
                 };
+
+                setTimeout(function () {
+                    $('#city_id').val('').trigger('change');
+                }, 100);
             },
             clickEdit: function (address) {
                 let vm = this;

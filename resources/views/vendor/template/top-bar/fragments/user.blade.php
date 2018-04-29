@@ -8,7 +8,7 @@
 @section('user')
     @if(\Illuminate\Support\Facades\Auth::check())
         <!-- item-->
-        <a href="#" class="dropdown-item notify-item">
+        <a href="{{ route('user.my-account.index') }}" class="dropdown-item notify-item">
             <i class="zmdi zmdi-account-circle"></i> <span>Minha conta</span>
         </a>
         <!-- item-->
