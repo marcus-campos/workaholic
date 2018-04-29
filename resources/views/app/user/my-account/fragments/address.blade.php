@@ -24,7 +24,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <a class="job-action-btn" @click="submitPrimary(address)"><i class="md md-home"></i></a>
-                                <a class="job-action-btn" ><i class="md md-edit"></i></a>
+                                <a class="job-action-btn" @click="clickEdit(address)" ><i class="md md-edit"></i></a>
                                 <a @click="submitDelete(address)" class="job-action-btn" ><i class="md md-close"></i></a>
                             </div>
                         </div>
@@ -53,7 +53,8 @@
         </div>
     </div>
     <div v-show="isCreatingOrEditing">
-        <h4 class="m-t-0 header-title"><b>Novo endereço</b></h4>
+        <h4 class="m-t-0 header-title" v-show="!addressData.hasOwnProperty('id')"><b>Novo endereço</b></h4>
+        <h4 class="m-t-0 header-title" v-show="addressData.hasOwnProperty('id')"><b>Editar endereço</b></h4>
         <div class="row">
             <div class="col-12">
                 <div class="p-20">

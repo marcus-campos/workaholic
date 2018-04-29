@@ -23,6 +23,8 @@ $(function() {
             clickAdd: function () {
                 let vm = this;
 
+                vm.clearAddressData();
+
                 if (vm.isCreatingOrEditing) {
                     vm.isCreatingOrEditing = false;
                     return;
@@ -30,20 +32,67 @@ $(function() {
 
                 vm.isCreatingOrEditing = true;
             },
-            submitAddress() {
+            clearAddressData: function () {
                 let vm = this;
 
+                vm.addressData = {
+                    address: '',
+                    number: '',
+                    complement: '',
+                    neighborhood: '',
+                    zip_code: '',
+                    city_id: null
+                };
+            },
+            clickEdit: function (address) {
+                let vm = this;
+                vm.isCreatingOrEditing = true;
+
+                setTimeout(function () {
+                    $('#city_id').select2('trigger', 'select', {
+                        data: {
+                            id: address.city.id,
+                            text: address.city.name
+                        }
+                    });
+                }, 100);
+
+                vm.addressData = address;
+            },
+            submitAddress() {
+                let vm = this;
+                let id = null;
                 let pageUrl = window.location.origin + '/user/address';
+
+                if (vm.addressData.hasOwnProperty('id')) {
+                    pageUrl = window.location.origin + '/user/address/' + vm.addressData.id;
+                    id = vm.addressData.id;
+                    vm.addressData['_method'] = 'PUT';
+                    delete vm.addressData.id;
+                }
 
                 vm.addressData.city_id = $('#city_id').val();
 
                 vm.$http.post(pageUrl, JSON.stringify(vm.addressData), { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
                     vm.isCreatingOrEditing = false;
+
+                    if (id !== null) {
+                        swal(
+                            'Atualizado!',
+                            'O endereço foi atualizado com sucesso!',
+                            'success'
+                        );
+                        vm.clearAddressData();
+                        vm.getAddresses();
+                        return;
+                    }
+
                     swal(
                         'Adicionado!',
                         'O novo endereço adicionado com sucesso!',
                         'success'
                     );
+
                     vm.getAddresses();
                 }, function (error) {
                     let errMsg = '';

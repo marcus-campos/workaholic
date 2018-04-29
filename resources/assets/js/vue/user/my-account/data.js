@@ -19,9 +19,6 @@ $(function() {
             vm.getUser();
         },
         methods: {
-            updateUser: function () {
-
-            },
             getUser() {
                 let vm = this;
 

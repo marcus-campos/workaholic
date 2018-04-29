@@ -85,7 +85,12 @@
 
            @if($jobId)
                setTimeout(function () {
-                   $('#city_id').select2('trigger', 'select', { data: { id: '{{ ($cityId = inputValue('city_id', get_defined_vars(), ['job' => 'city_id'])) }}', text: '{{ (new \App\Models\City())->cityFromToName($cityId) }}'}});
+                   $('#city_id').select2('trigger', 'select', {
+                       data: {
+                           id: '{{ ($cityId = inputValue('city_id', get_defined_vars(), ['job' => 'city_id'])) }}',
+                           text: '{{ (new \App\Models\City())->cityFromToName($cityId) }}'
+                       }
+                   });
                }, 1000);
            @endif
 

@@ -55,7 +55,9 @@ class UserAddressController extends Controller
     public function update(UserAddressRequest $userAddressRequest, $id)
     {
         $address = $this->userAddressService->persist($userAddressRequest, $id);
-        return $address;
+        return [
+            'updated' =>$address
+        ];
     }
 
     /**
