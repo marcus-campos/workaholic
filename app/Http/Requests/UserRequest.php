@@ -69,6 +69,18 @@ class UserRequest extends FormRequest
                     }
                 }
 
+                if (isset($routePath[0]) && isset($routePath[2])) {
+                    //POST
+                    if (
+                        $routePath[0] == 'user' &&
+                        $routePath[2] == 'photo'
+                    ) {
+                        return [
+                            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                        ];
+                    }
+                }
+
                 return [
                     'name' => 'required|string|max:255',
                     'biography' => 'max:1000'

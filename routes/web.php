@@ -75,6 +75,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
     Route::get('auth', USER.'@getAuthUser')->name('auth');
     Route::put('{id}', USER.'@update')->name('update');
     Route::put('{id}/password', USER.'@updatePassword')->name('updatePassword');
+    Route::put('{id}/photo', USER.'@profilePhoto')->name('photo');
 });
 
 /*

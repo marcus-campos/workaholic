@@ -68,3 +68,12 @@ function queryStringMaker($url, $filters = null, $perPage = null, $orderBy = nul
 
     return $url;
 }
+
+/**
+ * @param $filePath
+ * @return mixed
+ */
+function getFileUrl($filePath)
+{
+    return (new \App\Service\S3\S3Service())->getFileUrl($filePath);
+}

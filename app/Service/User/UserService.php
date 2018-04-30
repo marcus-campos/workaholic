@@ -37,7 +37,8 @@ class UserService
                 'created_at',
                 'email'
             ])->makeVisible([
-                'biography'
+                'biography',
+                'photo'
             ]);
 
         return $user;
