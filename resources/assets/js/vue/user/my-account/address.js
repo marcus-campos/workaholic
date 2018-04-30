@@ -223,7 +223,7 @@ $(function() {
                     if (document.readyState === 'complete') {
                         $('[data-toggle="tooltip"]').tooltip();
                     }
-                }, 500);
+                }, 100);
             }
         }
     });
