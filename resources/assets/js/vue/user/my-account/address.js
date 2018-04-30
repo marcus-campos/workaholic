@@ -18,6 +18,7 @@ $(function() {
         mounted() {
             let vm = this;
             vm.getAddresses();
+            vm.loadTooltips();
         },
         methods: {
             clickAdd: function () {
@@ -66,6 +67,7 @@ $(function() {
             submitAddress() {
                 let vm = this;
                 let id = null;
+                let isEditing = false;
                 let pageUrl = window.location.origin + '/user/address';
 
                 if (vm.addressData.hasOwnProperty('id')) {
@@ -73,6 +75,7 @@ $(function() {
                     id = vm.addressData.id;
                     vm.addressData['_method'] = 'PUT';
                     delete vm.addressData.id;
+                    isEditing = true;
                 }
 
                 vm.addressData.city_id = $('#city_id').val();
@@ -117,8 +120,9 @@ $(function() {
                         errMsg,
                         'error'
                     );
-
-                    vm.addressData['id'] = id;
+                    if (isEditing) {
+                        vm.addressData['id'] = id;
+                    }
                 });
             },
             getAddresses(pageUrl) {
@@ -191,7 +195,7 @@ $(function() {
 
                         swal(
                             'Atualizado!',
-                            'O endereço "'+ userAddress.address + '" foi marcado como o princial.',
+                            'O endereço "'+ userAddress.address + '" foi indicado como o principal.',
                             'success'
                         );
                     }, function (error) {
@@ -213,6 +217,13 @@ $(function() {
                 };
 
                 vm.pagination = pagination;
+            },
+            loadTooltips: function () {
+                setInterval(() => {
+                    if (document.readyState === 'complete') {
+                        $('[data-toggle="tooltip"]').tooltip();
+                    }
+                }, 500);
             }
         }
     });

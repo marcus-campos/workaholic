@@ -69,7 +69,7 @@ class UserAddressRequest extends FormRequest
             'number'       => 'required|integer',
             'complement'   => 'max:255',
             'neighborhood' => 'required|string|min:2|max:255',
-            'zip_code'     => 'required|string|min:8|max:10',
+            'zip_code'     => 'required|string|min:8|max:8',
             'city_id'      => 'required|string|exists:cities,id'
         ];
     }
