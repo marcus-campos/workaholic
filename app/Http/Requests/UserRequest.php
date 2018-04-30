@@ -76,7 +76,7 @@ class UserRequest extends FormRequest
                         $routePath[2] == 'photo'
                     ) {
                         return [
-                            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
                         ];
                     }
                 }

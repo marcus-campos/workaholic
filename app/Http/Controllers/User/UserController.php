@@ -95,6 +95,12 @@ class UserController extends Controller
 
         if ($image) {
             $request = new Request(['photo' => $image]);
+
+            if ($this->userService->checkIfHasPhoto($id)) {
+                $photo = auth()->user()->photo;
+                $this->s3Service->deleteFile($photo);
+            }
+
             $this->userService->persist($request, $id);
 
             return [

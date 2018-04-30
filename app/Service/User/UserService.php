@@ -9,6 +9,7 @@ namespace App\Service\User;
 
 
 use App\Models\User;
+use App\Service\S3\S3Service;
 
 class UserService
 {
@@ -16,14 +17,20 @@ class UserService
      * @var User
      */
     private $user;
+    /**
+     * @var S3Service
+     */
+    private $s3Service;
 
     /**
      * UserService constructor.
      * @param User $user
+     * @param S3Service $s3Service
      */
-    public function __construct(User $user)
+    public function __construct(User $user, S3Service $s3Service)
     {
         $this->user = $user;
+        $this->s3Service = $s3Service;
     }
 
     /**
@@ -31,7 +38,7 @@ class UserService
      */
     public function getAuthUser()
     {
-        $user =  $this->user->find(auth()->id())
+        $user = $this->user->find(auth()->id())
             ->makeHidden([
                 'score',
                 'created_at',
@@ -39,7 +46,9 @@ class UserService
             ])->makeVisible([
                 'biography',
                 'photo'
-            ]);
+            ])->toArray();
+
+        $user['photo'] = $this->s3Service->getFileUrl($user['photo']);
 
         return $user;
     }
@@ -71,6 +80,21 @@ class UserService
         $actualPassword = auth()->user()->getAuthPassword();
 
         if (password_verify($password, $actualPassword)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function checkIfHasPhoto($id)
+    {
+        $user = $this->user->find($id);
+
+        if ($user->photo) {
             return true;
         }
 

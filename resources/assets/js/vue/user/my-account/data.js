@@ -108,7 +108,7 @@ $(function() {
                 pageUrl = window.location.origin + '/user/' + vm.userData.id + '/photo';
 
                 let formData = new FormData();
-                formData.append('image', vm.profilePhoto, vm.profilePhoto.name);
+                formData.append('file', vm.profilePhoto, vm.profilePhoto.name);
                 formData.append('_method', 'PUT');
 
                 for (var p of formData) {
