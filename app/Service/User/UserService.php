@@ -9,7 +9,7 @@ namespace App\Service\User;
 
 
 use App\Models\User;
-use App\Service\S3\S3Service;
+use App\Service\Storage\StorageService;
 
 class UserService
 {
@@ -18,16 +18,16 @@ class UserService
      */
     private $user;
     /**
-     * @var S3Service
+     * @var StorageService
      */
     private $s3Service;
 
     /**
      * UserService constructor.
      * @param User $user
-     * @param S3Service $s3Service
+     * @param StorageService $s3Service
      */
-    public function __construct(User $user, S3Service $s3Service)
+    public function __construct(User $user, StorageService $s3Service)
     {
         $this->user = $user;
         $this->s3Service = $s3Service;

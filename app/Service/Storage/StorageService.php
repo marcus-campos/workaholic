@@ -5,13 +5,13 @@
  * Time: 13:57
  */
 
-namespace App\Service\S3;
+namespace App\Service\Storage;
 
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class S3Service
+class StorageService
 {
     /**
      * @param $request

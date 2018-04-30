@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserAddressRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\UserAddress;
-use App\Service\S3\S3Service;
+use App\Service\Storage\StorageService;
 use App\Service\User\UserAddressService;
 use App\Service\User\UserService;
 use Illuminate\Http\Request;
@@ -18,16 +18,16 @@ class UserController extends Controller
      */
     private $userService;
     /**
-     * @var S3Service
+     * @var StorageService
      */
     private $s3Service;
 
     /**
      * UserController constructor.
      * @param UserService $userService
-     * @param S3Service $s3Service
+     * @param StorageService $s3Service
      */
-    public function __construct(UserService $userService, S3Service $s3Service)
+    public function __construct(UserService $userService, StorageService $s3Service)
     {
         $this->userService = $userService;
         $this->s3Service = $s3Service;
