@@ -135,7 +135,7 @@ class JobController extends Controller
             }
         }
 
-        $job = Job::withCount('proposals')->find($id);
+        $job = $this->jobService->getJobWithProposalsCount($id);
         return view('app.user.job.show', compact('job'));
     }
 
@@ -148,7 +148,7 @@ class JobController extends Controller
     public function edit($id)
     {
         $jobCategories = JobCategory::all();
-        $job = Job::find($id);
+        $job = $this->jobService->getJob($id);
 
         //Validando se a pessoa que está acessando pode editar este job
         if ($job->user_id != auth()->id()) {
@@ -179,7 +179,7 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
-        $job = Job::find($id);
+        $job = $this->jobService->getJob($id);
 
         //Validando se a pessoa que está acessando pode apagar este job
         if ($job->user_id != auth()->id()) {

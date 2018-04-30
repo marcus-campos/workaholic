@@ -66,10 +66,7 @@ class UserAddressController extends Controller
      */
     public function destroy($id)
     {
-        $userAddress = UserAddress::find($id);
-
-        //Validando se a pessoa que está acessando pode apagar este endereço
-        if ($userAddress->user_id != auth()->id()) {
+        if (!$this->userAddressService->checkIfICan($id)) {
             return redirect()->to(route('user.job.index'));
         }
 
@@ -80,12 +77,14 @@ class UserAddressController extends Controller
         ];
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return array|\Illuminate\Http\RedirectResponse
+     */
     public function setPrimary(Request $request, $id)
     {
-        $userAddress = UserAddress::find($id);
-
-        //Validando se a pessoa que está acessando pode apagar este endereço
-        if ($userAddress->user_id != auth()->id()) {
+        if (!$this->userAddressService->checkIfICan($id)) {
             return redirect()->to(route('user.job.index'));
         }
 

@@ -109,4 +109,20 @@ class UserAddressService
 
         return ['updated' => $this->persist($request, $id)];
     }
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function checkIfICan($id)
+    {
+        $userAddress = $this->userAddress->find($id);
+
+        //Validando se a pessoa que está acessando pode apagar este endereço
+        if ($userAddress->user_id != auth()->id()) {
+            return false;
+        }
+
+        return true;
+    }
 }

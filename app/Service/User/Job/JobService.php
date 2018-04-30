@@ -89,6 +89,23 @@ class JobService
         return $jobs;
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getJob($id)
+    {
+        return $this->job->find($id);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getJobWithProposalsCount($id)
+    {
+        return  $this->job->withCount('proposals')->find($id);
+    }
 
     /**
      * @param $id
