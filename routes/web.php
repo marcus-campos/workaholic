@@ -46,7 +46,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
      * Profile
      */
 
-    Route::get('profile/{id}', USER_PROFILE.'@show')->name('profile.index');
+    Route::get('{id}/profile', USER_PROFILE.'@show')->name('profile.index');
 
     /*
      * My Account
@@ -55,6 +55,27 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
     Route::group(['prefix' => 'my-account', 'as' => 'my-account.'], function () {
         Route::get('/', USER_MY_ACCOUNT.'@index')->name('index');
     });
+
+    /*
+     * User Address
+     */
+
+    Route::group(['prefix' => 'address', 'as' => 'address.'], function () {
+        Route::get('/', USER_ADDRESS.'@index')->name('index');
+        Route::put('{id}/primary', USER_ADDRESS.'@setPrimary')->name('index');
+        Route::post('/', USER_ADDRESS.'@store')->name('store');
+        Route::put('{id}', USER_ADDRESS.'@update')->name('update');
+        Route::delete('{id}', USER_ADDRESS.'@destroy')->name('destroy');
+    });
+
+    /*
+     * User
+     */
+
+    Route::get('auth', USER.'@getAuthUser')->name('auth');
+    Route::put('{id}', USER.'@update')->name('update');
+    Route::put('{id}/password', USER.'@updatePassword')->name('updatePassword');
+    Route::put('{id}/photo', USER.'@profilePhoto')->name('photo');
 });
 
 /*

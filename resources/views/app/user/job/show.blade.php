@@ -23,8 +23,10 @@
                                 <p class="text-dark m-b-0"><b>Publicado em: </b> <span class="text-muted">{{ date('d/m/Y', strtotime($job->created_at)) }} </span></p>
                                 <p class="text-dark m-b-0"><b>Profissionais interessados: </b> <span class="text-muted"> {{ $job->proposals_count }} </span></p>
                                 <p class="text-dark m-b-0"><b>Categoria: </b> <span class="text-muted">{{ $job->jobCategory->name }}</span></p>
-                                <p class="text-dark m-b-0"><b>Cidade:</b> <span class="text-muted">{{ (new \App\Models\City())->cityFromToName($job->city_id) }}</span></p>
-                                <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted">{{ $job->neighborhood }}</span></p>
+                                @if($job->userAddresses)
+                                <p class="text-dark m-b-0"><b>Cidade:</b> <span class="text-muted">{{ $job->userAddresses->city->name }}</span></p>
+                                <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted">{{ $job->userAddresses->neighborhood }}</span></p>
+                                @endif
                                 <p class="text-dark m-b-0">
                                     <b>Quando? </b>
                                     <b>Dia: </b> <span class="text-muted">{{ $job->specific_date ? date('d/m/Y', strtotime($job->specific_date)) : 'A combinar' }}</span>
@@ -35,7 +37,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="row m">
+                <div class="row m-t-20">
+                    <div class="col-sm-12">
+                        <div class="form-group user-sm-profile-photo">
+                            <img src="{{ $job->user->photo }}" class="rounded-circle"> <span class="text-muted"> {{ $job->user->name }} </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-6">
                         <div class="m-t-20">
                             <button type="button" class="btn btn-default waves-effect waves-light" @click="showHideProposal()" v-show="showProposalButton">

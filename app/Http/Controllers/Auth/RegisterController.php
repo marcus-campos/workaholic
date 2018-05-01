@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\UserRequest;
 use App\Models\City;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Rules\CpfRule;
+use App\Service\User\UserService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -31,15 +34,20 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+    /**
+     * @var UserService
+     */
+    private $userService;
 
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param UserService $userService
      */
-    public function __construct()
+    public function __construct(UserService $userService)
     {
         $this->middleware('guest');
+        $this->userService = $userService;
     }
 
     /**
@@ -50,24 +58,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        $userRequestRules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-//            'cpf' => [
-//                'string',
-//                'min:11',
-//                'max:11',
-//                new CpfRule
-//            ],
-//            'cnpj' => 'string|min:14|max:14',
-//            'city_id' => 'required|string|min:2',
-//            'address' => 'required|string|min:2',
-//            'number' => 'required|int',
-//            'complement' => 'string',
-//            'cep' => 'required|string|min:8|max:8',
-//            'phone' => 'required|string|min:2',
-        ]);
+            'password' => 'required|string|min:6|confirmed'
+        ];
+
+        return Validator::make($data, $userRequestRules);
     }
 
     /**
@@ -78,17 +75,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $request = new Request([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-//            'cpf' => $data['cpf'],
-//            'phone' => $data['phone'],
-//            'cep' => $data['cep'],
-//            'address' => $data['address'],
-//            'number' => $data['number'],
-//            'neighborhood' => $data['neighborhood'],
-//            'city_id' => (new City())->cityFromToId($data['city_id'])
         ]);
+
+        $user = $this->userService->persist($request);
+        return $user;
     }
 }

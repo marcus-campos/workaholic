@@ -28,4 +28,6 @@
     @yield('section-js')
 
     @yield('component-js')
+
+    @yield('partial-js')
 @endsection

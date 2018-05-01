@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Service\Storage\StorageService;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -52,7 +53,6 @@ class User extends Authenticatable
         'neighborhood',
         'number',
         'phone',
-        'photo',
         'role',
         'cnpj',
         'cpf',
@@ -73,5 +73,18 @@ class User extends Authenticatable
         self::creating(function ($model) {
             $model->id = Str::orderedUuid();
         });
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhotoAttribute($value)
+    {
+        if (!$value) {
+            $value = asset('assets/images/users/default-user.png');
+            return $value;
+        }
+
+        return (new StorageService())->getFileUrl($value);
     }
 }

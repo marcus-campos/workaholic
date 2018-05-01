@@ -20,7 +20,7 @@ docker_required() {
 
     # compilando a maquina
     echo ""
-    echo "Será iniciado o build da maquina do portal."
+    echo "Será iniciado o build da maquina do Orkaholic."
     echo "Tenha paciência, isso irá demorar um pouco. :)"
     echo "Vai lá e pega um café, a espera será mais feliz."
     echo ""
@@ -76,18 +76,28 @@ docker_build_force_recreate () {
 }
 
 docker_base() {
+    # Copiando .env
+    cp ./.env.example ./.env
+
+    # Gerando nova Key
+    docker-compose exec orkaholic_app php artisan key:generate
+
+    # Limpando cache de configuração
+    docker-compose exec orkaholic_app php artisan config:clear
+
+    # Migrations
+    docker-compose exec orkaholic_app php artisan migrate:refresh --seed
 
     # Permissão de escrita
     cd ..
     sudo chmod 777 -R workaholic
 
     declare -i count
-    count=`cat /etc/hosts | grep "172.0.0.2 workaholic.dev" | wc -l`
+    count=`cat /etc/hosts | grep "173.0.0.2 local.orkaholic.com.br" | wc -l`
 
     if [ $count -eq 0 ]; then
-        echo "172.0.0.2 workaholic.dev" | sudo tee -a /etc/hosts
+        echo "173.0.0.2 local.orkaholic.com.br" | sudo tee -a /etc/hosts
     fi
-
 }
 
 
@@ -110,12 +120,6 @@ docker_up_containers_reset_db() {
 
     #up
     docker_up_containers_with_logs
-}
-
-ambientum_replace_commands() {
-    cd ~
-    curl -L https://github.com/codecasts/ambientum/raw/master/commands.bash -o ~/.ambientum_rc
-    source ~/.ambientum_rc
 }
 
 install_docker() {
@@ -171,7 +175,6 @@ sub_menu_2() {
     fi
 }
 
-
 echo "Seja bem-vindo ao menu de setup."
 echo "Por favor escolha uma das opções abaixo:"
 echo "1 - Deploy com o Docker"
@@ -180,8 +183,7 @@ echo "3 - Iniciar os containers"
 echo "4 - Iniciar os containers com logs"
 echo "5 - Iniciar os containers e resetar o banco de dados"
 echo "6 - Desligar os containers"
-echo "7 - Adicionar comandos locais"
-echo "8 - Instalar dependências"
+echo "7 - Instalar dependências"
 if [ "$1" == "" ]; then
     echo -n "Digite sua opção: "
     read -n 1 option

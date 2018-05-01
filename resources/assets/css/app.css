@@ -84,6 +84,21 @@
     border-color: #2bbbad;
 }
 
+.my-account-profile-photo img {
+    height: 72px;
+    width: 72px;
+}
+
+.user-sm-profile-photo img {
+    height: 32px;
+    width: 32px;
+}
+
+.user-xs-profile-photo img {
+    height: 16px;
+    width: 16px;
+}
+
 @media only screen and (max-width: 500px) {
     .job-list-title {
         white-space: nowrap;

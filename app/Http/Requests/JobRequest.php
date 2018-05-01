@@ -17,27 +17,17 @@ class JobRequest extends FormRequest
         $routePath = explode('/', $this->decodedPath());
         $authorize = false;
 
-        if (isset($routePath[0]) && isset($routePath[1])) {
-
-            if (
-                $routePath[0] == 'user' &&
-                $routePath[1] == 'job' &&
-                !isset($routePath[2])
-            ) {
+        switch ($this->method()) {
+            case 'POST':
                 $authorize = true;
-            }
-
-            if (
-                $routePath[0] == 'user' &&
-                $routePath[1] == 'job' &&
-                isset($routePath[2])
-            ) {
+                break;
+            case 'PUT':
                 $job = Job::find($routePath[2]);
 
-                if($job->user_id == auth()->id()) {
+                if ($job->user_id == auth()->id()) {
                     $authorize = true;
                 }
-            }
+                break;
         }
 
         return $authorize;
@@ -52,9 +42,9 @@ class JobRequest extends FormRequest
     {
         return [
             'title' => 'required|min:2|max:120',
-            'job_category_id' => 'required',
+            'job_category_id' => 'required|exists:job_categories,id',
             'remote' => 'required|integer',
-            'city_id' => 'required',
+            'user_address_id' => 'exists:user_addresses,id',
             'description' => 'required|string|min:10|max:20000'
         ];
     }

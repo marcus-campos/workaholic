@@ -127,7 +127,14 @@ return [
         'specific_date' => 'dia',
         'initial_time' => 'de',
         'final_time' => 'até',
-        'description' => 'descrição'
+        'description' => 'descrição',
+        'address' => 'logradouro',
+        'city_id' => 'cidade',
+        'number' => 'número',
+        'complement' => 'complemento',
+        'neighborhood' => 'bairro',
+        'zip_code' => 'cep',
+        ''
     ],
 
 ];

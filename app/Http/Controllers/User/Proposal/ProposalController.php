@@ -77,9 +77,10 @@ class ProposalController extends Controller
         return view('app.user.job.proposal.proposal', compact('jobId'));
     }
 
+
     /**
      * @param $id
-     * @return $this|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Http\JsonResponse|null|object|static
      */
     public function showJsonJobProposal($id)
     {
@@ -92,8 +93,7 @@ class ProposalController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
 
-        $data = $proposals;
-        return $data;
+        return $proposals;
     }
 
     /**

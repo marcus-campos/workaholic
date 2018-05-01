@@ -10,6 +10,7 @@
         mounted() {
             let vm = this;
             vm.getJobs();
+            vm.loadTooltips();
         },
         methods: {
             getJobs: function (pageUrl) {
@@ -83,6 +84,13 @@
                 };
 
                 vm.pagination = pagination;
+            },
+            loadTooltips: function () {
+                setInterval(() => {
+                    if (document.readyState === 'complete') {
+                        $('[data-toggle="tooltip"]').tooltip();
+                    }
+                }, 100);
             }
         },
         watch: {

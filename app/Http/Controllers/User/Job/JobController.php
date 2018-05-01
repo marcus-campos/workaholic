@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\User\Job;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\JobRequest;
-use App\Models\City;
-use App\Models\Job;
 use App\Models\JobCategory;
 use App\Service\User\Job\JobService;
 use App\Service\User\Proposal\ProposalService;
 use App\Util\DataMaker\DataMakerTrait;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class JobController extends Controller
 {
@@ -34,13 +32,13 @@ class JobController extends Controller
         $this->setFilterFillable([
             'title',
             'description',
-            'neighborhood',
-            'city_id',
             'remote',
             'initial_time',
             'final_time',
             'specific_date',
-            'job_category_id'
+            'user_address_id',
+            'job_category_id',
+            'user_id'
         ]);
 
         $this->setOrderByFillable([
@@ -104,7 +102,9 @@ class JobController extends Controller
     public function create()
     {
         $jobCategories = JobCategory::all();
-        return view('app.user.job.add', compact('jobCategories'));
+        return view('app.user.job.add', compact(
+            'jobCategories'
+        ));
     }
 
 
@@ -114,6 +114,12 @@ class JobController extends Controller
      */
     public function store(JobRequest $request)
     {
+        if ($request->remote === '1') {
+            $request = $request->all();
+            unset($request['user_address_id']);
+            $request = new Request($request);
+        }
+
         $this->jobService->persist($request);
         return redirect()->to(route('user.job.client'));
     }
@@ -135,7 +141,7 @@ class JobController extends Controller
             }
         }
 
-        $job = Job::withCount('proposals')->find($id);
+        $job = $this->jobService->getJobWithProposalsCount($id);
         return view('app.user.job.show', compact('job'));
     }
 
@@ -148,14 +154,16 @@ class JobController extends Controller
     public function edit($id)
     {
         $jobCategories = JobCategory::all();
-        $job = Job::find($id);
-
+        $job = $this->jobService->getJob($id);
         //Validando se a pessoa que está acessando pode editar este job
         if ($job->user_id != auth()->id()) {
             return redirect()->to(route('user.job.index'));
         }
 
-        return view('app.user.job.edit', compact('job', 'jobCategories'));
+        return view('app.user.job.edit', compact(
+            'job',
+            'jobCategories'
+        ));
     }
 
     /**
@@ -179,6 +187,13 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
+        $job = $this->jobService->getJob($id);
+
+        //Validando se a pessoa que está acessando pode apagar este job
+        if ($job->user_id != auth()->id()) {
+            return redirect()->to(route('user.job.index'));
+        }
+
         $this->jobService->destroy($id);
         return redirect()->to(route('user.job.client'));
     }
