@@ -14,7 +14,7 @@ class CreateProposalProgressTable extends Migration
     public function up()
     {
         Schema::create('proposal_progress', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->integer('percentage')->default(0);
             $table->enum('status', ['accepted', 'rejected', 'waiting'])->default('waiting');
             $table->uuid('proposal_id');

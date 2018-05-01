@@ -14,7 +14,7 @@ class CreateUserAddressesTable extends Migration
     public function up()
     {
         Schema::create('user_addresses', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->string('address'); //Street | Avenue
             $table->integer('number');
             $table->string('complement')->nullable();

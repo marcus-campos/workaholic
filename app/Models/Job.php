@@ -11,8 +11,7 @@ class Job extends BaseModel
     protected $fillable = [
         'title',
         'description',
-        'neighborhood',
-        'city_id',
+        'user_address_id',
         'remote',
         'initial_time',
         'final_time',
@@ -51,5 +50,13 @@ class Job extends BaseModel
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function userAddresses()
+    {
+        return $this->belongsTo(UserAddress::class, 'user_address_id');
     }
 }

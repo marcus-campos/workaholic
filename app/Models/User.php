@@ -80,6 +80,16 @@ class User extends Authenticatable
      */
     public function getPhotoAttribute($value)
     {
+        if (!strpos($value, 'http')) {
+            $value = asset('assets/images/users/default-user.png');
+            return $value;
+        }
+
+        if (!$value) {
+            $value = 'assets/images/users/default-user.png';
+            return $value;
+        }
+
         return (new StorageService())->getFileUrl($value);
     }
 }

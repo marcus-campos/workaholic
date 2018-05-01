@@ -33,7 +33,7 @@ class UserAddressService
      */
     public function index()
     {
-        $addresses = $this->userAddress->with('city')
+        $addresses = $this->userAddress->with(['city', 'city.state'])
             ->where('user_id', auth()->id())
             ->orderBy('primary', 'desc')
             ->orderBy('created_at', 'asc')

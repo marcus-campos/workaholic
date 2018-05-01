@@ -44,7 +44,7 @@ class JobRequest extends FormRequest
             'title' => 'required|min:2|max:120',
             'job_category_id' => 'required|exists:job_categories,id',
             'remote' => 'required|integer',
-            'city_id' => 'required|exists:cities,id',
+            'user_address_id' => 'exists:user_addresses,id',
             'description' => 'required|string|min:10|max:20000'
         ];
     }

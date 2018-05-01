@@ -17,14 +17,13 @@ class CreateJobsTable extends Migration
             $table->uuid('id')->primary();
             $table->string('title', 120);
             $table->text('description', 10000);
-            $table->string('neighborhood', 120)->nullable();
-            $table->uuid('city_id')->nullable();
             $table->boolean('remote');
             $table->time('initial_time')->nullable();
             $table->time('final_time')->nullable();
             $table->date('specific_date')->nullable();
             $table->uuid('job_category_id');
             $table->uuid('user_id');
+            $table->uuid('user_address_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

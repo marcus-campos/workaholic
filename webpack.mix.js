@@ -41,6 +41,10 @@ mix.babel([
     'resources/assets/js/vue/user/job/show.js'
 ], 'public/js/jobShow.js').version();
 
+mix.babel([
+    'resources/assets/js/vue/user/job/form.js'
+], 'public/js/jobForm.js').version();
+
 //Cities
 mix.babel([
     'resources/assets/js/vue/cities/cities.js'

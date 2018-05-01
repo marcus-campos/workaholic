@@ -44,7 +44,8 @@ class ProposalService
         //Client
         $proposals = $this->job->with([
             'jobCategory',
-            'city',
+            'userAddresses',
+            'userAddresses.city',
             'proposals' => function ($query) {
                 $query->where('status', '<>', 'rejected');
             },
@@ -61,7 +62,8 @@ class ProposalService
         if (!$proposals or $proposals->count() < 1) {
             $proposals = $this->job->with([
                 'jobCategory',
-                'city',
+                'userAddresses',
+                'userAddresses.city',
                 'proposals' => function ($query) {
                     $query->where('user_id', auth()->id());
                 },

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterAddCityIdForeignKeyJobsTable extends Migration
+class AlterAddUserAddressInJobsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AlterAddCityIdForeignKeyJobsTable extends Migration
     public function up()
     {
         Schema::table('jobs', function (Blueprint $table) {
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('user_address_id')->references('id')->on('user_addresses');
         });
     }
 
@@ -26,7 +26,7 @@ class AlterAddCityIdForeignKeyJobsTable extends Migration
     public function down()
     {
         Schema::table('jobs', function (Blueprint $table) {
-            $table->dropForeign(['city_id']);
+            $table->dropForeign(['user_address_id']);
         });
     }
 }

@@ -5,6 +5,13 @@
  * Time: 20:05
  */
 
+/**
+ * @param $input
+ * @param null $definedVars
+ * @param null $data
+ * @return mixed|null
+ */
+
 function inputValue($input, $definedVars = null, $data = null)
 {
     if($old = old($input)) {
@@ -27,6 +34,7 @@ function inputValue($input, $definedVars = null, $data = null)
         return $value;
     }
 
+    return null;
 }
 
 /*

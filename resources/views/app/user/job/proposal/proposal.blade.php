@@ -33,8 +33,8 @@
                                                 <p class="text-dark m-b-0"><b>Publicado em: </b> <span class="text-muted"> @{{ job.created_at | c-dmy }} </span></p>
                                                 <p class="text-dark m-b-0"><b>Profissionais interessados: </b> <span class="text-muted"> @{{ job.proposals_count }} </span></p>
                                                 <p class="text-dark m-b-0"><b>Categoria: </b> <span class="text-muted"> @{{ job.job_category.name }} </span></p>
-                                                <p class="text-dark m-b-0"><b>Cidade:</b> <span class="text-muted"> @{{ job.city.name }} </span></p>
-                                                <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted"> @{{ job.neighborhood }} </span></p>
+                                                <p class="text-dark m-b-0"><b>Cidade:</b> <span class="text-muted"> @{{ job.user_addresses.city.name }} </span></p>
+                                                <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted"> @{{ job.user_addresses.neighborhood }} </span></p>
                                                 <p class="text-dark m-b-0">
                                                     <b>Quando? </b>
                                                     <b>Dia: </b> <span class="text-muted">@{{ job.specific_date | c-dmy }}</span>
