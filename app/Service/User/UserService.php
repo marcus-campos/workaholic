@@ -46,9 +46,11 @@ class UserService
             ])->makeVisible([
                 'biography',
                 'photo'
-            ])->toArray();
+            ]);
 
-        $user['photo'] = $this->s3Service->getFileUrl($user['photo']);
+        if ($user->photo) {
+            $user->photo = $this->s3Service->getFileUrl($user->photo);
+        }
 
         return $user;
     }

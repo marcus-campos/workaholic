@@ -111,10 +111,6 @@ $(function() {
                 formData.append('file', vm.profilePhoto, vm.profilePhoto.name);
                 formData.append('_method', 'PUT');
 
-                for (var p of formData) {
-                    console.log(p);
-                }
-
                 vm.$http.post(pageUrl, formData, { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
                     vm.getUser();
                     swal(

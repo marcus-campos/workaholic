@@ -17,9 +17,9 @@
             </div>
         @endif
         <!-- item-->
-        <a href="#" class="dropdown-item notify-item">
-            <i class="md md-account-circle"></i> <span>Profile</span>
-        </a>
+        {{--<a href="{{ route('user.profile.index', ['id' => auth()->id()]) }}" class="dropdown-item notify-item">--}}
+            {{--<i class="md md-account-circle"></i> <span>Profile</span>--}}
+        {{--</a>--}}
 
         <!-- item-->
         <a href="{{ route('user.my-account.index') }}" class="dropdown-item notify-item">

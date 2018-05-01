@@ -90,7 +90,12 @@ class UserController extends Controller
      */
     public function profilePhoto(UserRequest $userRequest, $id)
     {
-        $directory = 'user/' . auth()->id() . '/profile/photo';
+        $directory = 'user/' . auth()->id() . '/profile/photo/';
+
+        if (env('APP_ENV', 'local') !== 'production') {
+            $directory = env('APP_ENV', 'local') . '/user/' . auth()->id() . '/profile/photo/';
+        }
+
         $image = $this->s3Service->uploadFile($userRequest, $directory);
 
         if ($image) {
