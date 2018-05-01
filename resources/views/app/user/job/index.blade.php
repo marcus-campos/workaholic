@@ -43,9 +43,9 @@
                                 </p>
                                 <p class="text-dark m-b-0"><b>Categoria: </b> <span class="text-muted">@{{ job.job_category.name }}</span>
                                 </p>
-                                <p class="text-dark m-b-0"><b>Cidade:</b> <span
+                                <p class="text-dark m-b-0" v-if="job.user_addresses"><b>Cidade:</b> <span
                                             class="text-muted"> @{{ job.user_addresses.city.name }} </span></p>
-                                <p class="text-dark m-b-0"><b>Bairro:</b> <span class="text-muted"> @{{ job.user_addresses.neighborhood }} </span>
+                                <p class="text-dark m-b-0" v-if="job.user_addresses"><b>Bairro:</b> <span class="text-muted"> @{{ job.user_addresses.neighborhood }} </span>
                                 </p>
                                 <p class="text-dark m-b-0">
                                     <b>Quando? </b>

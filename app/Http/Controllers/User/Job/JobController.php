@@ -8,6 +8,7 @@ use App\Models\JobCategory;
 use App\Service\User\Job\JobService;
 use App\Service\User\Proposal\ProposalService;
 use App\Util\DataMaker\DataMakerTrait;
+use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
@@ -113,6 +114,12 @@ class JobController extends Controller
      */
     public function store(JobRequest $request)
     {
+        if ($request->remote === '1') {
+            $request = $request->all();
+            unset($request['user_address_id']);
+            $request = new Request($request);
+        }
+
         $this->jobService->persist($request);
         return redirect()->to(route('user.job.client'));
     }

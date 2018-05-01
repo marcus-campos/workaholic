@@ -10,7 +10,6 @@
     });
 
     Vue.filter('c-HHmm', function (value) {
-        console.log(value);
         if (!value) return 'A combinar';
         return moment(value, 'hhmmss').format('HH:mm');
     });
