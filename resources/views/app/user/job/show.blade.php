@@ -35,7 +35,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="row m">
+                <div class="row m-t-20">
+                    <div class="col-sm-12">
+                        <div class="form-group user-sm-profile-photo">
+                            <img src="{{ $job->user->photo }}" class="rounded-circle"> <span class="text-muted"> {{ $job->user->name }} </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-6">
                         <div class="m-t-20">
                             <button type="button" class="btn btn-default waves-effect waves-light" @click="showHideProposal()" v-show="showProposalButton">

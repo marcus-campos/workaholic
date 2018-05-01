@@ -52,7 +52,7 @@ class JobService
      */
     public function indexByClientId()
     {
-        $jobs = $this->job->with(['jobCategory', 'city'])
+        $jobs = $this->job->with(['jobCategory', 'city', 'user'])
             ->withCount('proposals')
             ->where('user_id', auth()->id());
 
@@ -64,7 +64,7 @@ class JobService
      */
     public function indexByWorker()
     {
-        $jobs = $this->job->with(['jobCategory', 'city', 'proposals'])
+        $jobs = $this->job->with(['jobCategory', 'city', 'proposals', 'user'])
             ->withCount('proposals')
             ->whereHas('proposals', function ($query) {
                 $query->where('user_id', auth()->id());
@@ -79,7 +79,7 @@ class JobService
      */
     public function indexAll()
     {
-        $jobs = $this->job->with(['jobCategory', 'city'])
+        $jobs = $this->job->with(['jobCategory', 'city', 'user'])
             ->withCount('proposals')
             ->whereDoesntHave('proposals', function ($query) {
                 $query->where('status', 'accepted')

@@ -2,7 +2,7 @@
     <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
        aria-haspopup="false" aria-expanded="false">
         @if(auth()->user()->photo)
-            <img src="{{getFileUrl(auth()->user()->photo)}}" alt="user" class="rounded-circle">
+            <img src="{{auth()->user()->photo}}" alt="user" class="rounded-circle">
         @else
             {{ auth()->check() ? \Illuminate\Support\Facades\Auth::user()->name : 'Entrar' }}
         @endif

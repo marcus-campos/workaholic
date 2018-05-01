@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <a :href="'{{ url('/') }}/user/job/' + job.id" class="job-action-btn"
-                                   data-toggle="tooltip" data-placement="top" title=""
+                                    data-toggle="tooltip" data-placement="top" title=""
                                    data-original-title="Ver detalhes"><i class="md md-open-in-browser"></i></a>
                                 <a :href="'{{ url('/') }}/user/proposal/job/' + job.id" class="job-action-btn"
                                    v-show="page !== '/user/job' && job.proposals_count > 0" data-toggle="tooltip"
@@ -68,6 +68,13 @@
                                 <a href="#" @click="submitDelete(job)" class="job-action-btn"
                                    v-show="page === '/user/job/client'" data-toggle="tooltip" data-placement="top"
                                    title="" data-original-title="Deletar trabalho"><i class="md md-close"></i></a>
+                            </div>
+                        </div>
+                        <div class="row m-t-20">
+                            <div class="col-sm-12">
+                                <div class="form-group user-sm-profile-photo">
+                                    <img :src="job.user.photo" class="rounded-circle"> <span class="text-muted"> @{{ job.user.name }} </span>
+                                </div>
                             </div>
                         </div>
                     </div>

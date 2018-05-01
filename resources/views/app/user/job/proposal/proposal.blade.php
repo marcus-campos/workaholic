@@ -45,6 +45,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row m-t-20">
+                                    <div class="col-sm-12">
+                                        <div class="form-group user-sm-profile-photo">
+                                            <img :src="job.user.photo" class="rounded-circle"> <span class="text-muted"> @{{ job.user.name }} </span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-sm-6">
 
@@ -74,7 +81,9 @@
                     <div class="portlet">
                         <div class="portlet-heading portlet-default">
                             <h3 class="portlet-title text-dark">
-                                @{{ isMe(proposal.user_id) ? 'Minha proposta': proposal.user.name }}
+                                <div class="user-sm-profile-photo">
+                                    <img :src="proposal.user.photo" class="rounded-circle">  @{{ isMe(proposal.user_id) ? 'Minha proposta': proposal.user.name }}
+                                </div>
                             </h3>
                             <div class="portlet-widgets">
                                 <span v-if="isMe(job.user_id) && proposal.status !== 'accepted'">
@@ -143,15 +152,19 @@
                                             <div class="comment p-0" v-for="comment in proposal.comments">
                                                 <div class="comment-body m-l-0 m-b-10">
                                                     <div class="comment-text" v-if="isMe(comment.user_id)">
-                                                        <div class="comment-header">
-                                                            @{{ comment.user.name }}<span>@{{ comment.created_at | dmyHHmm }}</span>
+                                                        <div class="comment-header m-b-5">
+                                                            <div class="user-xs-profile-photo">
+                                                                <img :src="comment.user.photo" class="rounded-circle"> @{{ comment.user.name }} <span>@{{ comment.created_at | dmyHHmm }}</span>
+                                                            </div>
                                                         </div>
                                                         @{{ comment.description }}
                                                     </div>
 
                                                     <div class="comment-text-odd" v-else>
-                                                        <div class="comment-header">
-                                                            @{{ comment.user.name }}<span>@{{ comment.created_at | dmyHHmm }}</span>
+                                                        <div class="comment-header m-b-5">
+                                                            <div class="user-xs-profile-photo">
+                                                                <img :src="comment.user.photo" class="rounded-circle"> @{{ comment.user.name }} <span>@{{ comment.created_at | dmyHHmm }}</span>
+                                                            </div>
                                                         </div>
                                                         @{{ comment.description }}
                                                     </div>

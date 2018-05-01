@@ -23,12 +23,7 @@ class StorageService
         $fileName = $directory . Str::orderedUuid() . '.' . $request->file->getClientOriginalExtension();
         $file = $request->file('file');
 
-        if (env('APP_ENV', 'local') === 'local') {
-            Storage::disk('public')->put($fileName, file_get_contents($file), 'public');
-            return $fileName;
-        }
-
-        Storage::disk('s3')->put($fileName, file_get_contents($file), 'public');
+        Storage::disk(env('FILE_SYSTEM_DISK', 'public'))->put($fileName, file_get_contents($file), 'public');
         return $fileName;
     }
 
@@ -38,11 +33,7 @@ class StorageService
      */
     public function getFileUrl($filePath)
     {
-        if (env('APP_ENV', 'local') === 'local') {
-            return Storage::disk('public')->url($filePath);
-        }
-
-        return Storage::disk('s3')->url($filePath);
+        return Storage::disk(env('FILE_SYSTEM_DISK', 'public'))->url($filePath);
     }
 
     /**
@@ -50,10 +41,6 @@ class StorageService
      */
     public function deleteFile($filePath)
     {
-        if (env('APP_ENV', 'local') === 'local') {
-            Storage::disk('public')->delete($filePath);
-        }
-
-        Storage::disk('s3')->delete($filePath);
+        Storage::disk(env('FILE_SYSTEM_DISK', 'public'))->delete($filePath);
     }
 }

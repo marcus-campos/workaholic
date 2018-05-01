@@ -44,13 +44,8 @@ class UserService
                 'created_at',
                 'email'
             ])->makeVisible([
-                'biography',
-                'photo'
+                'biography'
             ]);
-
-        if ($user->photo) {
-            $user->photo = $this->s3Service->getFileUrl($user->photo);
-        }
 
         return $user;
     }

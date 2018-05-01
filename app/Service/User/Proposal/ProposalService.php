@@ -48,6 +48,7 @@ class ProposalService
             'proposals' => function ($query) {
                 $query->where('status', '<>', 'rejected');
             },
+            'user',
             'proposals.user',
             'proposals.comments',
             'proposals.comments.user'
@@ -64,6 +65,7 @@ class ProposalService
                 'proposals' => function ($query) {
                     $query->where('user_id', auth()->id());
                 },
+                'user',
                 'proposals.user',
                 'proposals.comments',
                 'proposals.comments.user'
