@@ -11,7 +11,8 @@ $(function() {
                 id: '',
                 name: '',
                 email: '',
-                biography: ''
+                biography: '',
+                photo: ''
             },
             profilePhoto: null
         },
@@ -35,6 +36,7 @@ $(function() {
 
                 pageUrl = window.location.origin + '/user/'+ vm.userData.id;
                 vm.userData['_method'] = 'PUT';
+                delete vm.userData.photo;
 
                 vm.$http.post(pageUrl, vm.userData, { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
                     vm.getUser();
