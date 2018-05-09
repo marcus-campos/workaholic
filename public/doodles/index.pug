@@ -1,0 +1,14 @@
+input.retrigger(type="radio" name="rerun" id="retrigger--1")
+input.retrigger(type="radio" name="rerun" id="retrigger--2" checked)
+
+
+.bg
+
+.buttons
+  label.button(for="retrigger--1" class="button--1") REPETIR
+  label.button(for="retrigger--2" class="button--2") REPETIR
+.pane
+  .rotate
+    - layers = 20
+    while layers--
+      .logo ORKAHOLIC

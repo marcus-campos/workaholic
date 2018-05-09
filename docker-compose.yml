@@ -74,6 +74,18 @@ services:
       orkaholic_net:
         ipv4_address: 173.0.0.5
 
+  orkaholic_vuejs_build:
+    image: ambientum/node:9
+    container_name: orkaholic-vue-dev
+    command: npm run dev
+    volumes:
+      - .:/var/www/app
+    links:
+      - orkaholic_app
+    networks:
+      orkaholic_net:
+        ipv4_address: 173.0.0.6
+
 networks:
   orkaholic_net:
     driver: bridge
