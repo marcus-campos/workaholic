@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Proposal extends Model
+class Proposal extends BaseModel
 {
     protected $fillable = [
         'description',
@@ -12,7 +10,7 @@ class Proposal extends Model
         'gross_value',
         'time_to_finish_the_job',
         'promoted',
-        'accepts',
+        'status',
         'user_id',
         'job_id'
     ];

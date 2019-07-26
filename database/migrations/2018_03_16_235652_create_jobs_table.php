@@ -14,17 +14,16 @@ class CreateJobsTable extends Migration
     public function up()
     {
         Schema::create('jobs', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->string('title', 120);
             $table->text('description', 10000);
-            $table->string('neighborhood', 120)->nullable();
-            $table->integer('city_id')->nullable()->unsigned();
             $table->boolean('remote');
             $table->time('initial_time')->nullable();
             $table->time('final_time')->nullable();
             $table->date('specific_date')->nullable();
-            $table->integer('job_category_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->uuid('job_category_id');
+            $table->uuid('user_id');
+            $table->uuid('user_address_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

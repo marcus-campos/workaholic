@@ -14,7 +14,7 @@ class CreateJobCategoriesTable extends Migration
     public function up()
     {
         Schema::create('job_categories', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->string('name', 50);
             $table->string('description', 1000)->nullable();
             $table->softDeletes();

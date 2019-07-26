@@ -12,7 +12,7 @@
                 <div class="row col-sm-12 p-0 m-0">
                     <div class="col-sm-4 p-0">
                         <label>Valor líquido a cobrar<span class="text-danger">*</span></label>
-                        <input class="form-control" v-model="proposal.net_value" />
+                        <input class="form-control netvalue" data-a-sign="R$ " id="net_value" />
                     </div>
                     <div class="col-sm-8 p-r-0">
                         <label>De quanto tempo você precisa para finalizar o trabalho?<span class="text-danger">*</span></label>

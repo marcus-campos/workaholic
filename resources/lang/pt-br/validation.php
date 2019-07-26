@@ -116,6 +116,25 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'email' => 'endereço de email',
+        'name' => 'nome',
+        'city' => 'cidade',
+        'job_category_id' => 'categoria',
+        'title' => 'titulo',
+        'remote' => 'trabalho remoto',
+        'neighborhood',
+        'specific_date' => 'dia',
+        'initial_time' => 'de',
+        'final_time' => 'até',
+        'description' => 'descrição',
+        'address' => 'logradouro',
+        'city_id' => 'cidade',
+        'number' => 'número',
+        'complement' => 'complemento',
+        'neighborhood' => 'bairro',
+        'zip_code' => 'cep',
+        ''
+    ],
 
 ];

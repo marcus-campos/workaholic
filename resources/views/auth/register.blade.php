@@ -30,54 +30,6 @@
 					</div>
 				</div>
 
-				<div class="form-group ">
-					<div class="col-xs-12">
-						<input type="text" class="form-control" name="cpf" value="{{ old('cpf') }}" placeholder="CPF">
-					</div>
-				</div>
-
-				<div class="form-group ">
-					<div class="col-xs-12">
-						<input type="text" class="form-control" id="cep" name="cep" value="{{ old('cep') }}" placeholder="CEP" maxlength="8">
-					</div>
-				</div>
-
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input type="text" class="form-control" id="address" name="address" value="{{ old('address') }}" placeholder="Logradouro" disabled>
-                    </div>
-                </div>
-
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input type="text" class="form-control" id="number" name="number" value="{{ old('number') }}" placeholder="Número">
-                    </div>
-                </div>
-
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input type="text" class="form-control" id="complement" name="complement" value="{{ old('complement') }}" placeholder="Complemento">
-                    </div>
-                </div>
-
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input type="text" class="form-control" id="neighborhood" name="neighborhood" value="{{ old('neighborhood') }}" placeholder="Bairro" disabled>
-                    </div>
-                </div>
-
-				<div class="form-group ">
-					<div class="col-xs-12">
-						@include('components.cities')
-					</div>
-				</div>
-
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone') }}" placeholder="Telefone">
-                    </div>
-                </div>
-
                 <div class="form-group ">
                     <div class="col-xs-12">
                         <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">

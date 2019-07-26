@@ -14,10 +14,10 @@ class CreateProposalCommentsTable extends Migration
     public function up()
     {
         Schema::create('proposal_comments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->text('description');
-            $table->integer('user_id')->unsigned();
-            $table->integer('proposal_id')->unsigned();
+            $table->uuid('id')->primary();
+            $table->string('description', 500);
+            $table->uuid('user_id');
+            $table->uuid('proposal_id');
             $table->softDeletes();
             $table->timestamps();
 

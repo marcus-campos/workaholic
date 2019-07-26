@@ -3,12 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Plataforma de chatbots.">
-        <meta name="author" content="Devyzi - Marcus Vinícius Campos">
+        <meta name="description" content="Plataforma para unir clientes e prestadores de serviços.">
+        <meta name="author" content="Marcus Vinícius Campos <campos.v.marcus@gmail.com>">
 
         <link rel="shortcut icon" href="{{ asset('assets/images/favicon_1.ico') }}">
 
-        <title>Anny Platform</title>
+        <title>Orkaholic</title>
 
         @yield('style-sheets')
     </head>
@@ -23,13 +23,10 @@
         @yield('top-bar')
         <!-- Top Bar End -->
 
-
         <!-- ========== Left Sidebar Start ========== -->
 
         @yield('left-menu')
         <!-- Left Sidebar End -->
-
-
 
         <!-- ============================================================== -->
         <!-- Start right Content here -->
@@ -43,25 +40,9 @@
                     @yield('page-title')
 
                     @yield('container')
-
-                    <!--<div style="min-height: 1000px;"></div>-->
-
-
                 </div> <!-- container -->
-
             </div> <!-- content -->
-
-            <footer class="footer text-right">
-               Orkaholic ©  Copyright {{ date('Y') == '2018' ? date('Y') : '2018 - ' . date('Y') }}. Todos os direitos reservados.
-            </footer>
-
         </div>
-
-
-        <!-- ============================================================== -->
-        <!-- End Right content here -->
-        <!-- ============================================================== -->
-
 
         <!-- Right Sidebar -->
         @yield('right-menu')

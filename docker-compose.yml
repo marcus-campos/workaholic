@@ -14,9 +14,9 @@ volumes:
 
 services:
   # MySQL (5.7)
-  mysql:
+  orkaholic_db:
     image: mysql:5.7
-    container_name: sandbox-mysql
+    container_name: orkaholic-db
     volumes:
       - /var/lib/mysql:/var/lib/mysql
     ports:
@@ -27,56 +27,67 @@ services:
       - MYSQL_USER=xtra
       - MYSQL_PASSWORD=987987
     networks:
-          workaholic_net:
-            ipv4_address: 173.0.0.4
+      orkaholic_net:
+        ipv4_address: 173.0.0.4
 
   # Redis
-  cache:
+  orkaholic_cache:
     image: redis:4.0
-    container_name: sandbox-redis
+    container_name: orkaholic-cache
     command: --appendonly yes
     volumes:
       - /data:/data
     ports:
       - "6379:6379"
     networks:
-          workaholic_net:
-            ipv4_address: 173.0.0.3
+      orkaholic_net:
+        ipv4_address: 173.0.0.3
 
 
   # PHP (with Nginx)
   # you can change from nginx to apache, just change session 'image'
-  app:
+  orkaholic_app:
     build: ./infra/ambientum-18.03.1/php/7.2-nginx
-    container_name: sandbox-app
+    container_name: orkaholic-app
     volumes:
       - .:/var/www/app
     ports:
       - "80:8080"
     links:
-      - mysql
-      - cache
+      - orkaholic_db
+      - orkaholic_cache
     networks:
-          workaholic_net:
-            ipv4_address: 173.0.0.2
+      orkaholic_net:
+        ipv4_address: 173.0.0.2
 
   # Laravel Queues
-  queue:
+  orkaholic_queue:
     build: ./infra/ambientum-18.03.1/php/7.2
-    container_name: sandbox-queue
+    container_name: orkaholic-queue
     command: php artisan queue:listen
     volumes:
       - .:/var/www/app
     links:
-      - mysql
-      - cache
+      - orkaholic_db
+      - orkaholic_cache
     networks:
-          workaholic_net:
-            ipv4_address: 173.0.0.5
+      orkaholic_net:
+        ipv4_address: 173.0.0.5
 
+  orkaholic_vuejs_build:
+    image: ambientum/node:9
+    container_name: orkaholic-vue-dev
+    command: npm run dev
+    volumes:
+      - .:/var/www/app
+    links:
+      - orkaholic_app
+    networks:
+      orkaholic_net:
+        ipv4_address: 173.0.0.6
 
 networks:
-  workaholic_net:
+  orkaholic_net:
     driver: bridge
     ipam:
       driver: default
