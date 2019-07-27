@@ -31,8 +31,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
     /*
      *  Jobs
      */
-    Route::get('job/client', USER_JOB . '@index')->name('job.client');
-    Route::get('job/worker', USER_JOB . '@index')->name('job.worker');
+    Route::get('job/client', USER_JOB . '@index')->name('job.client')->middleware('company');
+    Route::get('job/worker', USER_JOB . '@index')->name('job.worker')->middleware('freelancer');
     Route::resource('job', USER_JOB);
 
     /*
@@ -40,7 +40,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
      */
 
     Route::get('proposal/job/{id}', USER_PROPOSAL.'@show')->name('proposal.job.show');
-    Route::put('proposal/accept', USER_PROPOSAL.'@acceptProposal')->name('proposal.job.accept');
+    Route::put('proposal/accept', USER_PROPOSAL.'@acceptProposal')->name('proposal.job.accept')->middleware('company');
 
     /*
      * Profile

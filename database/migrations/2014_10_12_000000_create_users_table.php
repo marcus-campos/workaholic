@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('cnpj', 14)->nullable();
             $table->string('phone')->nullable();
             $table->integer('score')->default(0);
-            $table->enum('role', ['user', 'admin'])->default('user');
+            $table->enum('role', ['freelancer', 'company', 'admin'])->default('freelancer');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

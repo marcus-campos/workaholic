@@ -15,7 +15,7 @@
 
         <div class="form-group m-b-20">
             <label>Titulo <span class="text-danger">*</span></label>
-            <input type="text" name="title" class="form-control" placeholder="Ex: Instalador de antena"
+            <input type="text" name="title" class="form-control" placeholder="Ex: Desenvolvedor de aplicativos mobile "
                    value="{{ inputValue('title', get_defined_vars(), ['job' => 'title']) }}">
         </div>
 
@@ -33,7 +33,7 @@
             <br>
             <div class="radio radio-inline">
                 <input type="radio" value="1" @change="changeRemote" id="remote"
-                       name="remote" {{ inputValue('remote', get_defined_vars(), ['job' => 'remote']) == 1 ? 'checked' : '' }}>
+                       name="remote" {{ inputValue('remote', get_defined_vars(), ['job' => 'remote']) == 1 ? 'checked' : 'checked' }}>
                 <label for="inlineRadio1"> Sim </label>
             </div>
             <div class="radio radio-inline">
@@ -133,7 +133,7 @@
         </div>
 
         <div class="form-group m-b-20 col-md-12 p-0">
-            <label class="m-b-15">Quando?</label>
+            <label class="m-b-15">Qual é o prazo?</label>
             <div class="row">
                 <div class="col-md-4">
                     Dia: <input class="form-control" type="date" name="specific_date"
