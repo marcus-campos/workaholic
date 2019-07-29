@@ -5,15 +5,17 @@
 # Image:         CLI/Base
 # Version:       7.2.x
 # Strategy:      PHP From PHP-Alpine Repository (CODECASTS) (https://php-alpine.codecasts.rocks)
-# Base distro:   Alpine 3.7
+# Base distro:   Alpine 3.8
 #
-FROM alpine:3.7
+FROM alpine:3.8
 
 # Repository/Image Maintainer
-MAINTAINER Diego Hernandes <diego@hernandev.com>
+LABEL maintainer="Diego Hernandes <iamhernandev@gmail.com>"
 
 # Variables for enabling NewRelic
 ENV FRAMEWORK=laravel \
+    OPCACHE_MODE="normal" \
+    PHP_MEMORY_LIMIT=256M \
     XDEBUG_ENABLED=false \
     NR_ENABLED=false \
     NR_APP_NAME="" \
@@ -25,12 +27,13 @@ ENV FRAMEWORK=laravel \
 # Add the ENTRYPOINT script
 ADD start.sh /scripts/start.sh
 ADD bashrc /home/ambientum/.bashrc
+ADD bashrc /home/bashrc
 
 # Install PHP From DotDeb, Common Extensions, Composer and then cleanup
 RUN echo "---> Enabling PHP-Alpine" && \
     apk add --update wget && \
     wget -O /etc/apk/keys/php-alpine.rsa.pub http://php.codecasts.rocks/php-alpine.rsa.pub && \
-    echo "@php http://php.codecasts.rocks/v3.7/php-7.2" >> /etc/apk/repositories && \
+    echo "@php http://php.codecasts.rocks/v3.8/php-7.2" >> /etc/apk/repositories && \
     apk add --update \
     curl \
     bash \
@@ -64,8 +67,11 @@ RUN echo "---> Enabling PHP-Alpine" && \
     php7-intl@php \
     php7-json@php \
     php7-mbstring@php \
+    php7-mysqli@php \
     php7-mysqlnd@php \
     php7-pdo_mysql@php \
+    php7-mailparse@php \
+    php7-memcached@php \
     php7-mongodb@php \
     php7-opcache@php \
     php7-pdo_pgsql@php \
@@ -75,16 +81,21 @@ RUN echo "---> Enabling PHP-Alpine" && \
     php7-soap@php \
     php7-sodium@php \
     php7-sqlite3@php \
+    php7-pdo_sqlite@php \
     php7-xdebug@php \
     php7-xml@php \
     php7-xmlreader@php \
     php7-openssl@php \
     php7-phar@php \
+    php7-xsl@php \
     php7-zip@php \
     php7-zlib@php \
     php7-pcntl@php \
+    php7-cgi@php \
     php7-phpdbg@php && \
     sudo ln -s /usr/bin/php7 /usr/bin/php && \
+    sudo ln -s /usr/bin/php-cgi7 /usr/bin/php-cgi && \
+    sudo ln -s /usr/sbin/php-fpm7 /usr/sbin/php-fpm && \
     echo "---> Installing Composer" && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     echo "---> Cleaning up" && \

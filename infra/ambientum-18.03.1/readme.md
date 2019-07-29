@@ -1,12 +1,16 @@
-![Readme Art](https://raw.githubusercontent.com/codecasts/ambientum/master/new-readme-art.png)
+![Readme Art](https://raw.githubusercontent.com/ambientum/ambientum/master/new-readme-art.png)
 
 # Ambientum
+
+[![Build Status](https://travis-ci.org/ambientum/ambientum.svg?branch=master)](https://travis-ci.org/ambientum/ambientum)
+[![npm version](https://badge.fury.io/js/%40ambientum%2Fcli.svg)](https://badge.fury.io/js/%40ambientum%2Fcli)
+[![Known Vulnerabilities](https://snyk.io/test/github/ambientum/cli/badge.svg?targetFile=package.json)](https://snyk.io/test/github/ambientum/cli?targetFile=package.json)
 
 Keeping it uniform between development, staging and production environments is often something not easy.
 On the last years, our buddy Docker has become more and more mature and now it's becoming the standard.
 
 We all love Laravel and Vue.JS, but why develop a Rock Star code with a Kick-Ass framework
-without a awesome environment?
+without an awesome environment?
 
 No more "it worked on my machine"!
 
@@ -37,194 +41,65 @@ Please have the latest version installed from Github at https://github.com/docke
 If you are already comfortable with the tools and have played around Ambientum, here are the set of images available for usage,
 so you can start building your environment with the tools that you may want.
 
-> PHP 7.2 is available but yet without xDebug support, considering this, it will not receive the latest tag until xDebug stable is compatible with PHP 7.2
-
 |Repository                 | Images/Tags                   | Description                                        |
 |---------------------------|-------------------------------|----------------------------------------------------|
-| ambientum/**php**         | `7.2`, `latest`               | PHP v7.2 for command line and queues               |
-|                           | `7.2-nginx`, `latest-nginx`   | PHP v7.2 with Nginx webserver                      |
+| ambientum/**php**         | `7.3`, `latest`               | PHP v7.3 for command line and queues               |
+|                           | `7.3-nginx`, `latest-nginx`   | PHP v7.3 with Nginx web server                      |
+|                           | `7.2`                         | PHP v7.2 for command line and queues               |
+|                           | `7.2-nginx`                   | PHP v7.2 with Nginx web server                      |
 |                           | `7.1`                         | PHP v7.1 for command line and queues               |
-|                           | `7.1-nginx`, `latest-nginx`   | PHP v7.1 with Nginx webserver                      |
-| ambientum/**node**        | `9`, `latest`, `current`      | Node.js v9.x                                       |
-|                           | `8`, `lts`                    | Node.js v8.x                                       |
+|                           | `7.1-nginx`                   | PHP v7.1 with Nginx web server                      |
+| ambientum/**node**        | `11`, `latest`, `current`     | Node.js CURRENT (v11.x_                                       |
+|                           | `10`, `lts`                   | Node.js LTS (v10.x)                                       |
 
 ## Quick usage guide
 
 ### Replacing local commands:
-One of the features of ambientum is allowing you to replace commands (normally painful to install) with their docker
-based version.
 
-There are a set of aliases that helps you with that task, and before proceeding you will need to install and
-activate those aliases:
+With Ambientum, you may replace local Node.JS and PHP installations.
 
-#### For Bash and ZSH Users:
-```
-curl -L https://github.com/codecasts/ambientum/raw/master/commands.bash -o ~/.ambientum_rc
-source ~/.ambientum_rc
-```
+That's due usage of [Ambientum/CLI](https://github.com/ambientum/cli)
 
-#### For Fish users:
+
+#### Installing **Ambientum CLI**:
+
+Option 1: Using a locally installed NPM.
 ```
-curl -L https://github.com/codecasts/ambientum/raw/master/commands.fish -o ~/.ambientum_rc
-source ~/.ambientum_rc
+npm -g install @ambientum/cli
 ```
 
-#### For Windows users (via Git Bash):
-
-For others Windows consoles (like PowerShell or Cmder), check this [link](https://github.com/julihermes/ambientum-commands-for-windows).
+Option 2: Using pre-built binaries at https://github.com/ambientum/cli/releases/tag/0.1.1:
 
 ```
-curl https://github.com/codecasts/ambientum/raw/master/commands.git-bash -o ~/.ambientum_rc
-source ~/.ambientum_rc
+curl -L https://github.com/ambientum/cli/releases/download/v0.1.1/amb-`uname -s` -o /usr/local/bin/amb
+chmod +x /usr/local/bin/amb
 ```
 
-Once you have those commands activated, following the instructions above, you can start using them right away.
 
-#### Notice: First execution may take some time since it will download the images
+#### Usage
 
-Everything Node.JS related can be executed by prefixing the `n` command. For example, let's say we need to install Gulp
-```
-n npm install -g gulp
-n gulp --version
-```
-
-Everything PHP related can be executed by prefixing the `p` command. For example, lets say we want to run composer:
+Everything Node.JS related can be executed by `amb -n`.
 
 ```
-p composer global require some/package-here
+amb -n npm -g install @vue/cli
+amb -n vue create my-project
+```
+
+Everything PHP related can be executed by `amb -p `.
+
+```
+amb -p composer create laravel/laravel my-project
 ```
 
 Or even run php against a single file:
 ```
-p php test.php
+amb -p php test.php
 ```
 
-Another example would be starting a new Laravel project:
+### Running Projects
 
-```
-p composer create laravel/laravel my-project-name-here
-```
+In order to use those images, you may use manually docker-compose.yml creation, or use `amb` to generate for you!
 
-### I do have a project, and I want to run it using docker
-Well, that's the whole point of the project, the commands there was designed for quick usage of stand alone commands, so we have a great alternative when we have a project already, we can define a docker-compose.yml file that will expose and run the services we need.
-
-> **Understanding the docker-compose compose tool is appreciated in order to use the following configuration files.**
-
-#### Laravel docker-compose.yml
-
-
-```yml
-####
-# ATENTION:
-# Replace all occurences of sandbox with your project's name
-####
-
-# v2 syntax
-version: '2'
-
-# Named volumes
-volumes:
-  # Postgres Data
-  sandbox-postgres-data:
-    driver: local
-
-  # MySQL Data
-  sandbox-mysql-data:
-    driver: local
-
-  # Redis Data
-  sandbox-redis-data:
-    driver: local
-
-services:
-  # Postgres (10.3)
-  postgres:
-    image: postgres:10.3
-    container_name: sandbox-postgres
-    volumes:
-      - sandbox-postgres-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_PASSWORD=sandbox
-      - POSTGRES_DB=sandbox
-      - POSTGRES_USER=sandbox
-
-  # MySQL (5.7)
-  mysql:
-    image: mysql:5.7
-    container_name: sandbox-mysql
-    volumes:
-      - sandbox-mysql-data:/var/lib/mysql
-    ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=sandbox
-      - MYSQL_DATABASE=sandbox
-      - MYSQL_USER=sandbox
-      - MYSQL_PASSWORD=sandbox
-
-  # Redis
-  cache:
-    image: redis:4.0
-    container_name: sandbox-redis
-    command: --appendonly yes
-    volumes:
-      - sandbox-redis-data:/data
-    ports:
-      - "6379:6379"
-
-  # PHP (with Nginx)
-  # you can change from nginx to apache, just change session 'image'
-  app:
-    image: ambientum/php:7.2-nginx
-    container_name: sandbox-app
-    volumes:
-      - .:/var/www/app
-    ports:
-      - "80:8080"
-    links:
-      - postgres
-      - mysql
-      - cache
-
-  # Laravel Queues
-  queue:
-    image: ambientum/php:7.2
-    container_name: sandbox-queue
-    command: php artisan queue:listen
-    volumes:
-      - .:/var/www/app
-    links:
-      - mysql
-      - cache
-```
-
-### Vue.js docker-compose.yml
-Developing with Vue.js? We got you covered! Here is the docker-compose file:
-
-```yml
-version: '2'
-
-services:
-  # Web server - For live reload and development
-  # This environment can be used to run npm and node
-  # commands as well
-  dev:
-    image: ambientum/node:9
-    container_name: sandbox-vue-dev
-    command: npm run dev
-    volumes:
-      - .:/var/www/app
-    ports:
-      - 8080:8080
-
-  # Testing dist on a "real" webserver
-  production-server:
-    image: nginx:stable-alpine
-    container_name: sandbox-preview-server
-    volumes:
-      - ./dist:/usr/share/nginx/html
-    ports:
-      - 9090:80
+```shell
+amb init
 ```
