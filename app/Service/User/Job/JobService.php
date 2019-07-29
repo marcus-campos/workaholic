@@ -60,7 +60,9 @@ class JobService
                     $query->where('has_activity', 1);
                 }
             ])
-            ->where('user_id', auth()->id());
+            ->where('user_id', auth()->id())
+            ->orderBy('updated_at', 'asc')
+            ->orderBy('pending_activity_count', 'asc');
 
         return $jobs;
     }

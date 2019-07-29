@@ -72,7 +72,7 @@
                                 <a href="#" @click="submitDelete(job)" class="job-action-btn"
                                    v-show="page === '/user/job/client'" data-toggle="tooltip" data-placement="top"
                                    title="" data-original-title="Concluir trabalho"><i class="md md-done"></i></a>
-                                <span class="label label-info" v-show="page === '/user/job/client'">Novas atividades: @{{ job.pending_activity_count }}</span>
+                                <span class="label label-info" v-show="page === '/user/job/client' && job.pending_activity_count > 0">Novas atividades: @{{ job.pending_activity_count }}</span>
                             </div>
                         </div>
                         <div class="row m-t-20">
