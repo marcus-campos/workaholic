@@ -32,7 +32,7 @@ services:
     volumes:
       - .:/var/www/app
     ports:
-      - "8020:8080"
+      - "${PLAT_PORT}:8080"
     links:
       - orkaholic_db
     networks:
