@@ -39,9 +39,14 @@ class ProposalCommentService
     {
         $request['user_id'] = auth()->id();
         $comment = $this->proposalComment->create($request->all());
+    
+        $proposal = $this->proposal->with('user')->where('id', $request->proposal_id);
+        $updated = $proposal->update(['has_activity' => true]);
 
-        $updated = $this->proposal->where('id', $request->proposal_id)
-            ->update(['has_activity' => true]);
+        if(auth()->user()->role == 'company') {
+            $proposal = $proposal->first();
+            \Slack::to('@'.$proposal->user->slack_user)->send("Olá ".$proposal->user->name."! O ".auth()->user()->name." acabou de comentar em sua proposta! Estou enviando o link da proposta para lhe economizar tempo. Segue o link: ".url("/user/proposal/job/{$proposal->job_id}"));
+        }
 
         return $comment;
     }
