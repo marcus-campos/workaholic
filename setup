@@ -82,6 +82,9 @@ docker_base() {
     # Copiando .env
     cp ./.env.${PLAT_ENV}.example ./.env
 
+    # Install composer
+    bash console composer install
+
     # Gerando nova Key
     bash console php artisan key:generate
 
