@@ -15,63 +15,56 @@ class JobCategoriesSeed extends Seeder
     {
         DB::table('job_categories')->insert([
             'id' => Str::orderedUuid(),
-            'name' => 'Assistência Técnica',
+            'name' => 'Programação',
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString()
+        ]);
+        
+        DB::table('job_categories')->insert([
+            'id' => Str::orderedUuid(),
+            'name' => 'Web Design',
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ]);
 
         DB::table('job_categories')->insert([
             'id' => Str::orderedUuid(),
-            'name' => 'Aulas',
+            'name' => 'Lojas Virtuais (e-commerce)',
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ]);
 
         DB::table('job_categories')->insert([
             'id' => Str::orderedUuid(),
-            'name' => 'Autos',
+            'name' => 'Wordpress',
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ]);
 
         DB::table('job_categories')->insert([
             'id' => Str::orderedUuid(),
-            'name' => 'Design e Tecnologia',
+            'name' => 'Programação de Apps para Android, iOS e outros',
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ]);
 
         DB::table('job_categories')->insert([
             'id' => Str::orderedUuid(),
-            'name' => 'Eventos',
+            'name' => 'Aplicativos desktop',
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ]);
 
         DB::table('job_categories')->insert([
             'id' => Str::orderedUuid(),
-            'name' => 'Moda e beleza',
+            'name' => 'UX/UI',
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ]);
 
         DB::table('job_categories')->insert([
             'id' => Str::orderedUuid(),
-            'name' => 'Reformas',
-            'created_at' => Carbon::now()->toDateTimeString(),
-            'updated_at' => Carbon::now()->toDateTimeString()
-        ]);
-
-        DB::table('job_categories')->insert([
-            'id' => Str::orderedUuid(),
-            'name' => 'Saúde',
-            'created_at' => Carbon::now()->toDateTimeString(),
-            'updated_at' => Carbon::now()->toDateTimeString()
-        ]);
-
-        DB::table('job_categories')->insert([
-            'id' => Str::orderedUuid(),
-            'name' => 'Serviços domésticos',
+            'name' => 'Outros',
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString()
         ]);

@@ -5,7 +5,8 @@
             <div id="sidebar-menu">
                 <ul>
                     @includeWhen((auth()->check() && auth()->user()->role == 'admin'), 'default.menu.admin')
-                    @include('default.menu.user')
+                    @includeWhen((auth()->check() && auth()->user()->role == 'company'), 'default.menu.company')
+                    @includeWhen((auth()->check() && auth()->user()->role == 'freelancer'), 'default.menu.freelancer')
                 </ul>
                 <div class="clearfix"></div>
             </div>
