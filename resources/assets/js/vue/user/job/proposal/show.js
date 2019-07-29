@@ -35,6 +35,8 @@
                         window.location.href = window.location.origin + '/user/job/client';
                     })
                 });
+
+                this.updateActivities(vm.jobId);
             },
             submitComment(proposalId) {
                 let vm = this;
@@ -106,6 +108,17 @@
                             'error'
                         )
                     });
+                });
+            },
+            updateActivities(jobId) {
+                let vm = this;
+
+                let pageUrl = window.location.origin + '/user/proposal/update/activities';
+
+                vm.$http.post(pageUrl, {'_method': 'PUT', 'id': jobId}, { headers: { 'X-CSRF-TOKEN': _csrf_token}}).then(function (data) {
+                    
+                }, function (error) {
+                    console.log(error)
                 });
             }
         }

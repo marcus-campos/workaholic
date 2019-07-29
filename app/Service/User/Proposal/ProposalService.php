@@ -101,35 +101,11 @@ class ProposalService
      * @param $id
      * @return array|bool
      */
-    public function acceptProposal($id)
+    public function updateActivities($id)
     {
-        $proposal = $this->proposal->with('job')->find($id);
-
-        $checkIfHasOneAcceptedProposal = $this->hasAcceptedProposal($proposal->job_id);
-
-        if($checkIfHasOneAcceptedProposal) {
-            return [
-                'status' => Response::HTTP_CONFLICT,
-                'error' => 'Ja existe uma proposta aceita'
-            ];
-        }
-
-        if (auth()->id() != $proposal->job->user_id) {
-            return [
-                'status' => Response::HTTP_UNAUTHORIZED,
-                'error' => 'Você não é o dono deste trabalho'
-            ];
-        }
-
-        $proposal->status = 'accepted';
-        $acceptedProposal = $proposal->save();
-
-        //Atualizando o status das outras propostas
-        $this->proposal->where('job_id', $proposal->job_id)
-            ->where('status', '<>' ,'accepted')
-            ->update(['status' => 'rejected']);
-
-        return $acceptedProposal;
+        $updated = $this->proposal->where('job_id', $id)
+            ->update(['has_activity' => false]);
+        return $updated;
     }
 
     /**

@@ -86,6 +86,11 @@
                                 </div>
                             </h3>
                             <div class="portlet-widgets">
+                                <span v-if="isMe(job.user_id) && proposal.has_activity === 1">
+                                    <span class="label label-info">Novas atividades</span>
+                                    <span class="divider"></span>
+                                </span>
+
                                 <span v-if="isMe(job.user_id) && proposal.status !== 'accepted'">
                                     <a class="btn btn-sm btn-success waves-effect waves-light" @click="acceptProposal(proposal)">Aceitar proposta</a>
                                     <span class="divider"></span>

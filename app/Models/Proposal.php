@@ -12,7 +12,8 @@ class Proposal extends BaseModel
         'promoted',
         'status',
         'user_id',
-        'job_id'
+        'job_id',
+        'has_activity'
     ];
 
     /**

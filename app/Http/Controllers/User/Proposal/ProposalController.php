@@ -67,6 +67,20 @@ class ProposalController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return array|bool|\Illuminate\Http\JsonResponse
+     */
+    public function updateActivities(Request $request)
+    {
+        $update = $this->proposalService->updateActivities($request->all()['id']);
+
+        return response()->json([
+            'status' => Response::HTTP_OK,
+            'msg' => 'Atividades atualizadas com sucesso!'
+        ], Response::HTTP_OK);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param $jobId

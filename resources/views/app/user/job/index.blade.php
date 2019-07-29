@@ -32,8 +32,12 @@
 
                         <div class="row">
                             <div class="col-sm-10">
-                                <a :href="'{{ url('/') }}/user/job/' + job.id"><h4 class="m-t-0 m-b-20 job-list-title">
-                                        <b>@{{ job.title }}</b></h4></a>
+                                <a :href="'{{ url('/') }}/user/job/' + job.id">
+                                    <h4 class="m-t-0 m-b-20 job-list-title">
+                                        <b>@{{ job.title }}</b>
+                                    </h4>
+                                </a>
+                                
                                 <p class="text-dark m-b-20 job-list-description">
                                     <span class="text-muted">@{{ job.description }}</span>
                                 </p>
@@ -68,6 +72,7 @@
                                 <a href="#" @click="submitDelete(job)" class="job-action-btn"
                                    v-show="page === '/user/job/client'" data-toggle="tooltip" data-placement="top"
                                    title="" data-original-title="Concluir trabalho"><i class="md md-done"></i></a>
+                                <span class="label label-info" v-show="page === '/user/job/client'">Novas atividades: @{{ job.pending_activity_count }}</span>
                             </div>
                         </div>
                         <div class="row m-t-20">

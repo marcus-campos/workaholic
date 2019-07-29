@@ -41,6 +41,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
 
     Route::get('proposal/job/{id}', USER_PROPOSAL.'@show')->name('proposal.job.show');
     Route::put('proposal/accept', USER_PROPOSAL.'@acceptProposal')->name('proposal.job.accept')->middleware('company');
+    Route::put('proposal/update/activities', USER_PROPOSAL.'@updateActivities')->name('proposal.job.updateActivities')->middleware('company');
 
     /*
      * Profile

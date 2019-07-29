@@ -11,6 +11,7 @@ namespace App\Service\User\Job;
 use App\Models\City;
 use App\Models\Job;
 use http\Env\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class JobService
 {
@@ -53,7 +54,12 @@ class JobService
     public function indexByClientId()
     {
         $jobs = $this->job->with(['jobCategory', 'userAddresses', 'userAddresses.city', 'user'])
-            ->withCount('proposals')
+            ->withCount([
+                'proposals', 
+                'proposals as pending_activity_count' => function (Builder $query) {
+                    $query->where('has_activity', 1);
+                }
+            ])
             ->where('user_id', auth()->id());
 
         return $jobs;
@@ -68,8 +74,7 @@ class JobService
             ->withCount('proposals')
             ->whereHas('proposals', function ($query) {
                 $query->where('user_id', auth()->id());
-            }
-        );
+            });
 
         return $jobs;
     }
