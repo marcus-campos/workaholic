@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\User;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Company;
 use App\Http\Middleware\Freelancer;
@@ -38,6 +39,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            User::class
         ],
 
         'api' => [

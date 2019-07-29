@@ -35,6 +35,7 @@
                         <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
                     </div>
                 </div>
+				
 
                 <div class="form-group">
 					<div class="col-xs-12">
@@ -47,6 +48,12 @@
 						<input type="password" class="form-control" name="password_confirmation" placeholder="Confirmar senha">
 					</div>
 				</div>
+
+				<div class="form-group ">
+                    <div class="col-xs-12">
+                        <input type="text" class="form-control" name="slack_user" value="{{ $request->get('slack_user') }}" hidden>
+                    </div>
+                </div>
 
 				<div class="form-group text-center m-t-40">
 					<div class="col-xs-12">

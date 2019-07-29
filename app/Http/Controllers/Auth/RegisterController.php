@@ -78,6 +78,7 @@ class RegisterController extends Controller
         $request = new Request([
             'name' => $data['name'],
             'email' => $data['email'],
+            'slack_user' => $data['slack_user'],
             'password' => Hash::make($data['password']),
         ]);
 

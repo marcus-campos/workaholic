@@ -13,6 +13,16 @@
 
 
 		<div class="panel-body">
+			@if (Session::has('error'))
+				<div class="alert alert-info">
+					<strong>Ooops.</strong><br><br>
+					<ul>
+						@foreach (Session::get('error') as $error)
+							<li>{{ $error }}</li>
+						@endforeach
+					</ul>
+				</div>
+			@endif
 			@if (isset($errors) && count($errors) > 0)
 				<div class="alert alert-danger">
 					<strong>Ooops!</strong> Encontramos alguns erros.<br><br>

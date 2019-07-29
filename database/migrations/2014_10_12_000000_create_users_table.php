@@ -23,8 +23,9 @@ class CreateUsersTable extends Migration
             $table->string('cpf', 11)->nullable();
             $table->string('cnpj', 14)->nullable();
             $table->string('phone')->nullable();
+            $table->string('slack_user');
             $table->integer('score')->default(0);
-            $table->enum('role', ['freelancer', 'company', 'admin'])->default('freelancer');
+            $table->enum('role', ['user', 'freelancer', 'company', 'admin'])->default('user');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

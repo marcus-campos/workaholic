@@ -110,8 +110,8 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('logout', LOGIN_CONTROLLER . '@logout')->name('logout');
 
     // Registration Routes
-    Route::get('register', function () {
-        return view('auth.register');
+    Route::get('register', function (\Illuminate\Http\Request $request) {
+        return view('auth.register', compact('request'));
     })->name('register.form');
 
     Route::post('register', REGISTER_CONTROLLER . '@register')->name('register');
