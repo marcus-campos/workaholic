@@ -27,7 +27,7 @@ services:
   # PHP (with Nginx)
   # you can change from nginx to apache, just change session 'image'
   orkaholic_app:
-    build: ./infra/ambientum-18.03.1/php/7.2-nginx
+    build: ./infra/ambientum-18.03.1/php/7.3-nginx
     container_name: orkaholic-app
     volumes:
       - .:/var/www/app
@@ -41,7 +41,7 @@ services:
 
   # Laravel Queues
   orkaholic_queue:
-    build: ./infra/ambientum-18.03.1/php/7.2
+    build: ./infra/ambientum-18.03.1/php/7.3
     container_name: orkaholic-queue
     command: php artisan queue:listen
     volumes:
