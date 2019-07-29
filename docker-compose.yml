@@ -6,12 +6,6 @@
 # v2 syntax
 version: '2'
 
-# Named volumes
-volumes:
-  # Redis Data
-  sandbox-redis-data:
-    driver: local
-
 services:
   # MySQL (5.7)
   orkaholic_db:
@@ -30,20 +24,6 @@ services:
       orkaholic_net:
         ipv4_address: 173.0.0.4
 
-  # Redis
-  orkaholic_cache:
-    image: redis:4.0
-    container_name: orkaholic-cache
-    command: --appendonly yes
-    volumes:
-      - /data:/data
-    ports:
-      - "6379:6379"
-    networks:
-      orkaholic_net:
-        ipv4_address: 173.0.0.3
-
-
   # PHP (with Nginx)
   # you can change from nginx to apache, just change session 'image'
   orkaholic_app:
@@ -52,10 +32,9 @@ services:
     volumes:
       - .:/var/www/app
     ports:
-      - "80:8080"
+      - "8020:8080"
     links:
       - orkaholic_db
-      - orkaholic_cache
     networks:
       orkaholic_net:
         ipv4_address: 173.0.0.2
@@ -69,22 +48,9 @@ services:
       - .:/var/www/app
     links:
       - orkaholic_db
-      - orkaholic_cache
     networks:
       orkaholic_net:
         ipv4_address: 173.0.0.5
-
-  orkaholic_vuejs_build:
-    image: ambientum/node:9
-    container_name: orkaholic-vue-dev
-    command: npm run dev
-    volumes:
-      - .:/var/www/app
-    links:
-      - orkaholic_app
-    networks:
-      orkaholic_net:
-        ipv4_address: 173.0.0.6
 
 networks:
   orkaholic_net:

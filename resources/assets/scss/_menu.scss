@@ -15,7 +15,7 @@
     position: relative;
     width: 240px;
     z-index: 1;
-    background-color: lighten($dark,15%);
+    background-color: lighten($dark,1%);
   }
 
   .topbar-left-sm {
@@ -44,7 +44,7 @@
 }
 
 .navbar-custom {
-  background-color: lighten($dark,15%);
+  background-color: lighten($dark,1%);
   border-radius: 0;
   margin-bottom: 0;
   padding: 0 10px 0 0;
@@ -285,7 +285,7 @@ body.fixed-left {
         }
       }
       a {
-        color: lighten($dark,25%);
+        color: lighten($dark,5%);
         display: block;
         padding: 10px 20px 10px 62px;
 
@@ -313,7 +313,7 @@ body.fixed-left {
 
 
 #sidebar-menu > ul > li > a {
-  color: lighten($dark,15%);
+  color: lighten($dark,1%);
   display: block;
   padding: 15px 20px;
   font-size: 15px;

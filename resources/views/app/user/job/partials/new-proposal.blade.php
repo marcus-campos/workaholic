@@ -5,7 +5,7 @@
 
             <div class="form-group m-b-20">
                 <label>Detalhes da proposta<span class="text-danger">*</span></label>
-                <textarea class="form-control" v-model="proposal.description" rows="5" placeholder="Ex: Irei instalar 4 antenas mais amplificadores de sinais com saidas para todos os apartamentos"></textarea>
+                <textarea class="form-control" v-model="proposal.description" rows="5" placeholder="Digite aqui os detalhes das usas propostas"></textarea>
             </div>
 
             <div class="form-group m-b-20">

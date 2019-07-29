@@ -1594,7 +1594,7 @@ select[multiple] {
   position: relative;
   width: 240px;
   z-index: 1;
-  background-color: #566676;
+  background-color: #42628F;
 }
 
 .topbar .topbar-left-sm {
@@ -1625,7 +1625,7 @@ select[multiple] {
 }
 
 .navbar-custom {
-  background-color: #566676;
+  background-color: #42628F;
   border-radius: 0;
   margin-bottom: 0;
   padding: 0 10px 0 0;

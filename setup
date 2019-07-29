@@ -80,13 +80,13 @@ docker_base() {
     cp ./.env.example ./.env
 
     # Gerando nova Key
-    docker-compose exec orkaholic_app php artisan key:generate
+    bash console php artisan key:generate
 
     # Limpando cache de configuração
-    docker-compose exec orkaholic_app php artisan config:clear
+    bash console php artisan config:clear
 
     # Migrations
-    docker-compose exec orkaholic_app php artisan migrate:refresh --seed
+    bash console php artisan migrate:refresh --seed
 
     # Permissão de escrita
     cd ..

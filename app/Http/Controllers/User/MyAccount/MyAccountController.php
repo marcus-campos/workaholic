@@ -8,6 +8,6 @@ class MyAccountController extends Controller
 {
     public function index()
     {
-        return view('app.user.my-account.index', compact('user'));
+        return view('app.user.my-account.index');
     }
 }
