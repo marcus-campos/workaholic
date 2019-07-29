@@ -24,6 +24,9 @@ docker_required() {
     echo "Tenha paciência, isso irá demorar um pouco. :)"
     echo "Vai lá e pega um café, a espera será mais feliz."
     echo ""
+
+    # env vars
+    docker_env
 }
 
 docker_start() {
@@ -77,7 +80,7 @@ docker_build_force_recreate () {
 
 docker_base() {
     # Copiando .env
-    cp ./.env.example ./.env
+    cp ./.env.${PLAT_ENV}.example ./.env
 
     # Gerando nova Key
     bash console php artisan key:generate
@@ -98,6 +101,17 @@ docker_base() {
     if [ $count -eq 0 ]; then
         echo "173.0.0.2 local.orkaholic.com.br" | sudo tee -a /etc/hosts
     fi
+}
+
+docker_env() {
+    # Copiando .env
+    cp ./.platenv.example ./.platenv
+
+    # Exportando
+    bash .platenv
+
+    # Copiando docker-compose
+    cp ./docker-compose.yml.${PLAT_ENV} ./docker-compose.yml
 }
 
 

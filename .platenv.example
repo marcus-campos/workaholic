@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# vim: set ft=sh
+
+export PLAT_ENV=local
