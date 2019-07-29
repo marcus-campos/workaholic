@@ -48,8 +48,8 @@
                                 <p class="text-dark m-b-0" v-if="job.user_addresses"><b>Bairro:</b> <span class="text-muted"> @{{ job.user_addresses.neighborhood }} </span>
                                 </p>
                                 <p class="text-dark m-b-0">
-                                    <b>Quando? </b>
-                                    <b>Dia: </b> <span class="text-muted"> @{{ job.specific_date | c-dmy }} </span>
+                                    <b>Prazo? </b>
+                                    <b>Até dia: </b> <span class="text-muted"> @{{ job.specific_date | c-dmy }} </span>
                                     <b>De: </b> <span class="text-muted"> @{{ job.initial_time | c-HHmm }} </span>
                                     <b>Até: </b> <span class="text-muted"> @{{ job.final_time | c-HHmm }} </span>
                                 </p>
@@ -67,7 +67,7 @@
                                    title="" data-original-title="Editar trabalho"><i class="md md-edit"></i></a>
                                 <a href="#" @click="submitDelete(job)" class="job-action-btn"
                                    v-show="page === '/user/job/client'" data-toggle="tooltip" data-placement="top"
-                                   title="" data-original-title="Deletar trabalho"><i class="md md-close"></i></a>
+                                   title="" data-original-title="Concluir trabalho"><i class="md md-done"></i></a>
                             </div>
                         </div>
                         <div class="row m-t-20">

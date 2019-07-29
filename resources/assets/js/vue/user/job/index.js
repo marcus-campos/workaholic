@@ -49,7 +49,7 @@
 
                 swal({
                     title: 'Você está certo disto?',
-                    text: "Você realmente deseja apagar o trabalho \"" + job.title + "\"?",
+                    text: "Você realmente concluir este trabalho \"" + job.title + "\"?",
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonClass: 'btn btn-success',
@@ -61,8 +61,8 @@
                         vm.getJobs();
 
                         swal(
-                            'Deletado!',
-                            'O trabalho "'+ job.title + '" foi deletado com sucesso!',
+                            'Concluído!',
+                            'O trabalho "'+ job.title + '" foi concluído!',
                             'success'
                         );
                     }, function (error) {
