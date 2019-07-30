@@ -32,15 +32,15 @@
             <label class="m-b-15">Trabalho remoto? <span class="text-danger">*</span></label>
             <br>
             <div class="radio radio-inline">
-                <input type="radio" value="1" @change="changeRemote" id="remote"
-                       name="remote" {{ inputValue('remote', get_defined_vars(), ['job' => 'remote']) == 1 ? 'checked' : 'checked' }}>
-                <label for="inlineRadio1"> Sim </label>
-            </div>
-            <div class="radio radio-inline">
                 <input type="radio" value="0" @change="changeRemote" id="remote"
                        name="remote" {{ inputValue('remote', get_defined_vars(), ['job' => 'remote']) == 0 ? 'checked' : '' }}
                         {{ inputValue('remote', get_defined_vars(), ['job' => 'remote']) == null ? 'checked' : '' }}>
                 <label for="inlineRadio2"> Não </label>
+            </div>
+            <div class="radio radio-inline">
+                <input type="radio" value="1" @change="changeRemote" id="remote"
+                       name="remote" {{ inputValue('remote', get_defined_vars(), ['job' => 'remote']) == 1 ? 'checked' : '' }}>
+                <label for="inlineRadio1"> Sim </label>
             </div>
         </div>
 

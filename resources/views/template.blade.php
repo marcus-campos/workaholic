@@ -4,5 +4,3 @@
 @extends('vendor.template.menu.left-menu')
 @extends('vendor.template.top-bar.top-bar')
 {{--extends('vendor.template.page.title')--}}
-
-
