@@ -2,7 +2,7 @@
     window.jobForm = new Vue({
         el: '#job-form',
         data: {
-            isRemote: 0,
+            isRemote: 1,
             isNewAddress: false,
             addresses: {},
             selectedAddress: null,
