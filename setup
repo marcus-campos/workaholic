@@ -229,26 +229,3 @@ else
     echo ""
     echo ":) Você quase acertou. Agora tente uma opção entre 1 e 7"
 fi
-
-
-
-echo "Seja bem-vindo ao menu de setup."
-echo "Por favor escolha uma das opções abaixo:"
-echo "1 - Buildar"
-echo "2 - Publicar"
-if [ "$1" == "" ]; then
-    echo -n "Digite sua opção: "
-    read -n 1 option
-    echo ""
-else
-    option="$1"
-fi
-
-if [ "$option" == "1" ]; then
-    generate_build
-elif [ "$option" == "2" ]; then
-    deploy
-else
-    echo ""
-    echo ":) Você quase acertou. Agora tente uma opção entre 1 e 2"
-fi
