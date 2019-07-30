@@ -53,6 +53,9 @@
 
 @yield('modal')
 
+<script src="{{asset('assets/js/vue/vue.min.js')}}"></script>
+<script src="{{asset('assets/js/vue/plugins/vue-resource-1.5.0.min.js')}}"></script>
+
 @yield('script')
 
 </body>
