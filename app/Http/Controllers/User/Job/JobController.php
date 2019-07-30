@@ -134,9 +134,14 @@ class JobController extends Controller
     {
         // Redireciona se a pessoa ja tiver 1 proposta aceita
         if ($this->proposalService->hasAcceptedProposal($id)) {
-            if (!$this->proposalService->hasAcceptedProposalForMe($id)) {
-                if (!$this->proposalService->iAmOwner($id)) {
-                    return redirect()->to(route('user.job.index'));
+
+            if ($this->proposalService->iAmOwner($id)) {
+                // Do nothing
+            } else {
+                if (!$this->proposalService->hasAcceptedProposalForMe($id)) {
+                    if (!$this->proposalService->iAmOwner($id)) {
+                        return redirect()->to(route('user.job.index'));
+                    }
                 }
             }
         }
