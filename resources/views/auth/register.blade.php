@@ -51,7 +51,7 @@
 
 				<div class="form-group ">
                     <div class="col-xs-12">
-                        <input type="text" class="form-control" name="slack_user" value="{{ $request->get('slack_user') }}" hidden>
+                        <input type="text" class="form-control disabled" name="slack_user" value="{{ $request->get('slack_user') }}" placeholder="Slack" readonly>
                     </div>
                 </div>
 
