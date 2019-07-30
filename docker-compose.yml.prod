@@ -17,7 +17,7 @@ services:
       - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=!2304dmg%!
-      - MYSQL_DATABASE=workaholic
+      - MYSQL_DATABASE=workanywhere
       - MYSQL_USER=xtra
       - MYSQL_PASSWORD=!1337dmg%!
     networks:

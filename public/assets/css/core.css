@@ -532,7 +532,7 @@ a:focus {
 }
 /* Text colors */
 .text-custom {
-  color: #5fbeaa;
+  color: #42628F;
 }
 .text-white {
   color: #ffffff;
@@ -1311,7 +1311,7 @@ body.fixed-left .side-menu.left {
   padding: 0 15px;
 }
 .button-menu-mobile:hover {
-  color: #5fbeaa;
+  color: #42628F;
 }
 .sidebar-inner {
   height: 100%;

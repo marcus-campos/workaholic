@@ -109,6 +109,42 @@ class ProposalService
     }
 
     /**
+     * @param $id
+     * @return array|bool
+     */
+    public function acceptProposal($id)
+    {
+        $proposal = $this->proposal->with(['user', 'job'])->find($id);
+        $checkIfHasOneAcceptedProposal = $this->hasAcceptedProposal($proposal->job_id);
+        if($checkIfHasOneAcceptedProposal) {
+            return [
+                'status' => Response::HTTP_CONFLICT,
+                'error' => 'Ja existe uma proposta aceita'
+            ];
+        }
+        if (auth()->id() != $proposal->job->user_id) {
+            return [
+                'status' => Response::HTTP_UNAUTHORIZED,
+                'error' => 'Você não é o dono deste trabalho'
+            ];
+        }
+        $proposal->status = 'accepted';
+        $acceptedProposal = $proposal->save();
+        //Atualizando o status das outras propostas
+        $this->proposal->where('job_id', $proposal->job_id)
+            ->where('status', '<>' ,'accepted')
+            ->update(['status' => 'rejected']);
+
+        try {
+            \Slack::to('@'.$proposal->user->slack_user)->send("Olá ".$proposal->user->name.", trago-lhe boas noticias :tada:! Sua proposta para o freela \"<".url("/user/proposal/job/{$proposal->job_id}"."|".$proposal->job->title.">")."\" acabou ser aceita! :clap::clap::clap: ");
+        } catch(\Exception $ex) {
+            
+        }
+        
+        return $acceptedProposal;
+    }
+
+    /**
      * @param $jobId
      * @return bool
      */
