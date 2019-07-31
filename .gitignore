@@ -16,3 +16,4 @@ yarn-error.log
 .env
 docker-compose.yml
 .platenv
+/infra/ambientum-18.03.1/ssl/
