@@ -6,7 +6,7 @@
         <meta name="description" content="Plataforma para unir clientes e prestadores de serviços.">
         <meta name="author" content="Marcus Vinícius Campos <campos.v.marcus@gmail.com>">
 
-        <link rel="shortcut icon" href="{{ asset('assets/images/favicon_1.ico') }}">
+        <!-- <link rel="shortcut icon" href=""> -->
 
         <title>Cupdev - Platform</title>
 
