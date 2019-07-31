@@ -13,7 +13,6 @@ services:
     container_name: orkaholic-db
     volumes:
       - /var/lib/mysql:/var/lib/mysql
-      - ./infra/ambientum-18.03.1/ssl:/home/ssl
     ports:
       - "3306:3306"
     environment:
@@ -32,6 +31,7 @@ services:
     container_name: orkaholic-app
     volumes:
       - .:/var/www/app
+      - ./infra/ambientum-18.03.1/ssl:/home/ssl
     ports:
       - "80:8080"
       - "443:8083"
