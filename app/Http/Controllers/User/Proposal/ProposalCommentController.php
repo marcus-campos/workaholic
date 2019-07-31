@@ -42,7 +42,7 @@ class ProposalCommentController extends Controller
     {
         $requestAll = $request->all();
         $jobId = Proposal::find($requestAll['proposal_id'])->job_id;
-
+        
         if ($this->proposalService->hasAcceptedProposal($jobId)) {
             if (!$this->proposalService->hasAcceptedProposalForMe($jobId)) {
                 if (!$this->proposalService->iAmOwner($jobId)) {

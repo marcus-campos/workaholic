@@ -41,11 +41,11 @@ class ProposalCommentService
         $comment = $this->proposalComment->create($request->all());
     
         $proposal = $this->proposal->with(['user', 'job'])->where('id', $request->proposal_id);
+        $proposal = $proposal->first();
+        
         $updated = $proposal->update(['has_activity' => true]);
-
+        
         if(auth()->user()->role == 'company') {
-            $proposal = $proposal->first();
-
             if($proposal->status == 'waiting') {
                 try {
                     \Slack::to('@'.$proposal->user->slack_user)->send("Olá ".$proposal->user->name.", Sua proposta para o freela \"<".url("/user/proposal/job/{$proposal->job_id}"."|".$proposal->job->title.">")."\" acabou de receber um comentário! :tada::clap: ");
@@ -56,7 +56,7 @@ class ProposalCommentService
 
             if($proposal->status == 'accepted') {
                 try {
-                    \Slack::to('@'.$proposal->user->slack_user)->send("Olá ".$proposal->user->name.", O \"".auth()->user()->name."\" acabou de deixar um comentário no trabalho \"<".url("/user/proposal/job/{$proposal->job_id}"."|".$proposal->job->title.">")."\".");
+                    \Slack::to('@'.$proposal->user->slack_user)->send("Olá ".$proposal->user->name.", o \"".auth()->user()->name."\" acabou de deixar um comentário no trabalho \"<".url("/user/proposal/job/{$proposal->job_id}"."|".$proposal->job->title.">")."\".");
                 } catch(\Exception $ex) {
     
                 }

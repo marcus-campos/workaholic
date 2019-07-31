@@ -171,7 +171,7 @@ class ProposalService
      */
     public function hasAcceptedProposalForMe($jobId)
     {
-        $jobCount = $this->proposal->with(['proposals'])
+        $jobCount = $this->job->with(['proposals'])
             ->where('id', $jobId)
             ->whereHas('proposals', function ($query) {
                 $query->where('status', 'accepted')->where('user_id', auth()->id());
