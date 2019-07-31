@@ -33,8 +33,8 @@ services:
       - .:/var/www/app
       - ./infra/ambientum-18.03.1/ssl:/home/ssl
     ports:
-      - "80:8080"
-      - "443:8083"
+      - "8080:8080"
+      - "8083:8083"
     links:
       - orkaholic_db
     networks:
