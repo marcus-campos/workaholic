@@ -33,6 +33,7 @@ services:
       - .:/var/www/app
     ports:
       - "80:8080"
+      - "443:8083"
     links:
       - orkaholic_db
     networks:
