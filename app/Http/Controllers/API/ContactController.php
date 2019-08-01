@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\ContactRequest;
+use App\Http\Requests\API\ContactApiLeadRequest;
 
 class ContactController extends Controller
 {
@@ -23,7 +24,24 @@ class ContactController extends Controller
         try {
             \Slack::to('#contato')->send($message);
         } catch(\Exception $ex) {
-            return ['error' => 'Slack comunication fail'];
+            return ['error' => 'Slack communication fail'];
+        }
+
+        return ['status' => 200, 'msg' => 'Ok'];
+    }
+
+    public function lead(ContactApiLeadRequest $request)
+    {
+        $data = $request;
+
+        $message = "Olá!".PHP_EOL;
+        $message .="Capturamos um lead".PHP_EOL;
+        $message .= " :email: Email: ".$data->email.PHP_EOL;
+
+        try {
+            \Slack::to('#captura-leads')->send($message);
+        } catch(\Exception $ex) {
+            return ['error' => 'Slack communication fail'];
         }
 
         return ['status' => 200, 'msg' => 'Ok'];

@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
 
+    Route::post('/lead', 'API\ContactController@lead');
     Route::post('/contact', 'API\ContactController@slackNotification');
 
 });
