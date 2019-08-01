@@ -12,3 +12,9 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
+
+    Route::post('/contact', 'API\ContactController@slackNotification');
+
+});

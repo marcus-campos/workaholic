@@ -64,6 +64,9 @@ class JobService
                 }
             ])
             ->where('user_id', auth()->id())
+            ->whereDoesntHave('proposals', function ($query) {
+                $query->where('status', 'accepted');
+            })
             ->orderBy('updated_at', 'desc')
             ->orderBy('pending_activity_count', 'desc')
             ->orderBy('has_proposal_accepted', 'asc');
@@ -77,6 +80,29 @@ class JobService
     public function indexByClientIdAccepted()
     {
         $jobs = $this->job->with(['jobCategory', 'userAddresses', 'userAddresses.city', 'user'])
+            ->withCount([
+                'proposals', 
+                'proposals as pending_activity_count' => function (Builder $query) {
+                    $query->where('has_activity', 1);
+                }
+            ])
+            ->where('user_id', auth()->id())
+            ->whereHas('proposals', function ($query) {
+                $query->where('status', 'accepted');
+            })
+            ->orderBy('updated_at', 'desc')
+            ->orderBy('pending_activity_count', 'desc');
+
+        return $jobs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function indexByClientIdDone()
+    {
+        $jobs = $this->job->onlyTrashed()
+            ->with(['jobCategory', 'userAddresses', 'userAddresses.city', 'user'])
             ->withCount([
                 'proposals', 
                 'proposals as pending_activity_count' => function (Builder $query) {

@@ -33,6 +33,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
      */
     Route::get('job/client', USER_JOB . '@index')->name('job.client')->middleware('company');
     Route::get('job/client/accepted', USER_JOB . '@index')->name('job.client.accepted')->middleware('company');
+    Route::get('job/client/done', USER_JOB . '@index')->name('job.client.done')->middleware('company');
     Route::get('job/worker', USER_JOB . '@index')->name('job.worker')->middleware('freelancer');
     Route::resource('job', USER_JOB);
 

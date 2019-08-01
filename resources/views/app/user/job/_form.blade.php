@@ -11,7 +11,7 @@
         </div>
     @endif
     <div class="card-box">
-        <h5 class="text-muted text-uppercase m-t-0 m-b-20"><b>Cadastrar um novo job</b></h5>
+        <h5 class="text-muted text-uppercase m-t-0 m-b-20"><b>Cadastrar um novo freela</b></h5>
 
         <div class="form-group m-b-20">
             <label>Titulo <span class="text-danger">*</span></label>

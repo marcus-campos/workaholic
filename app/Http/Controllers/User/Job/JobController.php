@@ -88,6 +88,17 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function indexByClientIdDone()
+    {
+        $jobs = $this->dataMaker($this->jobService->indexByClientIdDone());
+        return $jobs;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function indexByWorkerId()
     {
         $jobs = $this->dataMaker($this->jobService->indexByWorker());

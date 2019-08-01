@@ -67,10 +67,10 @@
                                    data-placement="top" title="" data-original-title="Acompanhar propostas"><i
                                             class="md md-assignment"></i></a>
                                 <a :href="'{{ url('/') }}/user/job/' + job.id + '/edit'" class="job-action-btn"
-                                   v-show="page === '/user/job/client'" data-toggle="tooltip" data-placement="top"
+                                   v-show="page === '/user/job/client' || page === '/user/job/client/accepted'" data-toggle="tooltip" data-placement="top"
                                    title="" data-original-title="Editar trabalho"><i class="md md-edit"></i></a>
                                 <a href="#" @click="submitDelete(job)" class="job-action-btn"
-                                   v-show="page === '/user/job/client'" data-toggle="tooltip" data-placement="top"
+                                   v-show="page === '/user/job/client' || page === '/user/job/client/accepted'" data-toggle="tooltip" data-placement="top"
                                    title="" data-original-title="Concluir trabalho"><i class="md md-done"></i></a>
                                 <span class="label label-info" v-show="page === '/user/job/client' && job.pending_activity_count > 0">Novas atividades: @{{ job.pending_activity_count }}</span>
                             </div>

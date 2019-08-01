@@ -28,6 +28,10 @@
                     pageUrl = pageUrl || window.location.origin + '/json/job/client/accepted';
                 }
 
+                if(vm.page === '/user/job/client/done') {
+                    pageUrl = pageUrl || window.location.origin + '/json/job/client/done';
+                }
+
                 if(vm.page === '/user/job/worker') {
                     pageUrl = pageUrl || window.location.origin + '/json/job/worker';
                 }
