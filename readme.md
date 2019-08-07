@@ -15,7 +15,7 @@ Dentro da pasta do projeto execute o seguinte comando:
 ./setup
 ```
 
-Ou
+OU
 
 ```shell
 bash setup
