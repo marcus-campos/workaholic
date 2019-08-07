@@ -117,7 +117,6 @@ docker_env() {
     cp ./docker-compose.yml.${PLAT_ENV} ./docker-compose.yml
 }
 
-
 docker_up_containers() {
     docker-compose start
 }
@@ -139,59 +138,6 @@ docker_up_containers_reset_db() {
     docker_up_containers_with_logs
 }
 
-install_docker() {
-    echo ""
-    echo "É necessário permissão de super usuário (Caso já tenha concedido, irei continuar)."
-    sudo true
-
-    ##
-    if [[ `which docker` != '' ]]; then
-        echo "O docker já está instalado :)"
-        exit 0
-    fi
-
-    # docker-compose
-    if [[ `which docker-compose` != '' ]]; then
-        echo "Docker-compose já está instalado :D"
-        exit 0
-    fi
-
-    ## Docker
-    sudo apt-get remove -y docker docker-engine docker.io
-    sudo apt-get install -f
-    sudo apt-get install -y \
-        linux-image-extra-$(uname -r) \
-        linux-image-extra-virtual
-
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg |  apt-key add -
-    sudo add-apt-repository \
-       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-       $(lsb_release -cs) \
-       stable"
-    sudo apt-get update
-    sudo apt-get install -y docker-ce
-    sudo usermod -aG docker $USER
-}
-
-sub_menu_2() {
-    clear
-    echo "Instalar dependências"
-    echo "---------------------"
-
-    echo "1 - Instalar o Docker"
-
-    if [ "$1" == "" ]; then
-        echo -n "Digite sua opção: "
-        read -n 1 option
-        echo ""
-    else
-        option="$1"
-    fi
-    if [ "$option" == "1" ]; then
-        install_docker
-    fi
-}
-
 echo "Seja bem-vindo ao menu de setup."
 echo "Por favor escolha uma das opções abaixo:"
 echo "1 - Deploy com o Docker"
@@ -200,7 +146,6 @@ echo "3 - Iniciar os containers"
 echo "4 - Iniciar os containers com logs"
 echo "5 - Iniciar os containers e resetar o banco de dados"
 echo "6 - Desligar os containers"
-echo "7 - Instalar dependências"
 if [ "$1" == "" ]; then
     echo -n "Digite sua opção: "
     read -n 1 option
@@ -221,10 +166,6 @@ elif [ "$option" == "5" ]; then
     docker_up_containers_reset_db
 elif [ "$option" == "6" ]; then
     docker_down_containers
-elif [ "$option" == "7" ]; then
-    ambientum_replace_commands
-elif [ "$option" == "8" ]; then
-    sub_menu_2
 else
     echo ""
     echo ":) Você quase acertou. Agora tente uma opção entre 1 e 7"
