@@ -172,6 +172,6 @@ class JobService
      */
     public function destroy($id)
     {
-        $this->job->destroy($id);
+        return $this->job->destroy($id);
     }
 }

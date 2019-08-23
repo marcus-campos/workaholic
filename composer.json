@@ -14,7 +14,8 @@
         "laravel/tinker": "^1.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "moontoast/math": "^1.1",
-        "nopjmp/discord-webhooks": "^0.3.1"
+        "nopjmp/discord-webhooks": "^0.3.1",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
@@ -33,7 +34,8 @@
         },
         "files": [
             "app/Helpers/view.php",
-            "app/Helpers/notify.php"
+            "app/Helpers/notify.php",
+            "app/Helpers/util.php"
         ]
     },
     "autoload-dev": {

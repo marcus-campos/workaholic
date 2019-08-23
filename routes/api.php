@@ -13,9 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
-
-    Route::post('/lead', 'API\ContactController@lead');
-    Route::post('/contact', 'API\ContactController@slackNotification');
-
+Route::group(['prefix' => 'v1', 'as' => 'api.v1.'], function () {
+    Route::group([
+        'prefix' => 'auth'
+    ], function () {
+        Route::post('login', 'AuthController@login')->name('login');
+        Route::post('logout', 'AuthController@logout')->name('logout');
+        Route::post('refresh', 'AuthController@refresh')->name('refresh');
+        Route::post('me', 'AuthController@me')->name('me');
+    });
+    
 });

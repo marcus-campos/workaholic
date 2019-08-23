@@ -7,12 +7,10 @@ use App\Http\Requests\JobRequest;
 use App\Models\JobCategory;
 use App\Service\User\Job\JobService;
 use App\Service\User\Proposal\ProposalService;
-use App\Util\DataMaker\DataMakerTrait;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
-    use DataMakerTrait;
     /**
      * @var JobService
      */
@@ -29,24 +27,6 @@ class JobController extends Controller
      */
     public function __construct(JobService $jobService, ProposalService $proposalService)
     {
-        $this->setFilterFillable([
-            'title',
-            'description',
-            'remote',
-            'initial_time',
-            'final_time',
-            'specific_date',
-            'user_address_id',
-            'job_category_id',
-            'user_id'
-        ]);
-
-        $this->setOrderByFillable([
-            'title',
-            'created_at',
-            'updated_at',
-        ]);
-
         $this->jobService = $jobService;
         $this->proposalService = $proposalService;
     }
@@ -58,18 +38,21 @@ class JobController extends Controller
      */
     public function index()
     {
-        return view('app.user.job.index');
-    }
+        $return = [];
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexByClientId()
-    {
-        $jobs = $this->dataMaker($this->jobService->indexByClientId());
-        return $jobs;
+        if($client) {
+            $return = $this->jobService->indexByClientId();
+        }
+
+        if($worker) {
+            $return = $this->jobService->indexByWorker();
+        }
+
+        if ($admin) {
+            $request = $this->jobService->indexAll();
+        }
+
+        return $return;
     }
 
     /**
@@ -79,8 +62,8 @@ class JobController extends Controller
      */
     public function indexByClientIdAccepted()
     {
-        $jobs = $this->dataMaker($this->jobService->indexByClientIdAccepted());
-        return $jobs;
+        $jobs = $this->jobService->indexByClientIdAccepted();
+        return reply($jobs);
     }
 
     /**
@@ -90,30 +73,8 @@ class JobController extends Controller
      */
     public function indexByClientIdDone()
     {
-        $jobs = $this->dataMaker($this->jobService->indexByClientIdDone());
-        return $jobs;
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexByWorkerId()
-    {
-        $jobs = $this->dataMaker($this->jobService->indexByWorker());
-        return $jobs;
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexAll()
-    {
-        $jobs = $this->dataMaker($this->jobService->indexAll());
-        return $jobs;
+        $jobs = $this->jobService->indexByClientIdDone();
+        return reply($jobs);
     }
 
     /**
@@ -121,14 +82,11 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function categories()
     {
         $jobCategories = JobCategory::all();
-        return view('app.user.job.add', compact(
-            'jobCategories'
-        ));
+        return $jobCategories;
     }
-
 
     /**
      * @param JobRequest $request
@@ -136,14 +94,8 @@ class JobController extends Controller
      */
     public function store(JobRequest $request)
     {
-        if ($request->remote === '1') {
-            $request = $request->all();
-            unset($request['user_address_id']);
-            $request = new Request($request);
-        }
-
-        $this->jobService->persist($request);
-        return redirect()->to(route('user.job.client'));
+        $job = $this->jobService->persist($request);
+        return $job;
     }
 
     /**
@@ -152,45 +104,20 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function job($id)
     {
-        // Redireciona se a pessoa ja tiver 1 proposta aceita
         if ($this->proposalService->hasAcceptedProposal($id)) {
-
-            if ($this->proposalService->iAmOwner($id)) {
-                // Do nothing
-            } else {
-                if (!$this->proposalService->hasAcceptedProposalForMe($id)) {
-                    if (!$this->proposalService->iAmOwner($id)) {
-                        return redirect()->to(route('user.job.index'));
-                    }
+            if (!$this->proposalService->hasAcceptedProposalForMe($id)) {
+                if (!$this->proposalService->iAmOwner($id)) {
+                    return reply([
+                        'msg' =>  'Invalid Permissions'
+                    ]);
                 }
             }
         }
 
         $job = $this->jobService->getJobWithProposalsCount($id);
-        return view('app.user.job.show', compact('job'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $jobCategories = JobCategory::all();
-        $job = $this->jobService->getJob($id);
-        //Validando se a pessoa que está acessando pode editar este job
-        if ($job->user_id != auth()->id()) {
-            return redirect()->to(route('user.job.index'));
-        }
-
-        return view('app.user.job.edit', compact(
-            'job',
-            'jobCategories'
-        ));
+        return reply($job);
     }
 
     /**
@@ -202,8 +129,8 @@ class JobController extends Controller
      */
     public function update(JobRequest $request, $id)
     {
-        $this->jobService->persist($request, $id);
-        return redirect()->to(route('user.job.client'));
+        $job = $this->jobService->persist($request, $id);
+        return reply($job);
     }
 
     /**
@@ -217,11 +144,14 @@ class JobController extends Controller
         $job = $this->jobService->getJob($id);
 
         //Validando se a pessoa que está acessando pode apagar este job
-        if ($job->user_id != auth()->id()) {
-            return redirect()->to(route('user.job.index'));
+        if ($job->user_id != auth()->id() || auth()->user()->role == 'admin') {
+            return reply([
+                'msg' => 'Invalid Permissions'
+            ]);
         }
 
-        $this->jobService->destroy($id);
-        return redirect()->to(route('user.job.client'));
+        $result = $this->jobService->destroy($id);
+
+        return reply($result);
     }
 }
