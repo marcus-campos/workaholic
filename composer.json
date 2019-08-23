@@ -6,13 +6,15 @@
     "type": "project",
     "require": {
         "php": "^7.3.0",
+        "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "gpressutto5/laravel-slack": "^1.1",
         "laravel/framework": "5.8.*",
         "laravel/slack-notification-channel": "^2.0",
         "laravel/tinker": "^1.0",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "moontoast/math": "^1.1"
+        "moontoast/math": "^1.1",
+        "nopjmp/discord-webhooks": "^0.3.1"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
@@ -30,7 +32,8 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Helpers/view.php"
+            "app/Helpers/view.php",
+            "app/Helpers/notify.php"
         ]
     },
     "autoload-dev": {

@@ -33,7 +33,7 @@ class User extends Authenticatable
         'number',
         'complement',
         'neighborhood',
-        'slack_user',
+        'chat_user',
         'city_id',
         'state',
         'role'

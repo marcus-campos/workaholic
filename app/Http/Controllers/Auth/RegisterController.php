@@ -62,7 +62,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'slack_user' => 'required|string|min:1|unique:users'
+            'chat_user' => 'required|string|min:1|unique:users'
         ];
 
         return Validator::make($data, $userRequestRules);
@@ -79,7 +79,7 @@ class RegisterController extends Controller
         $request = new Request([
             'name' => $data['name'],
             'email' => $data['email'],
-            'slack_user' => $data['slack_user'],
+            'chat_user' => $data['chat_user'],
             'password' => Hash::make($data['password']),
         ]);
 
