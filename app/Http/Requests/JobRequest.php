@@ -22,10 +22,14 @@ class JobRequest extends FormRequest
                 $authorize = true;
                 break;
             case 'PUT':
-                $job = Job::find($routePath[2]);
-
-                if ($job->user_id == auth()->id()) {
+                if(auth()->user()->role == 'admin') {
                     $authorize = true;
+                } else {
+                    $job = Job::find($routePath[3]);
+
+                    if ($job->user_id == auth()->id()) {
+                        $authorize = true;
+                    }
                 }
                 break;
         }
@@ -40,12 +44,35 @@ class JobRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'required|min:2|max:120',
-            'job_category_id' => 'required|exists:job_categories,id',
-            'remote' => 'required|integer',
-            'user_address_id' => 'exists:user_addresses,id',
-            'description' => 'required|string|min:10|max:20000'
-        ];
+        switch ($this->method()) {
+            case 'POST':
+                return [
+                    'title' => 'required|min:2|max:120',
+                    'job_category_id' => 'required|exists:job_categories,id',
+                    'remote' => 'required|integer',
+                    'user_address_id' => 'exists:user_addresses,id',
+                    'description' => 'required|string|min:10|max:20000'
+                ];
+                break;
+
+            case 'PUT':
+                return [
+                    'title' => 'min:2|max:120',
+                    'job_category_id' => 'exists:job_categories,id',
+                    'remote' => 'integer',
+                    'user_address_id' => 'exists:user_addresses,id',
+                    'description' => 'string|min:10|max:20000'
+                ];
+                break;
+            default:
+                return [
+                    'title' => 'required|min:2|max:120',
+                    'job_category_id' => 'required|exists:job_categories,id',
+                    'remote' => 'required|integer',
+                    'user_address_id' => 'exists:user_addresses,id',
+                    'description' => 'required|string|min:10|max:20000'
+                ];
+                break;
+        };
     }
 }

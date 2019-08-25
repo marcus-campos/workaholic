@@ -62,7 +62,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'chat_user' => 'required|string|min:1|unique:users'
+            'chat_user' => 'string|min:1|unique:users'
         ];
 
         return Validator::make($data, $userRequestRules);
@@ -74,8 +74,16 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(Request $request)
     {
+        $data = $request->all();
+
+        $validator = $this->validator($data);
+
+        if ($validator->fails()) {
+            return reply($validator->errors()->toArray());
+        }
+
         $request = new Request([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -84,6 +92,6 @@ class RegisterController extends Controller
         ]);
 
         $user = $this->userService->persist($request);
-        return $user;
+        return reply($user);
     }
 }

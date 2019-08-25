@@ -38,21 +38,22 @@ class JobController extends Controller
      */
     public function index()
     {
+        $userType = auth()->user()->role;
         $return = [];
-
-        if($client) {
-            $return = $this->jobService->indexByClientId();
+        
+        if($userType == 'company') {
+            $return = $this->jobService->indexByCompany();
         }
 
-        if($worker) {
-            $return = $this->jobService->indexByWorker();
+        if($userType == 'freelancer') {
+            $return = $this->jobService->indexByFreelancer();
         }
 
-        if ($admin) {
+        if ($userType == 'admin') {
             $request = $this->jobService->indexAll();
         }
 
-        return $return;
+        return reply($return);
     }
 
     /**
@@ -60,9 +61,9 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexByClientIdAccepted()
+    public function indexByCompanyAccepted()
     {
-        $jobs = $this->jobService->indexByClientIdAccepted();
+        $jobs = $this->jobService->indexByCompanyStatus('accepted');
         return reply($jobs);
     }
 
@@ -73,7 +74,7 @@ class JobController extends Controller
      */
     public function indexByClientIdDone()
     {
-        $jobs = $this->jobService->indexByClientIdDone();
+        $jobs = $this->jobService->indexByCompanyStatus('done');
         return reply($jobs);
     }
 
@@ -95,7 +96,7 @@ class JobController extends Controller
     public function store(JobRequest $request)
     {
         $job = $this->jobService->persist($request);
-        return $job;
+        return reply($job);
     }
 
     /**
@@ -130,6 +131,7 @@ class JobController extends Controller
     public function update(JobRequest $request, $id)
     {
         $job = $this->jobService->persist($request, $id);
+        $job = ['msg' => 'Successfully updated'];
         return reply($job);
     }
 
@@ -143,6 +145,12 @@ class JobController extends Controller
     {
         $job = $this->jobService->getJob($id);
 
+        if (!$job) {
+            return reply([
+                'msg' => 'No job found with this id'
+            ]);
+        }
+
         //Validando se a pessoa que está acessando pode apagar este job
         if ($job->user_id != auth()->id() || auth()->user()->role == 'admin') {
             return reply([
@@ -151,6 +159,7 @@ class JobController extends Controller
         }
 
         $result = $this->jobService->destroy($id);
+        $result = ['msg' => $result.' job(s) deleted'];
 
         return reply($result);
     }

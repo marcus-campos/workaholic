@@ -13,7 +13,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['api.v1.login', 'api.v1.refresh']]);
+
     }
     /**
      * Get a JWT via given credentials.
@@ -25,7 +25,7 @@ class AuthController extends Controller
         $credentials = $request->all();
         
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return reply(['msg' => 'Unauthorized'], 401);
         }
         return $this->respondWithToken($token);
     }
@@ -36,7 +36,9 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        $user = auth()->user();
+        $user['addresses'] = auth()->user()->addresses;
+        return reply($user);
     }
     /**
      * Log the user out (Invalidate the token).
@@ -66,10 +68,15 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+        return reply([
+            'headers' => [
+                'X-Access-Token' => $token
+            ],
+            'data' => [
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => auth()->factory()->getTTL() * 60
+            ]
         ]);
     }
 }
